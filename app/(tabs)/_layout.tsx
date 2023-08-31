@@ -17,17 +17,19 @@ export default function TabLayout() {
   return (
     <Tabs>
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Home',
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          headerShown: false
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="profile"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          headerShown: false
         }}
       />
     </Tabs>
