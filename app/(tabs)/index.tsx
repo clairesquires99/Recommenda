@@ -1,7 +1,4 @@
-import { Button, StyleSheet } from "react-native";
-
-import EditScreenInfo from "../../components/EditScreenInfo";
-import { Text, View } from "../../components/Themed";
+import { Button, StyleSheet, View, Text } from "react-native";
 import { FIRESTORE_DB } from "../../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 
