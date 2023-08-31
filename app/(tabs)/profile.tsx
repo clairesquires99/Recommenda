@@ -1,11 +1,7 @@
-import { StyleSheet, View, Text } from 'react-native';
-import { styles } from '../../src/styles';
+import { StyleSheet, View, Text } from "react-native";
+import { styles } from "../../src/styles";
+import { ProfileScreen } from "../../src/features/profile/ProfileScreen";
 
-export default function TabTwoScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-    </View>
-  );
+export default function Profile() {
+  return <ProfileScreen />;
 }
-
