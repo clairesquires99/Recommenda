@@ -1,4 +1,4 @@
-import { BookSearchScreen } from "../src/features/books/BookSearchScreen";
+import { BookSearchScreen } from "../src/features/books/screens/BookSearchScreen";
 
 export default function BookSearch() {
   return <BookSearchScreen />;
