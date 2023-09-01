@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     paddingEnd: 5,
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: "bold",
   },
   separator: {
@@ -31,9 +31,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#D3D3D3",
-    backgroundColor: "white",
     marginTop: 10,
-    marginBottom: 10,
   },
   input: {
     flex: 1,
@@ -41,22 +39,30 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: 16,
   },
-  searchButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
+  customButton: {
+    backgroundColor: "#007AFF",
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "center",
   },
-  buttonText: {
+  customButtonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 20,
+    paddingRight: 5,
+    paddingLeft: 5,
+  },
+  searchButton: {
+    padding: 15,
   },
   cardContainer: {
     flexDirection: "column",
     width: "100%",
   },
   card: {
-    marginBottom: 16,
+    marginTop: 10,
     padding: 5,
     flexDirection: "row",
   },
