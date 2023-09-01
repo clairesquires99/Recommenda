@@ -1,9 +1,9 @@
 import {
   FlatList,
   Pressable,
-  SafeAreaView,
   TextInput,
   View,
+  SafeAreaView,
 } from "react-native";
 import { styles } from "../../../styles";
 import { useState } from "react";
@@ -12,6 +12,7 @@ import { GOOGLE_BOOKS_API_KEY } from "../../../../env";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Book } from "../domain/types";
 import { BookCard } from "../components/BookCard";
+// import { SafeAreaView } from "react-native-safe-area-context";
 
 export const BookSearchScreen = () => {
   const [query, setQuery] = useState<string>("");
@@ -32,7 +33,7 @@ export const BookSearchScreen = () => {
   const renderItem = (item: Book) => BookCard(item);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.inputSearchContainer}>
         <TextInput
           style={styles.input}
@@ -51,6 +52,6 @@ export const BookSearchScreen = () => {
         renderItem={(item) => renderItem(item.item)}
         style={styles.cardContainer}
       />
-    </SafeAreaView>
+    </View>
   );
 };

@@ -1,5 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 /**
