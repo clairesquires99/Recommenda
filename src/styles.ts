@@ -34,10 +34,20 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   input: {
-    flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 12,
     fontSize: 16,
+    flex: 1,
+  },
+  authInput: {
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    margin: 5,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#D3D3D3",
+    borderRadius: 10,
+    width: "80%",
   },
   customButton: {
     backgroundColor: "#007AFF",
