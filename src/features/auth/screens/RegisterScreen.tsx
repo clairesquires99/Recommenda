@@ -1,7 +1,6 @@
 import { TextInput, View, Text } from "react-native";
 import { styles } from "../../../styles";
 import { CustomButton } from "../../../components/CustomButton";
-import { useState } from "react";
 import { useRegisterScreen } from "./useRegisterScreen";
 
 export const RegisterScreen = () => {
@@ -12,6 +11,7 @@ export const RegisterScreen = () => {
     setPassword,
     confirmPassword,
     setConfirmPassword,
+    handleRegister,
   } = useRegisterScreen();
 
   return (
@@ -36,7 +36,7 @@ export const RegisterScreen = () => {
         placeholder="Confirm password"
         secureTextEntry
       />
-      <CustomButton>
+      <CustomButton onPress={handleRegister}>
         <Text style={styles.customButtonText}>Register</Text>
       </CustomButton>
     </View>
