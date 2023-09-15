@@ -18,13 +18,11 @@ export const ProfileScreen = () => {
       setUser(null);
       router.push("/login");
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
   const pressLogout = async () => {
-    console.log(user);
     await handleLogout();
-    console.log(user);
   };
 
   return (

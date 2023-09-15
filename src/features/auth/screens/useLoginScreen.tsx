@@ -10,15 +10,19 @@ export const useLoginScreen = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        setUser(user);
-        console.log(user);
-        router.push("/");
-      })
-      .catch((error) => alert(error.message));
+  const handleLogin = async () => {
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        FIREBASE_AUTH,
+        email,
+        password
+      );
+      const user = userCredentials.user;
+      setUser(user);
+      router.push("/");
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return {

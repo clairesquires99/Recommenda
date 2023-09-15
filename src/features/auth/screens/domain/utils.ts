@@ -11,6 +11,6 @@ export const handleLogout = async () => {
     setUser(null);
     router.push("/login");
   } catch (error) {
-    console.log(error);
+    alert(error);
   }
 };

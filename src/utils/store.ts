@@ -8,5 +8,8 @@ interface AuthStoreType {
 
 export const useAuthStore = create<AuthStoreType>()((set) => ({
   user: null,
-  setUser: () => set((state) => ({ user: state.user })),
+  setUser: (user) => {
+    set((state) => ({ user: user }));
+    console.log("User set to:", user ? user.email : "null");
+  },
 }));

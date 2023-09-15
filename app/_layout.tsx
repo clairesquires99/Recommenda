@@ -26,8 +26,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const u = useAuthStore((state) => state.user);
-  console.log(u);
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
