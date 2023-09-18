@@ -25,11 +25,12 @@ export const LoginScreen = () => {
       <CustomButton onPress={handleLogin}>
         <Text style={styles.customButtonText}>Login</Text>
       </CustomButton>
-      <CustomButton>
-        <Link href="/(auth)/register">
-          <Text style={styles.customButtonText}>Register</Text>
+      <Text style={[styles.text_md, { margin: 10 }]}>
+        Don't have an account?{" "}
+        <Link style={styles.linkText} href="/register">
+          Register
         </Link>
-      </CustomButton>
+      </Text>
     </View>
   );
 };

@@ -2,6 +2,7 @@ import { TextInput, View, Text } from "react-native";
 import { styles } from "../../../styles";
 import { CustomButton } from "../../../components/CustomButton";
 import { useRegisterScreen } from "./useRegisterScreen";
+import { Link } from "expo-router";
 
 export const RegisterScreen = () => {
   const {
@@ -39,6 +40,12 @@ export const RegisterScreen = () => {
       <CustomButton onPress={handleRegister}>
         <Text style={styles.customButtonText}>Register</Text>
       </CustomButton>
+      <Text style={[styles.text_md, { margin: 10 }]}>
+        Already registered?{" "}
+        <Link style={styles.linkText} href="/login">
+          Login
+        </Link>
+      </Text>
     </View>
   );
 };

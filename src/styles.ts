@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+  text_md: {
+    fontSize: 16,
+  },
   container: {
     flex: 1,
     alignItems: "center",
@@ -22,8 +25,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   linkText: {
-    fontSize: 14,
-    color: "#2e78b7",
+    color: "#007AFF",
   },
   inputSearchContainer: {
     flexDirection: "row",
