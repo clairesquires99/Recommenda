@@ -1,8 +1,5 @@
-import { SplashScreen, Stack, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import { FIREBASE_AUTH } from "../firebaseConfig";
-import { User } from "firebase/auth";
-import { useAuthStore } from "../src/utils/store";
+import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
 
 export {
   // Catch any errors thrown by the Layout component.

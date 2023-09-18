@@ -1,5 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Redirect, Tabs, useRouter } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { useAuthStore } from "../../src/utils/store";
 
 /**
