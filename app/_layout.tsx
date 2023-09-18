@@ -26,11 +26,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  // const user = useAuthStore((state) => state.user);
-  // const router = useRouter();
-  // if (!user) {
-  //   router.replace("/(auth)/login");
-  // }
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
