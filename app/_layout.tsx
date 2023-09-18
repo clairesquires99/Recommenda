@@ -1,4 +1,4 @@
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { FIREBASE_AUTH } from "../firebaseConfig";
 import { User } from "firebase/auth";
@@ -26,6 +26,11 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  // const user = useAuthStore((state) => state.user);
+  // const router = useRouter();
+  // if (!user) {
+  //   router.replace("/(auth)/login");
+  // }
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
