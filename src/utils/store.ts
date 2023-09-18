@@ -1,15 +1,19 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { User } from "firebase/auth";
-import { create } from "zustand";
 
-interface AuthStoreType {
-  user: User | null;
-  setUser: (user: User | null) => void;
-}
+export const setUser = async (user: User | null) => {
+  await AsyncStorage.setItem("user", JSON.stringify(user?.email));
+  console.log("User set to:", user?.email);
+};
 
-export const useAuthStore = create<AuthStoreType>()((set) => ({
-  user: null,
-  setUser: (user) => {
-    set((state) => ({ user: user }));
-    console.log("User set to:", user ? user.email : "null");
-  },
-}));
+export const getUser = async () => {
+  const userJson = await AsyncStorage.getItem("user");
+  const user = userJson ? JSON.parse(userJson) : null;
+  console.log("Fetching user:", user);
+  return user;
+};
+
+export const removeUser = async () => {
+  await AsyncStorage.removeItem("user");
+  console.log("Removing user");
+};

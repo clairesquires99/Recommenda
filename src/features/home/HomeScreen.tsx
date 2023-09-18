@@ -5,15 +5,13 @@ import { Link } from "expo-router";
 import { CustomButton } from "../../components/CustomButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
-import { useAuthStore } from "../../utils/store";
+import { useHomeScreen } from "./useHomeScreen";
 
 export const HomeScreen = () => {
-  const user = useAuthStore((state) => state.user);
-  const userString = user ? user.email : "null";
+  useHomeScreen();
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Recommenda</Text>
-      <Text>Welcome {userString}</Text>
       {/* <CustomButton onPress={() => addItem()}>
         <Text style={styles.customButtonText}>Add item</Text>
       </CustomButton> */}

@@ -2,14 +2,13 @@ import { useState } from "react";
 import { FIREBASE_AUTH } from "../../../../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "expo-router";
-import { useAuthStore } from "../../../utils/store";
+import { setUser } from "../../../utils/store";
 
 export const useRegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter();
-  const setUser = useAuthStore((state) => state.setUser);
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
