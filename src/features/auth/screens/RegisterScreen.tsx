@@ -6,6 +6,10 @@ import { Link } from "expo-router";
 
 export const RegisterScreen = () => {
   const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
     email,
     setEmail,
     password,
@@ -17,6 +21,18 @@ export const RegisterScreen = () => {
 
   return (
     <View style={{ ...styles.container, flex: 1, justifyContent: "center" }}>
+      <TextInput
+        value={firstName}
+        onChangeText={(text) => setFirstName(text)}
+        style={styles.authInput}
+        placeholder="First name"
+      />
+      <TextInput
+        value={lastName}
+        onChangeText={(text) => setLastName(text)}
+        style={styles.authInput}
+        placeholder="Second name"
+      />
       <TextInput
         value={email}
         onChangeText={(text) => setEmail(text)}
