@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { signOut } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../../../../firebaseConfig";
-import { removeUser } from "../../../../utils/store";
+import { FIREBASE_AUTH } from "../../../../firebaseConfig";
+import { removeUser } from "../../../utils/store";
 
 const router = useRouter();
 const handleLogout = async () => {

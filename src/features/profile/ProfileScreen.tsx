@@ -2,7 +2,7 @@ import { Text } from "react-native";
 import { styles } from "../../styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CustomButton } from "../../components/CustomButton";
-import { pressLogout } from "../auth/screens/domain/utils";
+import { pressLogout } from "../auth/domain/utils";
 
 export const ProfileScreen = () => {
   return (
