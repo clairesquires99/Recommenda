@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { FIREBASE_AUTH } from "../../../../firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "expo-router";
 import { setUser } from "../../../utils/store";
 
 export const useRegisterScreen = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const fullName = firstName.concat(lastName);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,6 +25,9 @@ export const useRegisterScreen = () => {
         password
       );
       const user = userCredentials.user;
+      await updateProfile(user, {
+        displayName: fullName,
+      });
       setUser(user);
       router.push("/");
     } catch (error) {
@@ -30,6 +36,10 @@ export const useRegisterScreen = () => {
   };
 
   return {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
     email,
     setEmail,
     password,
