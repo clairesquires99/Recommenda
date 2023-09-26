@@ -3,6 +3,7 @@ import { FIREBASE_AUTH } from "../../../../firebaseConfig";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "expo-router";
 import { useAuthStore } from "../../../utils/store";
+import { addNewUser } from "../../../utils/addItem";
 
 export const useRegisterScreen = () => {
   const [firstName, setFirstName] = useState("");
@@ -29,6 +30,7 @@ export const useRegisterScreen = () => {
       await updateProfile(user, {
         displayName: fullName,
       });
+      addNewUser({ name: fullName, email: email });
       setUser(user);
       router.push("/");
     } catch (error) {

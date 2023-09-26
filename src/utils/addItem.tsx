@@ -10,6 +10,19 @@ export const addItem = async () => {
   console.log("Object added to DB with ID: ", doc.id);
 };
 
+interface AddNewUserProps {
+  name: string;
+  email: string;
+}
+
+export const addNewUser = async ({ name, email }: AddNewUserProps) => {
+  const doc = await addDoc(collection(FIRESTORE_DB, "users"), {
+    name: name,
+    email: email,
+  });
+  console.log("New user added to DB");
+};
+
 interface createNewFollowProps {
   user: User;
   following: User;
