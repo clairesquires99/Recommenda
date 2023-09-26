@@ -20,8 +20,6 @@ export default function RootLayout() {
     SplashScreen.hideAsync();
   }, []);
 
-  const user = useAuthStore((state) => state.user);
-
   return <RootLayoutNav />;
 }
 

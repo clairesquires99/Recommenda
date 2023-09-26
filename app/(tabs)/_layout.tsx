@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Redirect, Tabs } from "expo-router";
-import { getUser } from "../../src/utils/store";
+import { useAuthStore } from "../../src/utils/store";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -13,6 +13,10 @@ function TabBarIcon(props: {
 }
 
 const TabLayout = () => {
+  const user = useAuthStore((state) => state.user);
+  if (!user) {
+    return <Redirect href="/(auth)/login" />;
+  }
   return (
     <Tabs>
       <Tabs.Screen
