@@ -2,12 +2,13 @@ import { useState } from "react";
 import { FIREBASE_AUTH } from "../../../../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "expo-router";
-import { getUser, setUser } from "../../../utils/store";
+import { useAuthStore } from "../../../utils/store";
 
 export const useLoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleLogin = async () => {
     try {
@@ -17,7 +18,7 @@ export const useLoginScreen = () => {
         password
       );
       const user = userCredentials.user;
-      await setUser(user);
+      setUser(user);
       router.push("/");
     } catch (error) {
       alert(error);

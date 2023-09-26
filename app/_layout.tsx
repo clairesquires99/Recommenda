@@ -1,5 +1,6 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { useAuthStore } from "../src/utils/store";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -18,6 +19,8 @@ export default function RootLayout() {
   useEffect(() => {
     SplashScreen.hideAsync();
   }, []);
+
+  const user = useAuthStore((state) => state.user);
 
   return <RootLayoutNav />;
 }

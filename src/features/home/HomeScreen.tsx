@@ -8,7 +8,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useHomeScreen } from "./useHomeScreen";
 
 export const HomeScreen = () => {
-  useHomeScreen();
+  const { user } = useHomeScreen();
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Recommenda</Text>
@@ -21,6 +21,7 @@ export const HomeScreen = () => {
           <Text style={styles.customButtonText}>Books</Text>
         </Link>
       </CustomButton>
+      <Text>Hello, {user?.email}</Text>
     </SafeAreaView>
   );
 };
