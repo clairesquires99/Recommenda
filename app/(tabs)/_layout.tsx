@@ -1,6 +1,7 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Redirect, Tabs } from "expo-router";
-import { useAuthStore } from "../../src/utils/store";
+import { getAsyncUser, useAuthStore } from "../../src/utils/store";
+import { useEffect } from "react";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
