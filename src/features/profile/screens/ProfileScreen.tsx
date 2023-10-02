@@ -6,38 +6,29 @@ import { styles } from "../../../styles";
 import { CustomButton } from "../../../components/CustomButton";
 import { pressLogout } from "../../auth/domain/utils";
 import { createNewFollow } from "../../../utils/addItem";
+import { ArrowButton } from "../../../components/ArrowButton";
+import { useRouter } from "expo-router";
 
 export const ProfileScreen = () => {
   const removeUser = useAuthStore((state) => state.removeUser);
-  const { toFollowEmail, setToFollowEmail, user } = useProfileScreen();
+  const { user } = useProfileScreen();
+  const router = useRouter();
+
   if (!user) {
-    alert("no user set");
+    alert("No user set");
     return;
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Profile</Text>
-      <CustomButton onPress={() => pressLogout(removeUser)}>
-        <Text style={styles.customButtonText}>Logout</Text>
-      </CustomButton>
-      <TextInput
-        value={toFollowEmail}
-        onChangeText={(text) => setToFollowEmail(text)}
-        style={styles.authInput}
-        placeholder="Email address of person to follow"
+      <Text style={styles.text_20}>{user.displayName}</Text>
+      <Text style={styles.text_md}>{user.email}</Text>
+      <ArrowButton
+        title="Following"
+        onPress={() => router.push("/following")}
       />
-      <CustomButton
-        onPress={() => {
-          createNewFollow({
-            user: user,
-            followingEmail: toFollowEmail,
-            setToFollowEmail: setToFollowEmail,
-          });
-        }}
-      >
-        <Text style={styles.customButtonText}>New follow</Text>
-      </CustomButton>
+      <ArrowButton title="Logout" onPress={() => pressLogout(removeUser)} />
     </SafeAreaView>
   );
 };

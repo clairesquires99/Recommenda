@@ -1,9 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  text_md: {
-    fontSize: 16,
-  },
   container: {
     flex: 1,
     alignItems: "center",
@@ -14,6 +11,15 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: "bold",
+    marginBottom: 10,
+  },
+  text_20: {
+    fontSize: 20,
+    marginBottom: 5,
+  },
+  text_md: {
+    fontSize: 16,
+    marginBottom: 5,
   },
   separator: {
     marginVertical: 30,
@@ -65,6 +71,20 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     paddingRight: 5,
     paddingLeft: 5,
+  },
+  arrowButton: {
+    padding: 10,
+    margin: 10,
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  arrowButtonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   searchButton: {
     padding: 15,
