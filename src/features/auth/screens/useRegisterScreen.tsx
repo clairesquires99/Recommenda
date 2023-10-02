@@ -21,16 +21,17 @@ export const useRegisterScreen = () => {
       return;
     }
     try {
+      const lowercaseEmail = email.toLowerCase();
       const userCredentials = await createUserWithEmailAndPassword(
         FIREBASE_AUTH,
-        email,
+        lowercaseEmail,
         password
       );
       const user = userCredentials.user;
       await updateProfile(user, {
         displayName: fullName,
       });
-      addNewUser({ name: fullName, email: email });
+      addNewUser({ name: fullName, email: lowercaseEmail });
       setUser(user);
       router.push("/");
     } catch (error) {
