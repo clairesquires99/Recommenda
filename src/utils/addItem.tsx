@@ -2,6 +2,7 @@ import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { FIRESTORE_DB } from "../../firebaseConfig";
 import { User } from "firebase/auth";
 import { Alert } from "react-native";
+import { UserAbv } from "./types";
 
 export const addItem = async () => {
   const doc = await addDoc(collection(FIRESTORE_DB, "test_items"), {
@@ -92,4 +93,29 @@ export const createNewFollow = async ({
   setToFollowEmail("");
   Alert.alert("Success!", `You are now following ${lowercaseFollowingEmail}`);
   console.log(user.email, "is now following", lowercaseFollowingEmail);
+};
+
+export const getFollowing = async (user: User | null) => {
+  if (!user) {
+    console.log("No user set");
+    return;
+  }
+  const q = query(
+    collection(FIRESTORE_DB, "follows"),
+    where("userEmail", "==", user.email)
+  );
+  const qSnapshot = await getDocs(q);
+  let followingList: UserAbv[] = [];
+  if (qSnapshot.empty) {
+    return followingList;
+  }
+  qSnapshot.forEach((doc) => {
+    const data = doc.data();
+    const following: UserAbv = {
+      name: data.followingName,
+      email: data.followingEmail,
+    };
+    followingList.push(following);
+  });
+  return followingList;
 };
