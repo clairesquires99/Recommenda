@@ -1,6 +1,7 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { FIRESTORE_DB } from "../../firebaseConfig";
 import { User } from "firebase/auth";
+import { Alert } from "react-native";
 
 export const addItem = async () => {
   const doc = await addDoc(collection(FIRESTORE_DB, "test_items"), {
@@ -25,18 +26,70 @@ export const addNewUser = async ({ name, email }: AddNewUserProps) => {
 
 interface createNewFollowProps {
   user: User;
-  following: User;
+  followingEmail: string;
+  setToFollowEmail: (text: string) => void;
 }
 
 export const createNewFollow = async ({
   user,
-  following,
+  followingEmail,
+  setToFollowEmail,
 }: createNewFollowProps) => {
-  const doc = await addDoc(collection(FIRESTORE_DB, "follows"), {
-    user: user.uid,
-    userName: user.displayName,
-    following: following.uid,
-    followingName: user.displayName,
-  });
-  console.log(user, "is now following", following);
+  const lowercaseFollowingEmail = followingEmail.toLowerCase();
+  let followingName: string = "";
+  if (lowercaseFollowingEmail === user.email) {
+    alert(
+      "You cannot follow yourself. Enter a different user's email address to follow."
+    );
+    return;
+  }
+  try {
+    const q = query(
+      collection(FIRESTORE_DB, "users"),
+      where("email", "==", lowercaseFollowingEmail)
+    );
+    const qSnapshot = await getDocs(q);
+    if (qSnapshot.empty) {
+      alert(
+        `There is no user with the following email address: ${lowercaseFollowingEmail}`
+      );
+      return;
+    }
+    followingName = qSnapshot.docs[0].data().name;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+
+  try {
+    const q = query(
+      collection(FIRESTORE_DB, "follows"),
+      where("userEmail", "==", user.email),
+      where("followingEmail", "==", lowercaseFollowingEmail)
+    );
+    const qSnapshot = await getDocs(q);
+    if (!qSnapshot.empty) {
+      alert(`You are already following ${lowercaseFollowingEmail}`);
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+
+  try {
+    const doc = await addDoc(collection(FIRESTORE_DB, "follows"), {
+      userEmail: user.email,
+      userName: user.displayName,
+      followingEmail: lowercaseFollowingEmail,
+      followingName: followingName,
+    });
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+
+  setToFollowEmail("");
+  Alert.alert("Success!", `You are now following ${lowercaseFollowingEmail}`);
+  console.log(user.email, "is now following", lowercaseFollowingEmail);
 };

@@ -5,10 +5,15 @@ import { useAuthStore } from "../../../utils/store";
 import { styles } from "../../../styles";
 import { CustomButton } from "../../../components/CustomButton";
 import { pressLogout } from "../../auth/domain/utils";
+import { createNewFollow } from "../../../utils/addItem";
 
 export const ProfileScreen = () => {
   const removeUser = useAuthStore((state) => state.removeUser);
-  const { toFollowEmail, setToFollowEmail } = useProfileScreen();
+  const { toFollowEmail, setToFollowEmail, user } = useProfileScreen();
+  if (!user) {
+    alert("no user set");
+    return;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -22,7 +27,15 @@ export const ProfileScreen = () => {
         style={styles.authInput}
         placeholder="Email address of person to follow"
       />
-      <CustomButton onPress={() => {}}>
+      <CustomButton
+        onPress={() => {
+          createNewFollow({
+            user: user,
+            followingEmail: toFollowEmail,
+            setToFollowEmail: setToFollowEmail,
+          });
+        }}
+      >
         <Text style={styles.customButtonText}>New follow</Text>
       </CustomButton>
     </SafeAreaView>
