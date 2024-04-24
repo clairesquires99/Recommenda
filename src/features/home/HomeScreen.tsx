@@ -1,10 +1,9 @@
-import { Text } from "react-native";
-import { styles } from "../../styles";
-import { addItem } from "../../utils/addItem";
-import { Link } from "expo-router";
-import { CustomButton } from "../../components/CustomButton";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome } from "@expo/vector-icons";
+import { Link } from "expo-router";
+import { Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { CustomButton } from "../../components/CustomButton";
+import { styles } from "../../styles";
 import { useHomeScreen } from "./useHomeScreen";
 
 export const HomeScreen = () => {
@@ -12,16 +11,13 @@ export const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Recommenda</Text>
-      {/* <CustomButton onPress={() => addItem()}>
-        <Text style={styles.customButtonText}>Add item</Text>
-      </CustomButton> */}
+      <Text>Hello, {user?.email}</Text>
       <CustomButton>
         <FontAwesome style={styles.customButtonText} name="book" />
         <Link href="/bookSearch">
           <Text style={styles.customButtonText}>Books</Text>
         </Link>
       </CustomButton>
-      <Text>Hello, {user?.email}</Text>
     </SafeAreaView>
   );
 };
