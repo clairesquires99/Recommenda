@@ -1,13 +1,11 @@
-import { SafeAreaView, Text, TextInput } from "react-native";
-
-import { useProfileScreen } from "./useProfileScreen";
-import { useAuthStore } from "../../../utils/store";
-import { styles } from "../../../styles";
-import { CustomButton } from "../../../components/CustomButton";
-import { pressLogout } from "../../auth/domain/utils";
-import { createNewFollow } from "../../../utils/addItem";
-import { ArrowButton } from "../../../components/ArrowButton";
 import { useRouter } from "expo-router";
+import { Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ArrowButton } from "../../../components/ArrowButton";
+import { styles } from "../../../styles";
+import { useAuthStore } from "../../../utils/store";
+import { pressLogout } from "../../auth/domain/utils";
+import { useProfileScreen } from "./useProfileScreen";
 
 export const ProfileScreen = () => {
   const removeUser = useAuthStore((state) => state.removeUser);
