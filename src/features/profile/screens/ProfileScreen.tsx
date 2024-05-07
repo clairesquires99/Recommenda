@@ -1,7 +1,9 @@
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
 import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowButton } from "../../../components/ArrowButton";
+import { CustomButton } from "../../../components/CustomButton";
 import { styles } from "../../../styles";
 import { useAuthStore } from "../../../utils/store";
 import { pressLogout } from "../../auth/domain/utils";
@@ -26,7 +28,15 @@ export const ProfileScreen = () => {
         title="Following"
         onPress={() => router.push("/following")}
       />
-      <ArrowButton title="Logout" onPress={() => pressLogout(removeUser)} />
+      <CustomButton onPress={() => pressLogout(removeUser)}>
+        <MaterialIcons
+          name="logout"
+          size={24}
+          color="black"
+          style={styles.customButtonText}
+        />
+        <Text style={styles.customButtonText}>Logout</Text>
+      </CustomButton>
     </SafeAreaView>
   );
 };
