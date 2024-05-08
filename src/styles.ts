@@ -124,4 +124,8 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#D3D3D3",
   },
+  loadingCont: {
+    flex: 1,
+    justifyContent: "center",
+  },
 });

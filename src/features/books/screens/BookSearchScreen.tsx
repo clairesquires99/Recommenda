@@ -1,24 +1,21 @@
-import {
-  FlatList,
-  Pressable,
-  TextInput,
-  View,
-  SafeAreaView,
-} from "react-native";
-import { styles } from "../../../styles";
-import { useState } from "react";
-import axios from "axios";
-import { GOOGLE_BOOKS_API_KEY } from "../../../../env";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Book } from "../domain/types";
+import axios from "axios";
+import { useState } from "react";
+import { FlatList, Pressable, TextInput, View } from "react-native";
+import { GOOGLE_BOOKS_API_KEY } from "../../../../env";
+import { LoadingIndicator } from "../../../components/LoadingIndicator";
+import { styles } from "../../../styles";
 import { BookCard } from "../components/BookCard";
-// import { SafeAreaView } from "react-native-safe-area-context";
+import { Book } from "../domain/types";
 
 export const BookSearchScreen = () => {
   const [query, setQuery] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [books, setBooks] = useState<Book[]>([]);
 
   const getBooksApi = async () => {
+    setBooks([]);
+    setIsLoading(true);
     try {
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${GOOGLE_BOOKS_API_KEY}`
@@ -28,6 +25,7 @@ export const BookSearchScreen = () => {
     } catch (error) {
       console.error(error);
     }
+    setIsLoading(false);
   };
 
   const renderItem = (item: Book) => BookCard(item);
@@ -46,6 +44,7 @@ export const BookSearchScreen = () => {
           <FontAwesome name="search" style={{ fontSize: 20 }} />
         </Pressable>
       </View>
+      {isLoading && <LoadingIndicator />}
       <FlatList
         data={books}
         keyExtractor={(item) => item.id}
