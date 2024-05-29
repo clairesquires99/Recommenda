@@ -30,6 +30,11 @@ export const FollowingScreen = () => {
     return;
   }
 
+  if (!following) {
+    Alert.alert("Error", "Something has gone wrong, following is undefined");
+    return;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       {/* This should probably be moved to a popup / modal */}
@@ -54,7 +59,7 @@ export const FollowingScreen = () => {
         <Text style={styles.customButtonText}>New follow</Text>
       </CustomButton>
       <Text style={styles.text_20}>Following</Text>
-      {!following && (
+      {following?.length <= 0 && (
         <Text>
           You haven't followed anyone yet! Click 'New Follow' to get started.
         </Text>
