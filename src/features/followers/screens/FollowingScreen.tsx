@@ -13,8 +13,12 @@ export const FollowingScreen = () => {
   const [following, setFollowing] = useState<UserAbv[] | undefined>([]);
   useEffect(() => {
     const fetchFollowing = async () => {
-      const f = await getFollowing(user);
-      setFollowing(f);
+      try {
+        const f = await getFollowing(user);
+        setFollowing(f);
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchFollowing();
   }, []);
