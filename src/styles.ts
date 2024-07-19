@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     maxWidth: 650,
     width: "100%",
     marginHorizontal: "auto",
+    marginTop: 10,
   },
   title: {
     fontSize: 30,

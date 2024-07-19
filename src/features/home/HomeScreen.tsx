@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import { Text } from "react-native";
+import { Image, Platform, Text } from "react-native";
 import { CustomButton } from "../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../components/ScreenStyleWrapper";
 import { styles } from "../../styles";
@@ -10,7 +10,17 @@ export const HomeScreen = () => {
   const { user } = useHomeScreen();
   return (
     <ScreenStyleWrapper>
-      <Text style={styles.title}>Recommenda</Text>
+      {Platform.OS !== "web" && (
+        <Image
+          source={require("../../assets/images/logo.png")}
+          style={{
+            minWidth: 250,
+            width: "100%",
+            height: 50,
+          }}
+          resizeMode="contain"
+        />
+      )}
       <Text>Hello, {user?.email}</Text>
       <CustomButton>
         <FontAwesome style={styles.customButtonText} name="book" />
