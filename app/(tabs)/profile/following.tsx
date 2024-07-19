@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { FollowingScreen } from "../src/features/followers/screens/FollowingScreen";
+import { FollowingScreen } from "../../../src/features/followers/screens/FollowingScreen";
 
 export default function Following() {
   return (

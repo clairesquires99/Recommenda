@@ -1,12 +1,17 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+  rootLayout: {
+    backgroundColor: "white",
+  },
   container: {
     flex: 1,
     alignItems: "center",
     backgroundColor: "white",
-    paddingStart: 5,
-    paddingEnd: 5,
+    paddingHorizontal: 5,
+    maxWidth: 650,
+    width: "100%",
+    marginHorizontal: "auto",
   },
   title: {
     fontSize: 30,
@@ -65,6 +70,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",
+    // maxWidth: 500,
   },
   customButtonText: {
     color: "white",

@@ -1,5 +1,6 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { View } from "react-native";
 import { getAsyncUser, useAuthStore } from "../src/utils/store";
 
 export {
@@ -38,11 +39,13 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="bookSearch" options={{ title: "Book Search" }} />
-      <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)/register" options={{ headerShown: false }} />
-    </Stack>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: "white" },
+        }}
+      />
+    </View>
   );
 }
