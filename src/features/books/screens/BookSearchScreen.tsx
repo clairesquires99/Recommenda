@@ -51,6 +51,7 @@ export const BookSearchScreen = () => {
         keyExtractor={(item) => item.id}
         renderItem={(item) => renderItem(item.item)}
         style={styles.cardContainer}
+        showsVerticalScrollIndicator={false}
       />
     </ScreenStyleWrapper>
   );

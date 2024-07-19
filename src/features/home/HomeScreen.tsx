@@ -1,5 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { router } from "expo-router";
 import { Image, Platform, Text } from "react-native";
 import { CustomButton } from "../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../components/ScreenStyleWrapper";
@@ -22,11 +22,9 @@ export const HomeScreen = () => {
         />
       )}
       <Text>Hello, {user?.email}</Text>
-      <CustomButton>
+      <CustomButton onPress={() => router.push("/(tabs)/home/bookSearch")}>
         <FontAwesome style={styles.customButtonText} name="book" />
-        <Link href="/(tabs)/home/bookSearch">
-          <Text style={styles.customButtonText}>Books</Text>
-        </Link>
+        <Text style={styles.customButtonText}>Books</Text>
       </CustomButton>
     </ScreenStyleWrapper>
   );
