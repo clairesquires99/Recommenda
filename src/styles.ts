@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",
-    // maxWidth: 500,
+    maxWidth: 300,
   },
   customButtonText: {
     color: "white",

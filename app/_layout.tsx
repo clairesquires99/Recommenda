@@ -1,6 +1,5 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
-import { View } from "react-native";
 import { getAsyncUser, useAuthStore } from "../src/utils/store";
 
 export {
@@ -10,7 +9,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "(tabs)/home",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -39,13 +38,11 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: "white" },
-        }}
-      />
-    </View>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: "white" },
+      }}
+    />
   );
 }
