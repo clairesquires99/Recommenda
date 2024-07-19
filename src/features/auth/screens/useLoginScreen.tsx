@@ -1,7 +1,7 @@
+import { useRouter } from "expo-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { FIREBASE_AUTH } from "../../../../firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "expo-router";
 import { setAsyncUser, useAuthStore } from "../../../utils/store";
 
 export const useLoginScreen = () => {
@@ -20,7 +20,7 @@ export const useLoginScreen = () => {
       const user = userCredentials.user;
       setAsyncUser(user);
       setUser(user);
-      router.push("/");
+      router.push("/home");
     } catch (error) {
       alert(error);
     }
