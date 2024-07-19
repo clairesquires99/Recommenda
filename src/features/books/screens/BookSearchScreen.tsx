@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FlatList, Pressable, TextInput, View } from "react-native";
 import { GOOGLE_BOOKS_API_KEY } from "../../../../env";
 import { LoadingIndicator } from "../../../components/LoadingIndicator";
+import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
 import { styles } from "../../../styles";
 import { BookCard } from "../components/BookCard";
 import { Book } from "../domain/types";
@@ -31,7 +32,7 @@ export const BookSearchScreen = () => {
   const renderItem = (item: Book) => BookCard(item);
 
   return (
-    <View style={styles.container}>
+    <ScreenStyleWrapper>
       <View style={styles.inputSearchContainer}>
         <TextInput
           style={styles.input}
@@ -50,7 +51,8 @@ export const BookSearchScreen = () => {
         keyExtractor={(item) => item.id}
         renderItem={(item) => renderItem(item.item)}
         style={styles.cardContainer}
+        showsVerticalScrollIndicator={false}
       />
-    </View>
+    </ScreenStyleWrapper>
   );
 };

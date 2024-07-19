@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  Alert,
-  FlatList,
-  SafeAreaView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, FlatList, Text, TextInput, View } from "react-native";
 import { CustomButton } from "../../../components/CustomButton";
+import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
 import { styles } from "../../../styles";
 import { createNewFollow, getFollowing } from "../../../utils/addItem";
 import { UserAbv } from "../../../utils/types";
@@ -19,8 +13,12 @@ export const FollowingScreen = () => {
   const [following, setFollowing] = useState<UserAbv[] | undefined>([]);
   useEffect(() => {
     const fetchFollowing = async () => {
-      const f = await getFollowing(user);
-      setFollowing(f);
+      try {
+        const f = await getFollowing(user);
+        setFollowing(f);
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchFollowing();
   }, []);
@@ -36,7 +34,7 @@ export const FollowingScreen = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScreenStyleWrapper>
       {/* This should probably be moved to a popup / modal */}
       <Text style={styles.text_md}>
         To follow someone new, enter their email below, then press "New Follow".
@@ -71,6 +69,6 @@ export const FollowingScreen = () => {
           keyExtractor={(item) => item.email}
         />
       </View>
-    </SafeAreaView>
+    </ScreenStyleWrapper>
   );
 };

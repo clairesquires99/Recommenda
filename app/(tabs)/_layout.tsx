@@ -1,43 +1,34 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Redirect, Tabs } from "expo-router";
-import { getAsyncUser, useAuthStore } from "../../src/utils/store";
-import { useEffect } from "react";
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+import { Redirect } from "expo-router";
+import { Drawer } from "expo-router/drawer";
+import { Image, Platform } from "react-native";
+import { LeftSidePanel } from "../../src/features/layouts/LeftSidePanel";
+import { Tabs } from "../../src/features/layouts/Tabs";
+import { useAuthStore } from "../../src/utils/store";
 
 const TabLayout = () => {
   const user = useAuthStore((state) => state.user);
   if (!user) {
     return <Redirect href="/(auth)/login" />;
   }
-  return (
-    <Tabs>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerShown: false,
+
+  if (Platform.OS === "web")
+    return (
+      <Drawer
+        drawerContent={LeftSidePanel}
+        screenOptions={{
+          headerTitle: () => (
+            <Image
+              source={require("../../src/assets/images/logo.png")}
+              style={{ width: 250, height: 50 }}
+              resizeMode="contain"
+            />
+          ),
+          headerTitleAlign: "center",
         }}
       />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
-          headerShown: false,
-        }}
-      />
-    </Tabs>
-  );
+    );
+
+  return <Tabs />;
 };
 
 export default TabLayout;

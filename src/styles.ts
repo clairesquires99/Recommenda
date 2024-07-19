@@ -1,12 +1,18 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+  rootLayout: {
+    backgroundColor: "white",
+  },
   container: {
     flex: 1,
     alignItems: "center",
     backgroundColor: "white",
-    paddingStart: 5,
-    paddingEnd: 5,
+    paddingHorizontal: 5,
+    maxWidth: 650,
+    width: "100%",
+    marginHorizontal: "auto",
+    marginTop: 10,
   },
   title: {
     fontSize: 30,
@@ -40,12 +46,13 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#D3D3D3",
     marginTop: 10,
+    width: "100%",
   },
   input: {
     paddingVertical: 10,
     paddingHorizontal: 12,
     fontSize: 16,
-    flex: 1,
+    width: "100%",
   },
   authInput: {
     paddingVertical: 10,
@@ -65,6 +72,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",
+    maxWidth: 300,
   },
   customButtonText: {
     color: "white",

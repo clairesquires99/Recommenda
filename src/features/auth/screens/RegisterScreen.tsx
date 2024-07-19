@@ -1,8 +1,8 @@
-import { TextInput, View, Text } from "react-native";
-import { styles } from "../../../styles";
-import { CustomButton } from "../../../components/CustomButton";
-import { useRegisterScreen } from "./useRegisterScreen";
 import { Link } from "expo-router";
+import { Text, TextInput, View } from "react-native";
+import { CustomButton } from "../../../components/CustomButton";
+import { styles } from "../../../styles";
+import { useRegisterScreen } from "./useRegisterScreen";
 
 export const RegisterScreen = () => {
   const {

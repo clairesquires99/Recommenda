@@ -1,8 +1,8 @@
-import { TextInput, View, Text } from "react-native";
-import { styles } from "../../../styles";
-import { CustomButton } from "../../../components/CustomButton";
-import { useLoginScreen } from "./useLoginScreen";
 import { Link } from "expo-router";
+import { Text, TextInput, View } from "react-native";
+import { CustomButton } from "../../../components/CustomButton";
+import { styles } from "../../../styles";
+import { useLoginScreen } from "./useLoginScreen";
 
 export const LoginScreen = () => {
   const { email, setEmail, password, setPassword, handleLogin } =
