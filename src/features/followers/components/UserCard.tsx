@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { globalStyles } from "../../../styles";
+import { globalStyles } from "../../../globalStyles";
 import { UserAbv } from "../../../utils/types";
 
 interface UserCardProps {

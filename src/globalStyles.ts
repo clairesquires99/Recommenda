@@ -87,29 +87,6 @@ export const globalStyles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
   },
-  card: {
-    marginTop: 10,
-    padding: 5,
-    flexDirection: "row",
-  },
-  cardImage: {
-    height: 120,
-    width: 90,
-    borderRadius: 10,
-  },
-  cardText: {
-    marginLeft: 10,
-    flex: 1,
-  },
-  bookTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  bookAuthor: {
-    fontSize: 16,
-    color: "#555",
-  },
   userCard: {
     marginTop: 10,
     padding: 10,
@@ -121,5 +98,14 @@ export const globalStyles = StyleSheet.create({
   loadingCont: {
     flex: 1,
     justifyContent: "center",
+  },
+  bookTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  bookAuthor: {
+    fontSize: 16,
+    color: "#555",
   },
 });

@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import { Text, TextInput, View } from "react-native";
 import { CustomButton } from "../../../components/CustomButton";
-import { globalStyles } from "../../../styles";
+import { globalStyles } from "../../../globalStyles";
 import { useLoginScreen } from "./useLoginScreen";
 
 export const LoginScreen = () => {

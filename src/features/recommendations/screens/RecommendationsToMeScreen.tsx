@@ -4,7 +4,7 @@ import { FlatList } from "react-native";
 import { GOOGLE_BOOKS_API_KEY } from "../../../../env";
 import { LoadingIndicator } from "../../../components/LoadingIndicator";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
-import { globalStyles } from "../../../styles";
+import { globalStyles } from "../../../globalStyles";
 import { BookCard } from "../../books/components/BookCard";
 import { Book } from "../../books/domain/types";
 

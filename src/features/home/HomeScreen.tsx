@@ -8,7 +8,7 @@ import { router } from "expo-router";
 import { Image, Platform, Text } from "react-native";
 import { CustomButton } from "../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../components/ScreenStyleWrapper";
-import { globalStyles } from "../../styles";
+import { globalStyles } from "../../globalStyles";
 import { useHomeScreen } from "./useHomeScreen";
 
 export const HomeScreen = () => {

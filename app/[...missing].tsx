@@ -2,7 +2,7 @@ import { Link, Stack } from "expo-router";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenStyleWrapper } from "../src/components/ScreenStyleWrapper";
-import { globalStyles } from "../src/styles";
+import { globalStyles } from "../src/globalStyles";
 
 export default function NotFoundScreen() {
   return (

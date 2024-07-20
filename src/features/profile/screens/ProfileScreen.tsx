@@ -5,7 +5,7 @@ import { Text } from "react-native";
 import { ArrowButton } from "../../../components/ArrowButton";
 import { CustomButton } from "../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
-import { globalStyles } from "../../../styles";
+import { globalStyles } from "../../../globalStyles";
 import { useAuthStore } from "../../../utils/store";
 import { pressLogout } from "../../auth/domain/utils";
 import { useProfileScreen } from "./useProfileScreen";

@@ -1,6 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
 import { Pressable, Text } from "react-native";
-import { globalStyles } from "../styles";
+import { globalStyles } from "../globalStyles";
 
 interface ArrowButtonProps {
   title: string;

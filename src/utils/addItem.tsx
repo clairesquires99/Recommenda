@@ -1,7 +1,7 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { FIRESTORE_DB } from "../../firebaseConfig";
 import { User } from "firebase/auth";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { Alert } from "react-native";
+import { FIRESTORE_DB } from "../../firebaseConfig";
 import { UserAbv } from "./types";
 
 export const addItem = async () => {
@@ -118,4 +118,29 @@ export const getFollowing = async (user: User | null) => {
     followingList.push(following);
   });
   return followingList;
+};
+
+export const getFollowers = async (user: User | null) => {
+  if (!user) {
+    console.log("No user set");
+    return;
+  }
+  const q = query(
+    collection(FIRESTORE_DB, "follows"),
+    where("followingEmail", "==", user.email)
+  );
+  const qSnapshot = await getDocs(q);
+  let followersList: UserAbv[] = [];
+  if (qSnapshot.empty) {
+    return followersList;
+  }
+  qSnapshot.forEach((doc) => {
+    const data = doc.data();
+    const followers: UserAbv = {
+      name: data.userName,
+      email: data.userEmail,
+    };
+    followersList.push(followers);
+  });
+  return followersList;
 };

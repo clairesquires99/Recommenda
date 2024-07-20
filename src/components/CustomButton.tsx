@@ -1,5 +1,5 @@
 import { Pressable, PressableProps, Text, ViewStyle } from "react-native";
-import { globalStyles } from "../styles";
+import { globalStyles } from "../globalStyles";
 
 interface ButtonProps extends PressableProps {
   text?: string;
