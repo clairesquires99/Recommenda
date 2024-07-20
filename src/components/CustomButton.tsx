@@ -1,5 +1,5 @@
 import { Pressable, PressableProps, Text, ViewStyle } from "react-native";
-import { styles } from "../styles";
+import { globalStyles } from "../styles";
 
 interface ButtonProps extends PressableProps {
   text?: string;
@@ -21,14 +21,14 @@ export const CustomButton: React.FC<ButtonProps> = ({
     <Pressable
       onPress={onPress}
       style={[
-        styles.customButton,
-        disabled && styles.disabledCustomButton,
+        globalStyles.customButton,
+        disabled && globalStyles.disabledCustomButton,
         style,
       ]}
       disabled={disabled}
       {...props}
     >
-      <Text style={styles.customButtonText}>{text}</Text>
+      <Text style={globalStyles.customButtonText}>{text}</Text>
       {Icon && <Icon />}
     </Pressable>
   );

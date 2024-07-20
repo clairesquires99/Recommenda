@@ -5,7 +5,7 @@ import { Text } from "react-native";
 import { ArrowButton } from "../../../components/ArrowButton";
 import { CustomButton } from "../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
-import { styles } from "../../../styles";
+import { globalStyles } from "../../../styles";
 import { useAuthStore } from "../../../utils/store";
 import { pressLogout } from "../../auth/domain/utils";
 import { useProfileScreen } from "./useProfileScreen";
@@ -22,9 +22,9 @@ export const ProfileScreen = () => {
 
   return (
     <ScreenStyleWrapper>
-      <Text style={styles.title}>Profile</Text>
-      <Text style={styles.text_20}>{user.displayName}</Text>
-      <Text style={styles.text_md}>{user.email}</Text>
+      <Text style={globalStyles.title}>Profile</Text>
+      <Text style={globalStyles.text_20}>{user.displayName}</Text>
+      <Text style={globalStyles.text_md}>{user.email}</Text>
       <ArrowButton
         title="Following"
         onPress={() => router.push("/(tabs)/profile/following")}
@@ -37,7 +37,7 @@ export const ProfileScreen = () => {
             name="logout"
             size={24}
             color="black"
-            style={styles.customButtonText}
+            style={globalStyles.customButtonText}
           />
         )}
       />

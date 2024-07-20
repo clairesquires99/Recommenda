@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import { Text, TextInput, View } from "react-native";
 import { CustomButton } from "../../../components/CustomButton";
-import { styles } from "../../../styles";
+import { globalStyles } from "../../../styles";
 import { useRegisterScreen } from "./useRegisterScreen";
 
 export const RegisterScreen = () => {
@@ -20,45 +20,47 @@ export const RegisterScreen = () => {
   } = useRegisterScreen();
 
   return (
-    <View style={{ ...styles.container, flex: 1, justifyContent: "center" }}>
+    <View
+      style={{ ...globalStyles.container, flex: 1, justifyContent: "center" }}
+    >
       <TextInput
         value={firstName}
         onChangeText={(text) => setFirstName(text)}
-        style={styles.authInput}
+        style={globalStyles.authInput}
         placeholder="First name"
       />
       <TextInput
         value={lastName}
         onChangeText={(text) => setLastName(text)}
-        style={styles.authInput}
+        style={globalStyles.authInput}
         placeholder="Second name"
       />
       <TextInput
         value={email}
         onChangeText={(text) => setEmail(text)}
-        style={styles.authInput}
+        style={globalStyles.authInput}
         placeholder="Email"
       />
       <TextInput
         value={password}
         onChangeText={(text) => setPassword(text)}
-        style={styles.authInput}
+        style={globalStyles.authInput}
         placeholder="Password"
         secureTextEntry
       />
       <TextInput
         value={confirmPassword}
         onChangeText={(text) => setConfirmPassword(text)}
-        style={styles.authInput}
+        style={globalStyles.authInput}
         placeholder="Confirm password"
         secureTextEntry
       />
       <CustomButton onPress={handleRegister}>
-        <Text style={styles.customButtonText}>Register</Text>
+        <Text style={globalStyles.customButtonText}>Register</Text>
       </CustomButton>
-      <Text style={[styles.text_md, { margin: 10 }]}>
+      <Text style={[globalStyles.text_md, { margin: 10 }]}>
         Already registered?{" "}
-        <Link style={styles.linkText} href="/login">
+        <Link style={globalStyles.linkText} href="/login">
           Login
         </Link>
       </Text>

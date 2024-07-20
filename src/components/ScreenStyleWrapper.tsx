@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { View, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../styles";
+import { globalStyles } from "../styles";
 
 interface ScreenStyleWrapperProps {
   children: ReactNode;
@@ -14,7 +14,7 @@ export const ScreenStyleWrapper: React.FC<ScreenStyleWrapperProps> = ({
 }) => {
   return (
     <View style={[{ flex: 1, backgroundColor: "white" }, style]}>
-      <SafeAreaView style={styles.container}>{children}</SafeAreaView>
+      <SafeAreaView style={globalStyles.container}>{children}</SafeAreaView>
     </View>
   );
 };

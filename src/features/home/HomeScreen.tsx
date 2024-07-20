@@ -8,7 +8,7 @@ import { router } from "expo-router";
 import { Image, Platform, Text } from "react-native";
 import { CustomButton } from "../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../components/ScreenStyleWrapper";
-import { styles } from "../../styles";
+import { globalStyles } from "../../styles";
 import { useHomeScreen } from "./useHomeScreen";
 
 export const HomeScreen = () => {
@@ -27,35 +27,43 @@ export const HomeScreen = () => {
         />
       )}
       <Text>Hello, {user?.email}</Text>
-      <Text style={styles.text_20}>See you reccomendations</Text>
+      <Text style={globalStyles.text_20}>See you reccomendations</Text>
       <CustomButton
-        onPress={() => router.push("#")}
+        onPress={() => router.push("/(tabs)/home/recommendationsToMe")}
         text={"Recomended to me"}
-        Icon={() => <Octicons style={styles.customButtonText} name="person" />}
+        Icon={() => (
+          <Octicons style={globalStyles.customButtonText} name="person" />
+        )}
       />
       <CustomButton
-        onPress={() => router.push("#")}
+        onPress={() => router.push("/(tabs)/home/recommendationsByMe")}
         text={"Recomended by me"}
-        Icon={() => <Octicons style={styles.customButtonText} name="people" />}
+        Icon={() => (
+          <Octicons style={globalStyles.customButtonText} name="people" />
+        )}
       />
-      <Text style={styles.text_20}>Make some recommendations</Text>
+      <Text style={globalStyles.text_20}>Make some recommendations</Text>
       <CustomButton
         onPress={() => router.push("/(tabs)/home/bookSearch")}
         text={"Books"}
-        Icon={() => <FontAwesome style={styles.customButtonText} name="book" />}
+        Icon={() => (
+          <FontAwesome style={globalStyles.customButtonText} name="book" />
+        )}
       />
       <CustomButton
         onPress={() => router.push("#")}
         text={"Film"}
         Icon={() => (
-          <FontAwesome6 name="film" style={styles.customButtonText} />
+          <FontAwesome6 name="film" style={globalStyles.customButtonText} />
         )}
         disabled={true}
       />
       <CustomButton
         onPress={() => router.push("#")}
         text={"Music"}
-        Icon={() => <Feather name="music" style={styles.customButtonText} />}
+        Icon={() => (
+          <Feather name="music" style={globalStyles.customButtonText} />
+        )}
         disabled={true}
       />
     </ScreenStyleWrapper>

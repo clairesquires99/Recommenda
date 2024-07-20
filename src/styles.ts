@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
   rootLayout: {
     backgroundColor: "white",
   },
@@ -38,21 +38,6 @@ export const styles = StyleSheet.create({
   },
   linkText: {
     color: "#007AFF",
-  },
-  inputSearchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#D3D3D3",
-    marginTop: 10,
-    width: "100%",
-  },
-  input: {
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    fontSize: 16,
-    width: "100%",
   },
   authInput: {
     paddingVertical: 10,
@@ -97,9 +82,6 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingTop: 0,
     paddingBottom: 0,
-  },
-  searchButton: {
-    padding: 15,
   },
   cardContainer: {
     flexDirection: "column",
