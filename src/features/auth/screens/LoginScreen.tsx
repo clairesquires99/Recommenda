@@ -22,9 +22,7 @@ export const LoginScreen = () => {
         placeholder="Password"
         secureTextEntry
       />
-      <CustomButton onPress={handleLogin}>
-        <Text style={styles.customButtonText}>Login</Text>
-      </CustomButton>
+      <CustomButton onPress={handleLogin} text={"Login"} />
       <Text style={[styles.text_md, { margin: 10 }]}>
         Don't have an account?{" "}
         <Link style={styles.linkText} href="/register">

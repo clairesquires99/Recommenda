@@ -68,17 +68,21 @@ export const styles = StyleSheet.create({
     backgroundColor: "#007AFF",
     padding: 10,
     borderRadius: 10,
-    margin: 10,
+    margin: 5,
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",
     maxWidth: 300,
+  },
+  disabledCustomButton: {
+    opacity: 0.5,
   },
   customButtonText: {
     color: "white",
     fontSize: 20,
     paddingRight: 5,
     paddingLeft: 5,
+    marginVertical: "auto",
   },
   arrowButton: {
     padding: 10,

@@ -53,9 +53,9 @@ export const FollowingScreen = () => {
             setToFollowEmail: setToFollowEmail,
           });
         }}
-      >
-        <Text style={styles.customButtonText}>New follow</Text>
-      </CustomButton>
+        text={"New follow"}
+      />
+
       <Text style={styles.text_20}>Following</Text>
       {following?.length <= 0 && (
         <Text>

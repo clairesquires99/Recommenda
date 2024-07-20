@@ -29,15 +29,18 @@ export const ProfileScreen = () => {
         title="Following"
         onPress={() => router.push("/(tabs)/profile/following")}
       />
-      <CustomButton onPress={() => pressLogout(removeUser)}>
-        <MaterialIcons
-          name="logout"
-          size={24}
-          color="black"
-          style={styles.customButtonText}
-        />
-        <Text style={styles.customButtonText}>Logout</Text>
-      </CustomButton>
+      <CustomButton
+        onPress={() => pressLogout(removeUser)}
+        text={"Logout"}
+        Icon={() => (
+          <MaterialIcons
+            name="logout"
+            size={24}
+            color="black"
+            style={styles.customButtonText}
+          />
+        )}
+      />
     </ScreenStyleWrapper>
   );
 };
