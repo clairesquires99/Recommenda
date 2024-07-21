@@ -12,7 +12,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox/build/dist/BouncyCheckb
 import { CustomButton } from "../../../components/CustomButton";
 import { Warning } from "../../../components/Warning";
 import { globalStyles } from "../../../globalStyles";
-import { UserAbv } from "../../../utils/types";
+import { UserType } from "../../../utils/types";
 import { UserCard } from "../../followers/components/UserCard";
 import { Book } from "../domain/types";
 import { useBookRecommendationModal } from "./useBookRecommendationModal";
@@ -20,7 +20,7 @@ import { useBookRecommendationModal } from "./useBookRecommendationModal";
 interface BookRecommendationModalProps {
   isVisible: boolean;
   onClose: () => void;
-  followers: UserAbv[] | undefined;
+  followers: UserType[] | undefined;
   book: Book | undefined;
 }
 
@@ -45,7 +45,7 @@ export const BookRecommendationModal = ({
     }
   }, [isVisible]);
 
-  const ListItem = (follower: UserAbv) => (
+  const ListItem = (follower: UserType) => (
     <View style={{ flexDirection: "row" }}>
       <BouncyCheckbox
         fillColor="#007AFF"

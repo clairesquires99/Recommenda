@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { View, ViewStyle } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../globalStyles";
 
@@ -13,8 +14,10 @@ export const ScreenStyleWrapper: React.FC<ScreenStyleWrapperProps> = ({
   style,
 }) => {
   return (
-    <View style={[{ flex: 1, backgroundColor: "white" }, style]}>
-      <SafeAreaView style={globalStyles.container}>{children}</SafeAreaView>
-    </View>
+    <GestureHandlerRootView>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+        <View style={[globalStyles.container, style]}>{children}</View>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };

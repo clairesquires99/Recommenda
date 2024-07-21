@@ -4,13 +4,13 @@ import { CustomButton } from "../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../globalStyles";
 import { createNewFollow, getFollowing } from "../../../utils/api";
-import { UserAbv } from "../../../utils/types";
+import { UserType } from "../../../utils/types";
 import { UserCard } from "../components/UserCard";
 import { useFollowingScreen } from "./useFollowingScreen";
 
 export const FollowingScreen = () => {
   const { toFollowEmail, setToFollowEmail, user } = useFollowingScreen();
-  const [following, setFollowing] = useState<UserAbv[] | undefined>([]);
+  const [following, setFollowing] = useState<UserType[] | undefined>([]);
   useEffect(() => {
     const fetchFollowing = async () => {
       try {
@@ -44,6 +44,7 @@ export const FollowingScreen = () => {
         onChangeText={(text) => setToFollowEmail(text)}
         style={globalStyles.authInput}
         placeholder="Email address"
+        autoCapitalize="none"
       />
       <CustomButton
         onPress={() => {

@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { Alert } from "react-native";
 import { FIRESTORE_DB } from "../../firebaseConfig";
-import { MediaItem, UserAbv } from "./types";
+import { MediaItemType, UserType } from "./types";
 
 interface AddNewUserProps {
   name: string;
@@ -104,13 +104,13 @@ export const getFollowing = async (user: User | null) => {
     where("userEmail", "==", user.email)
   );
   const qSnapshot = await getDocs(q);
-  let followingList: UserAbv[] = [];
+  let followingList: UserType[] = [];
   if (qSnapshot.empty) {
     return followingList;
   }
   qSnapshot.forEach((doc) => {
     const data = doc.data();
-    const following: UserAbv = {
+    const following: UserType = {
       name: data.followingName,
       email: data.followingEmail,
     };
@@ -129,13 +129,13 @@ export const getFollowers = async (user: User | null) => {
     where("followingEmail", "==", user.email)
   );
   const qSnapshot = await getDocs(q);
-  let followersList: UserAbv[] = [];
+  let followersList: UserType[] = [];
   if (qSnapshot.empty) {
     return followersList;
   }
   qSnapshot.forEach((doc) => {
     const data = doc.data();
-    const followers: UserAbv = {
+    const followers: UserType = {
       name: data.userName,
       email: data.userEmail,
     };
@@ -147,7 +147,7 @@ export const getFollowers = async (user: User | null) => {
 interface PushRecommendationProps {
   userEmail: string;
   sendToEmails: string[];
-  item: MediaItem;
+  item: MediaItemType;
 }
 
 export const pushRecommendation = async ({
@@ -183,7 +183,7 @@ export const pushRecommendation = async ({
 interface FindDuplicateRecommendationsProps {
   userEmail: string;
   sendToEmails: string[];
-  item: MediaItem;
+  item: MediaItemType;
 }
 
 const findDuplicateRecommendations = async ({
@@ -209,4 +209,60 @@ const findDuplicateRecommendations = async ({
     }
   }
   return duplicateRecommendations;
+};
+
+export const getRecommendationsToMe = async (user: User | null) => {
+  if (!user) {
+    console.log("No user set");
+    return;
+  }
+  const q = query(
+    collection(FIRESTORE_DB, "recommendations"),
+    where("recommendedToUser", "==", user.email)
+  );
+  const qSnapshot = await getDocs(q);
+  if (qSnapshot.empty) {
+    return [];
+  }
+  let recommendations: MediaItemType[] = [];
+  qSnapshot.forEach((doc) => {
+    const data = doc.data();
+    const mediaItem: MediaItemType = {
+      id: data.item.id,
+      image: data.item.image,
+      title: data.item.title,
+      type: data.item.type,
+      author: data.item.author,
+    };
+    recommendations.push(mediaItem);
+  });
+  return recommendations;
+};
+
+export const getRecommendationsByMe = async (user: User | null) => {
+  if (!user) {
+    console.log("No user set");
+    return;
+  }
+  const q = query(
+    collection(FIRESTORE_DB, "recommendations"),
+    where("recommendedByUser", "==", user.email)
+  );
+  const qSnapshot = await getDocs(q);
+  if (qSnapshot.empty) {
+    return [];
+  }
+  let recommendations: MediaItemType[] = [];
+  qSnapshot.forEach((doc) => {
+    const data = doc.data();
+    const mediaItem: MediaItemType = {
+      id: data.item.id,
+      image: data.item.image,
+      title: data.item.title,
+      type: data.item.type,
+      author: data.item.author,
+    };
+    recommendations.push(mediaItem);
+  });
+  return recommendations;
 };

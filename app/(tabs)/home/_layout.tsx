@@ -13,14 +13,14 @@ export default function HomeLayout() {
       <Stack.Screen
         name="recommendationsByMe"
         options={{
-          title: "Recommendations by Me",
+          title: "Recommended by Me",
           headerShown: Platform.OS !== "web",
         }}
       />
       <Stack.Screen
         name="recommendationsToMe"
         options={{
-          title: "Recommendations to Me",
+          title: "Recommended to Me",
           headerShown: Platform.OS !== "web",
         }}
       />

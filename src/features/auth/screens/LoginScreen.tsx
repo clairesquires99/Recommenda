@@ -16,12 +16,14 @@ export const LoginScreen = () => {
         onChangeText={(text) => setEmail(text)}
         style={globalStyles.authInput}
         placeholder="Email"
+        autoCapitalize="none"
       />
       <TextInput
         value={password}
         onChangeText={(text) => setPassword(text)}
         style={globalStyles.authInput}
         placeholder="Password"
+        autoCapitalize="none"
         secureTextEntry
       />
       <CustomButton onPress={handleLogin} text={"Login"} />

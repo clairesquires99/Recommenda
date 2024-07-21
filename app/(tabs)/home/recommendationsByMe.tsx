@@ -1,5 +1,5 @@
-import { BookSearchScreen } from "../../../src/features/books/screens/BookSearchScreen";
+import { RecommendationsByMeScreen } from "../../../src/features/recommendations/screens/RecommendationsByMeScreen/RecommendationsByMeScreen";
 
 export default function RecommendationsByMe() {
-  return <BookSearchScreen />;
+  return <RecommendationsByMeScreen />;
 }

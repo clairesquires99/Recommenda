@@ -12,7 +12,7 @@ export const globalStyles = StyleSheet.create({
     maxWidth: 650,
     width: "100%",
     marginHorizontal: "auto",
-    marginTop: 10,
+    paddingTop: 10,
   },
   title: {
     fontSize: 30,

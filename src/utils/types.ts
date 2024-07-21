@@ -1,9 +1,9 @@
-export type UserAbv = {
+export type UserType = {
   name: string;
   email: string;
 };
 
-export type MediaItem = {
+export type MediaItemType = {
   id: string;
   type: "book";
   image: string;

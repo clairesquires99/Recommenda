@@ -1,24 +1,25 @@
 import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FlatList, Pressable, StyleSheet, TextInput, View } from "react-native";
+import { FlatList, StyleSheet, TextInput, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { GOOGLE_BOOKS_API_KEY } from "../../../../env";
 import { LoadingIndicator } from "../../../components/LoadingIndicator";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../globalStyles";
 import { getFollowers } from "../../../utils/api";
 import { useAuthStore } from "../../../utils/store";
-import { UserAbv } from "../../../utils/types";
+import { UserType } from "../../../utils/types";
 import { BookCard } from "../components/BookCard";
 import { BookRecommendationModal } from "../components/BookReccomendationModal";
 import { Book } from "../domain/types";
 
 export const BookSearchScreen = () => {
-  const [query, setQuery] = useState<string>("Inspired");
+  const [query, setQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [books, setBooks] = useState<Book[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [followers, setFollowers] = useState<UserAbv[] | undefined>([]);
+  const [followers, setFollowers] = useState<UserType[] | undefined>([]);
   const [selectedBook, setSelectedBook] = useState<Book>();
   const user = useAuthStore((state) => state.user);
 
@@ -32,7 +33,6 @@ export const BookSearchScreen = () => {
       }
     };
     fetchFollowers();
-    getBooksApi();
   }, []);
 
   const getBooksApi = async () => {
@@ -75,10 +75,11 @@ export const BookSearchScreen = () => {
           value={query}
           onChangeText={setQuery}
           placeholderTextColor="#aaa"
+          onSubmitEditing={getBooksApi}
         />
-        <Pressable style={styles.searchButton} onPress={() => getBooksApi()}>
+        <TouchableOpacity style={styles.searchButton} onPress={getBooksApi}>
           <FontAwesome name="search" style={{ fontSize: 20 }} />
-        </Pressable>
+        </TouchableOpacity>
       </View>
       {isLoading && <LoadingIndicator />}
       <FlatList
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 12,
     fontSize: 16,
-    width: "100%",
+    flexGrow: 1,
   },
   searchButton: {
     padding: 15,

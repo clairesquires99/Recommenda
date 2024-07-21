@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { pushRecommendation } from "../../../utils/api";
 import { useAuthStore } from "../../../utils/store";
-import { UserAbv } from "../../../utils/types";
+import { UserType } from "../../../utils/types";
 import { parseBookToMediaItem } from "../../../utils/utils";
 import { Book } from "../domain/types";
 
@@ -16,7 +16,7 @@ export const useBookRecommendationModal = () => {
     );
   };
 
-  const toggleAll = (followers: UserAbv[]) => {
+  const toggleAll = (followers: UserType[]) => {
     if (selectedFollowers.length === followers?.length) {
       setSelectedFollowers([]);
     } else {

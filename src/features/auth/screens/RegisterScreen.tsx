@@ -40,12 +40,14 @@ export const RegisterScreen = () => {
         onChangeText={(text) => setEmail(text)}
         style={globalStyles.authInput}
         placeholder="Email"
+        autoCapitalize="none"
       />
       <TextInput
         value={password}
         onChangeText={(text) => setPassword(text)}
         style={globalStyles.authInput}
         placeholder="Password"
+        autoCapitalize="none"
         secureTextEntry
       />
       <TextInput
@@ -53,11 +55,10 @@ export const RegisterScreen = () => {
         onChangeText={(text) => setConfirmPassword(text)}
         style={globalStyles.authInput}
         placeholder="Confirm password"
+        autoCapitalize="none"
         secureTextEntry
       />
-      <CustomButton onPress={handleRegister}>
-        <Text style={globalStyles.customButtonText}>Register</Text>
-      </CustomButton>
+      <CustomButton onPress={handleRegister} text={"Register"} />
       <Text style={[globalStyles.text_md, { margin: 10 }]}>
         Already registered?{" "}
         <Link style={globalStyles.linkText} href="/login">

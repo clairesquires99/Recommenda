@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 import { globalStyles } from "../../../globalStyles";
-import { UserAbv } from "../../../utils/types";
+import { UserType } from "../../../utils/types";
 
 interface UserCardProps {
-  user: UserAbv;
+  user: UserType;
 }
 
 export const UserCard: React.FC<UserCardProps> = ({ user }) => {
