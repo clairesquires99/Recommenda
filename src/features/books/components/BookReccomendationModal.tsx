@@ -83,7 +83,7 @@ export const BookRecommendationModal: React.FC<
               <Entypo name="cross" size={24} color="black" />
             </TouchableOpacity>
           </View>
-          {followers && (
+          {followers && followers.length > 0 ? (
             <>
               <View style={{ flexDirection: "row" }}>
                 <BouncyCheckbox
@@ -100,15 +100,29 @@ export const BookRecommendationModal: React.FC<
                 renderItem={({ item }) => <ListItem {...item} />}
                 keyExtractor={(item) => item.email}
               />
+              <CustomButton
+                text="Send Recommendations"
+                Icon={() => (
+                  <Feather name="send" style={globalStyles.customButtonText} />
+                )}
+                style={{ marginHorizontal: "auto" }}
+              />
             </>
+          ) : (
+            <View
+              style={{
+                backgroundColor: "#FFF0A5",
+                padding: 10,
+                borderRadius: 10,
+              }}
+            >
+              <Text style={{ flexWrap: "wrap" }}>
+                It seems you don't have any followers to recommend this book to
+                yet. Get your friends to follow you using your email address.
+              </Text>
+              {/* TODO: add CTA here */}
+            </View>
           )}
-          <CustomButton
-            text="Send Recommendations"
-            Icon={() => (
-              <Feather name="send" style={globalStyles.customButtonText} />
-            )}
-            style={{ marginHorizontal: "auto" }}
-          />
         </View>
       </View>
     </Modal>

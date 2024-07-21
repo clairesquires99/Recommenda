@@ -18,8 +18,8 @@ export const BookSearchScreen = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [books, setBooks] = useState<Book[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const user = useAuthStore((state) => state.user);
   const [followers, setFollowers] = useState<UserAbv[] | undefined>([]);
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
     const fetchFollowers = async () => {

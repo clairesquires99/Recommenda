@@ -90,7 +90,7 @@ export const globalStyles = StyleSheet.create({
   userCard: {
     marginTop: 10,
     padding: 10,
-    flex: 1,
+    flexGrow: 1,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#D3D3D3",
