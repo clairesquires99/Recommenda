@@ -1,41 +1,48 @@
 import { Entypo, Feather } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
-import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect } from "react";
+import {
+  FlatList,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox/build/dist/BouncyCheckbox";
 import { CustomButton } from "../../../components/CustomButton";
+import { Warning } from "../../../components/Warning";
 import { globalStyles } from "../../../globalStyles";
 import { UserAbv } from "../../../utils/types";
 import { UserCard } from "../../followers/components/UserCard";
+import { Book } from "../domain/types";
+import { useBookRecommendationModal } from "./useBookRecommendationModal";
 
 interface BookRecommendationModalProps {
   isVisible: boolean;
   onClose: () => void;
   followers: UserAbv[] | undefined;
+  book: Book | undefined;
 }
 
-export const BookRecommendationModal: React.FC<
-  BookRecommendationModalProps
-> = ({ isVisible, onClose, followers }) => {
-  const [selectedFollowers, setSelectedFollowers] = useState<string[]>([]);
+export const BookRecommendationModal = ({
+  isVisible,
+  onClose,
+  followers,
+  book,
+}: BookRecommendationModalProps) => {
+  const {
+    selectedFollowers,
+    setSelectedFollowers,
+    toggleSelection,
+    toggleAll,
+    handlePushRecommendation,
+  } = useBookRecommendationModal();
 
   useEffect(() => {
     if (!isVisible) {
       setSelectedFollowers([]);
     }
   }, [isVisible]);
-
-  const toggleSelection = (email: string) => {
-    setSelectedFollowers((prev) =>
-      prev.includes(email) ? prev.filter((i) => i !== email) : [...prev, email]
-    );
-  };
-  const toggleAll = (followers: UserAbv[]) => {
-    if (selectedFollowers.length === followers?.length) {
-      setSelectedFollowers([]);
-    } else {
-      setSelectedFollowers(followers.map((f) => f.email));
-    }
-  };
 
   const ListItem = (follower: UserAbv) => (
     <View style={{ flexDirection: "row" }}>
@@ -55,28 +62,10 @@ export const BookRecommendationModal: React.FC<
       visible={isVisible}
       onRequestClose={onClose}
     >
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: "white",
-            borderRadius: 10,
-            padding: 20,
-            maxWidth: 500,
-            maxHeight: "95%",
-            minHeight: "50%",
-          }}
-        >
-          <View style={{ flexDirection: "row", marginBottom: 10 }}>
-            <Text
-              style={[globalStyles.text_20, { flexGrow: 1, paddingRight: 10 }]}
-            >
+      <View style={styles.modalBackground}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalHeadingConatiner}>
+            <Text style={[globalStyles.text_20, styles.modalTitle]}>
               Recommend a book to anyone who follows you
             </Text>
             <TouchableOpacity onPress={onClose}>
@@ -105,26 +94,36 @@ export const BookRecommendationModal: React.FC<
                 Icon={() => (
                   <Feather name="send" style={globalStyles.customButtonText} />
                 )}
-                style={{ marginHorizontal: "auto" }}
+                style={{ marginHorizontal: "auto", marginTop: 10 }}
+                onPress={() => handlePushRecommendation(book)}
               />
             </>
           ) : (
-            <View
-              style={{
-                backgroundColor: "#FFF0A5",
-                padding: 10,
-                borderRadius: 10,
-              }}
-            >
-              <Text style={{ flexWrap: "wrap" }}>
-                It seems you don't have any followers to recommend this book to
-                yet. Get your friends to follow you using your email address.
-              </Text>
-              {/* TODO: add CTA here */}
-            </View>
+            // TODO: Add CTA here
+            <Warning
+              text={`It seems you don\'t have any followers to recommend this book to yet. Get your friends to follow you using your email address.`}
+            />
           )}
         </View>
       </View>
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  modalBackground: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    maxWidth: 500,
+    maxHeight: "95%",
+  },
+  modalHeadingConatiner: { flexDirection: "row", marginBottom: 10 },
+  modalTitle: { flexGrow: 1, paddingRight: 10 },
+});

@@ -3,7 +3,7 @@ import { Alert, FlatList, Text, TextInput, View } from "react-native";
 import { CustomButton } from "../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../globalStyles";
-import { createNewFollow, getFollowing } from "../../../utils/addItem";
+import { createNewFollow, getFollowing } from "../../../utils/api";
 import { UserAbv } from "../../../utils/types";
 import { UserCard } from "../components/UserCard";
 import { useFollowingScreen } from "./useFollowingScreen";

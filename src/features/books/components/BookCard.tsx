@@ -3,9 +3,14 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { globalStyles } from "../../../globalStyles";
 import { Book } from "../domain/types";
 
-export const BookCard = (book: Book, toggleModal: any) => {
+interface BookCardProps {
+  book: Book;
+  onRecommend: () => void;
+}
+
+export const BookCard = ({ book, onRecommend }: BookCardProps) => {
   return (
-    <Pressable style={styles.card} onPress={toggleModal}>
+    <Pressable style={styles.card} onPress={onRecommend}>
       <Image
         source={{ uri: book.volumeInfo.imageLinks.thumbnail }}
         style={styles.cardImage}

@@ -1,4 +1,4 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FlatList, Pressable, StyleSheet, TextInput, View } from "react-native";
@@ -6,7 +6,7 @@ import { GOOGLE_BOOKS_API_KEY } from "../../../../env";
 import { LoadingIndicator } from "../../../components/LoadingIndicator";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../globalStyles";
-import { getFollowers } from "../../../utils/addItem";
+import { getFollowers } from "../../../utils/api";
 import { useAuthStore } from "../../../utils/store";
 import { UserAbv } from "../../../utils/types";
 import { BookCard } from "../components/BookCard";
@@ -19,6 +19,7 @@ export const BookSearchScreen = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [followers, setFollowers] = useState<UserAbv[] | undefined>([]);
+  const [selectedBook, setSelectedBook] = useState<Book>();
   const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
@@ -49,17 +50,23 @@ export const BookSearchScreen = () => {
     setIsLoading(false);
   };
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
+  const openModal = (book: Book) => {
+    setSelectedBook(book);
+    setIsModalVisible(true);
   };
-  const renderItem = (item: Book) => BookCard(item, toggleModal);
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setSelectedBook(undefined);
+  };
 
   return (
     <ScreenStyleWrapper>
       <BookRecommendationModal
         isVisible={isModalVisible}
-        onClose={toggleModal}
+        onClose={closeModal}
         followers={followers}
+        book={selectedBook}
       />
       <View style={styles.inputSearchContainer}>
         <TextInput
@@ -77,7 +84,9 @@ export const BookSearchScreen = () => {
       <FlatList
         data={books}
         keyExtractor={(item) => item.id}
-        renderItem={(item) => renderItem(item.item)}
+        renderItem={({ item }) => (
+          <BookCard book={item} onRecommend={() => openModal(item)} />
+        )}
         style={globalStyles.cardContainer}
         showsVerticalScrollIndicator={false}
       />

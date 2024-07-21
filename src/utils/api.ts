@@ -1,16 +1,15 @@
 import { User } from "firebase/auth";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import { Alert } from "react-native";
 import { FIRESTORE_DB } from "../../firebaseConfig";
-import { UserAbv } from "./types";
-
-export const addItem = async () => {
-  const doc = await addDoc(collection(FIRESTORE_DB, "test_items"), {
-    title: "fav book",
-    author: "rob",
-  });
-  console.log("Object added to DB with ID: ", doc.id);
-};
+import { MediaItem, UserAbv } from "./types";
 
 interface AddNewUserProps {
   name: string;
@@ -143,4 +142,71 @@ export const getFollowers = async (user: User | null) => {
     followersList.push(followers);
   });
   return followersList;
+};
+
+interface PushRecommendationProps {
+  userEmail: string;
+  sendToEmails: string[];
+  item: MediaItem;
+}
+
+export const pushRecommendation = async ({
+  userEmail,
+  sendToEmails,
+  item,
+}: PushRecommendationProps) => {
+  if (!userEmail) return;
+  const duplicateRecommendations = await findDuplicateRecommendations({
+    userEmail,
+    sendToEmails,
+    item,
+  });
+  const newSendToEmails = sendToEmails.filter(
+    (email) => !duplicateRecommendations.includes(email)
+  );
+  newSendToEmails.map(async (sendToEmail) => {
+    await addDoc(collection(FIRESTORE_DB, "recommendations"), {
+      item,
+      recommendedByUser: userEmail,
+      recommendedToUser: sendToEmail,
+      dateCreated: serverTimestamp(),
+    });
+  });
+
+  if (duplicateRecommendations.length > 0)
+    alert(
+      `You have already recommended this item to the people below. We won't recommend it again. \n${duplicateRecommendations}`
+    );
+  console.log("New recommendation added to DB");
+};
+
+interface FindDuplicateRecommendationsProps {
+  userEmail: string;
+  sendToEmails: string[];
+  item: MediaItem;
+}
+
+const findDuplicateRecommendations = async ({
+  userEmail,
+  sendToEmails,
+  item,
+}: FindDuplicateRecommendationsProps) => {
+  let duplicateRecommendations: string[] = [];
+  for (const sendToEmail of sendToEmails) {
+    try {
+      const q = query(
+        collection(FIRESTORE_DB, "recommendations"),
+        where("recommendedByUser", "==", userEmail),
+        where("recommendedToUser", "==", sendToEmail),
+        where("item.id", "==", item.id)
+      );
+      const qSnapshot = await getDocs(q);
+      if (!qSnapshot.empty) {
+        duplicateRecommendations.push(sendToEmail);
+      }
+    } catch (error) {
+      console.error(`Error for ${sendToEmail}:`, error);
+    }
+  }
+  return duplicateRecommendations;
 };
