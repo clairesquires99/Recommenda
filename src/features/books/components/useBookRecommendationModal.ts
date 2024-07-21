@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Alert } from "react-native";
 import { pushRecommendation } from "../../../utils/api";
 import { useAuthStore } from "../../../utils/store";
 import { UserAbv } from "../../../utils/types";
@@ -7,6 +6,7 @@ import { parseBookToMediaItem } from "../../../utils/utils";
 import { Book } from "../domain/types";
 
 export const useBookRecommendationModal = () => {
+  const [error, setError] = useState<string>();
   const [selectedFollowers, setSelectedFollowers] = useState<string[]>([]);
   const user = useAuthStore((state) => state.user);
 
@@ -24,17 +24,24 @@ export const useBookRecommendationModal = () => {
     }
   };
 
-  const handlePushRecommendation = async (book: Book | undefined) => {
+  const handlePushRecommendation = async (
+    book: Book | undefined,
+    onClose: () => void
+  ) => {
     if (!book) {
-      console.log("Error: There is no book set to recommend");
-      Alert.alert(
+      console.log("Error: There is no book set to recommend.");
+      setError(
         "Sorry, something went wrong. Please try that recommendation again."
       );
       return;
     } else if (!user?.email) {
       console.log("Error: no user");
-      Alert.alert(
-        "You don't seem to be logged in. Please log in and try again."
+      setError("You don't seem to be logged in. Please log in and try again.");
+      return;
+    } else if (selectedFollowers.length <= 0) {
+      console.log("Error: No followers selected");
+      setError(
+        "Please select at least one follower to send this recommendation to."
       );
       return;
     }
@@ -45,9 +52,12 @@ export const useBookRecommendationModal = () => {
       sendToEmails: selectedFollowers,
       item: mediaItem,
     });
+
+    onClose();
   };
 
   return {
+    error,
     selectedFollowers,
     setSelectedFollowers,
     toggleSelection,

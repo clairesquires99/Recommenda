@@ -31,6 +31,7 @@ export const BookRecommendationModal = ({
   book,
 }: BookRecommendationModalProps) => {
   const {
+    error,
     selectedFollowers,
     setSelectedFollowers,
     toggleSelection,
@@ -72,6 +73,7 @@ export const BookRecommendationModal = ({
               <Entypo name="cross" size={24} color="black" />
             </TouchableOpacity>
           </View>
+          {error && <Warning text={error} />}
           {followers && followers.length > 0 ? (
             <>
               <View style={{ flexDirection: "row" }}>
@@ -95,7 +97,7 @@ export const BookRecommendationModal = ({
                   <Feather name="send" style={globalStyles.customButtonText} />
                 )}
                 style={{ marginHorizontal: "auto", marginTop: 10 }}
-                onPress={() => handlePushRecommendation(book)}
+                onPress={() => handlePushRecommendation(book, onClose)}
               />
             </>
           ) : (
