@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
   rootLayout: {
     backgroundColor: "white",
   },
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     maxWidth: 650,
     width: "100%",
     marginHorizontal: "auto",
-    marginTop: 10,
+    paddingTop: 10,
   },
   title: {
     fontSize: 30,
@@ -39,21 +39,6 @@ export const styles = StyleSheet.create({
   linkText: {
     color: "#007AFF",
   },
-  inputSearchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#D3D3D3",
-    marginTop: 10,
-    width: "100%",
-  },
-  input: {
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    fontSize: 16,
-    width: "100%",
-  },
   authInput: {
     paddingVertical: 10,
     paddingHorizontal: 12,
@@ -68,17 +53,21 @@ export const styles = StyleSheet.create({
     backgroundColor: "#007AFF",
     padding: 10,
     borderRadius: 10,
-    margin: 10,
+    margin: 5,
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",
     maxWidth: 300,
+  },
+  disabledCustomButton: {
+    opacity: 0.5,
   },
   customButtonText: {
     color: "white",
     fontSize: 20,
     paddingRight: 5,
     paddingLeft: 5,
+    marginVertical: "auto",
   },
   arrowButton: {
     padding: 10,
@@ -94,26 +83,21 @@ export const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
   },
-  searchButton: {
-    padding: 15,
-  },
   cardContainer: {
     flexDirection: "column",
     width: "100%",
   },
-  card: {
+  userCard: {
     marginTop: 10,
-    padding: 5,
-    flexDirection: "row",
-  },
-  cardImage: {
-    height: 120,
-    width: 90,
+    padding: 10,
+    flexGrow: 1,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#D3D3D3",
   },
-  cardText: {
-    marginLeft: 10,
+  loadingCont: {
     flex: 1,
+    justifyContent: "center",
   },
   bookTitle: {
     fontSize: 18,
@@ -123,17 +107,5 @@ export const styles = StyleSheet.create({
   bookAuthor: {
     fontSize: 16,
     color: "#555",
-  },
-  userCard: {
-    marginTop: 10,
-    padding: 10,
-    flex: 1,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#D3D3D3",
-  },
-  loadingCont: {
-    flex: 1,
-    justifyContent: "center",
   },
 });

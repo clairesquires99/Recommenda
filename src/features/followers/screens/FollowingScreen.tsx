@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { Alert, FlatList, Text, TextInput, View } from "react-native";
 import { CustomButton } from "../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
-import { styles } from "../../../styles";
-import { createNewFollow, getFollowing } from "../../../utils/addItem";
-import { UserAbv } from "../../../utils/types";
+import { globalStyles } from "../../../globalStyles";
+import { createNewFollow, getFollowing } from "../../../utils/api";
+import { UserType } from "../../../utils/types";
 import { UserCard } from "../components/UserCard";
 import { useFollowingScreen } from "./useFollowingScreen";
 
 export const FollowingScreen = () => {
   const { toFollowEmail, setToFollowEmail, user } = useFollowingScreen();
-  const [following, setFollowing] = useState<UserAbv[] | undefined>([]);
+  const [following, setFollowing] = useState<UserType[] | undefined>([]);
   useEffect(() => {
     const fetchFollowing = async () => {
       try {
@@ -36,14 +36,15 @@ export const FollowingScreen = () => {
   return (
     <ScreenStyleWrapper>
       {/* This should probably be moved to a popup / modal */}
-      <Text style={styles.text_md}>
+      <Text style={globalStyles.text_md}>
         To follow someone new, enter their email below, then press "New Follow".
       </Text>
       <TextInput
         value={toFollowEmail}
         onChangeText={(text) => setToFollowEmail(text)}
-        style={styles.authInput}
+        style={globalStyles.authInput}
         placeholder="Email address"
+        autoCapitalize="none"
       />
       <CustomButton
         onPress={() => {
@@ -53,16 +54,16 @@ export const FollowingScreen = () => {
             setToFollowEmail: setToFollowEmail,
           });
         }}
-      >
-        <Text style={styles.customButtonText}>New follow</Text>
-      </CustomButton>
-      <Text style={styles.text_20}>Following</Text>
+        text={"New follow"}
+      />
+
+      <Text style={globalStyles.text_20}>Following</Text>
       {following?.length <= 0 && (
         <Text>
           You haven't followed anyone yet! Click 'New Follow' to get started.
         </Text>
       )}
-      <View style={styles.cardContainer}>
+      <View style={globalStyles.cardContainer}>
         <FlatList
           data={following}
           renderItem={({ item }) => <UserCard user={item} />}

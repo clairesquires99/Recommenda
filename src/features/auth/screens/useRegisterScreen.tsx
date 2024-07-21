@@ -1,9 +1,9 @@
+import { useRouter } from "expo-router";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { FIREBASE_AUTH } from "../../../../firebaseConfig";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useRouter } from "expo-router";
+import { addNewUser } from "../../../utils/api";
 import { useAuthStore } from "../../../utils/store";
-import { addNewUser } from "../../../utils/addItem";
 
 export const useRegisterScreen = () => {
   const [firstName, setFirstName] = useState("");

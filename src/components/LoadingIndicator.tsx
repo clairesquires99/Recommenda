@@ -1,9 +1,9 @@
 import { ActivityIndicator, View } from "react-native";
-import { styles } from "../styles";
+import { globalStyles } from "../globalStyles";
 
 export const LoadingIndicator = () => {
   return (
-    <View style={styles.loadingCont}>
+    <View style={globalStyles.loadingCont}>
       <ActivityIndicator size="large" color="#007AFF" />
     </View>
   );

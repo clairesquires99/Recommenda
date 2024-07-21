@@ -1,16 +1,16 @@
-import { View, Text } from "react-native";
-import { UserAbv } from "../../../utils/types";
-import { styles } from "../../../styles";
+import { Text, View } from "react-native";
+import { globalStyles } from "../../../globalStyles";
+import { UserType } from "../../../utils/types";
 
 interface UserCardProps {
-  user: UserAbv;
+  user: UserType;
 }
 
 export const UserCard: React.FC<UserCardProps> = ({ user }) => {
   return (
-    <View style={styles.userCard}>
-      <Text style={styles.bookTitle}>{user.name}</Text>
-      <Text style={styles.bookAuthor}>{user.email}</Text>
+    <View style={globalStyles.userCard}>
+      <Text style={globalStyles.bookTitle}>{user.name}</Text>
+      <Text style={globalStyles.bookAuthor}>{user.email}</Text>
     </View>
   );
 };
