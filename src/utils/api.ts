@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { Alert } from "react-native";
 import { FIRESTORE_DB } from "../../firebaseConfig";
-import { MediaItemType, UserType } from "./types";
+import { MediaItemType, RecommendedItemType, UserType } from "./types";
 
 interface AddNewUserProps {
   name: string;
@@ -252,17 +252,18 @@ export const getRecommendationsByMe = async (user: User | null) => {
   if (qSnapshot.empty) {
     return [];
   }
-  let recommendations: MediaItemType[] = [];
+  let recommendations: RecommendedItemType[] = [];
   qSnapshot.forEach((doc) => {
     const data = doc.data();
-    const mediaItem: MediaItemType = {
+    const recommendedItem: RecommendedItemType = {
       id: data.item.id,
       image: data.item.image,
       title: data.item.title,
       type: data.item.type,
       author: data.item.author,
+      recommender: data.recommendedToUser,
     };
-    recommendations.push(mediaItem);
+    recommendations.push(recommendedItem);
   });
   return recommendations;
 };

@@ -1,17 +1,18 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import { MediaItemType } from "../utils/types";
+import { GroupedRecommendedItemType } from "../utils/types";
 
-interface RecommendedItem {
-  item: MediaItemType;
+interface RecommendedItemProps {
+  item: GroupedRecommendedItemType;
 }
 
-export const RecommendedItem = ({ item }: RecommendedItem) => {
+export const RecommendedItem = ({ item }: RecommendedItemProps) => {
   return (
     <View style={styles.card}>
       <Image source={{ uri: item.image }} style={styles.cardImage} />
       <View style={styles.cardText}>
         <Text style={styles.mediaTitle}>{item.title}</Text>
         <Text style={styles.mediaAuthor}>By {item.author}</Text>
+        <Text>Recommended to: {item.recommenders}</Text>
       </View>
     </View>
   );
@@ -31,11 +32,11 @@ const styles = StyleSheet.create({
   cardText: {
     marginLeft: 10,
     flex: 1,
+    gap: 5,
   },
   mediaTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 8,
   },
   mediaAuthor: {
     fontSize: 16,

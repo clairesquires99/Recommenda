@@ -3,10 +3,22 @@ export type UserType = {
   email: string;
 };
 
+export enum MediaType {
+  Book,
+}
+
 export type MediaItemType = {
   id: string;
-  type: "book";
+  type: MediaType;
   image: string;
   title: string;
   author: string[];
+};
+
+export type RecommendedItemType = MediaItemType & {
+  recommender: string;
+};
+
+export type GroupedRecommendedItemType = MediaItemType & {
+  recommenders: string[];
 };
