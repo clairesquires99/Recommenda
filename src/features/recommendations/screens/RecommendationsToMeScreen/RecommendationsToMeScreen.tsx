@@ -1,35 +1,12 @@
-import { useEffect, useState } from "react";
 import { FlatList, Platform, Text } from "react-native";
 import { LoadingIndicator } from "../../../../components/LoadingIndicator";
 import { RecommendedItem } from "../../../../components/RecommendedItem";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../../globalStyles";
-import { getRecommendationsToMe } from "../../../../utils/api";
-import { useAuthStore } from "../../../../utils/store";
-import { GroupedRecommendedItemType } from "../../../../utils/types";
-import { groupRecommendations } from "../../../../utils/utils";
+import { useRecommendationsToMeScreen } from "./useRecommendationsToMeScreen";
 
 export const RecommendationsToMeScreen = () => {
-  const user = useAuthStore((state) => state.user);
-  const [recommendations, setRecommendations] =
-    useState<GroupedRecommendedItemType[]>();
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const fetchRecommendations = async () => {
-      setIsLoading(true);
-      try {
-        const recs = await getRecommendationsToMe(user);
-        if (!recs) return;
-        const groupedRecs = groupRecommendations(recs);
-        setRecommendations(groupedRecs);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchRecommendations();
-  }, []);
+  const { isLoading, recommendations } = useRecommendationsToMeScreen();
 
   return (
     <ScreenStyleWrapper>
