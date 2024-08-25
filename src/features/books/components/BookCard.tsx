@@ -12,13 +12,21 @@ export const BookCard = ({ book, onRecommend }: BookCardProps) => {
   return (
     <Pressable style={styles.card} onPress={onRecommend}>
       <Image
-        source={{ uri: book.volumeInfo.imageLinks.thumbnail }}
+        source={{
+          uri:
+            book?.volumeInfo?.imageLinks?.thumbnail ??
+            "https://jkfenner.com/wp-content/uploads/2019/11/default.jpg",
+        }}
         style={styles.cardImage}
       />
       <View style={styles.cardText}>
-        <Text style={globalStyles.bookTitle}>{book.volumeInfo.title}</Text>
+        <Text style={globalStyles.bookTitle}>
+          {book?.volumeInfo?.title ?? "No title found"}
+        </Text>
         <Text style={globalStyles.bookAuthor}>
-          By {book.volumeInfo.authors}
+          {book?.volumeInfo?.authors
+            ? `By ${book?.volumeInfo?.authors}`
+            : "No authors found"}
         </Text>
       </View>
       <View>
