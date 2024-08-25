@@ -110,6 +110,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: 16,
     flexGrow: 1,
+    // @ts-ignore
+    outlineStyle: "none",
   },
   searchButton: {
     padding: 15,
