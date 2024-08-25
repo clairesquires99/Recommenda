@@ -14,7 +14,6 @@ export const FollowersScreen = () => {
     const fetchFollowers = async () => {
       try {
         const f = await getFollowers(user);
-        // const f: UserType[] = [];
         setFollowers(f);
       } catch (error) {
         console.error(error);
