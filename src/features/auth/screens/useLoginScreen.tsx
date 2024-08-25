@@ -20,7 +20,7 @@ export const useLoginScreen = () => {
       const user = userCredentials.user;
       setAsyncUser(user);
       setUser(user);
-      router.push("/home");
+      router.push("/home/");
     } catch (error) {
       alert(error);
     }
