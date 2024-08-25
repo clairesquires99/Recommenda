@@ -1,26 +1,11 @@
-import { useEffect, useState } from "react";
 import { Alert, FlatList, Text, View } from "react-native";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../../globalStyles";
-import { getFollowers } from "../../../../utils/api";
-import { UserType } from "../../../../utils/types";
 import { UserCard } from "../../components/UserCard";
 import { useFollowersScreen } from "./useFollowersScreen";
 
 export const FollowersScreen = () => {
-  const { user } = useFollowersScreen();
-  const [followers, setFollowers] = useState<UserType[] | undefined>();
-  useEffect(() => {
-    const fetchFollowers = async () => {
-      try {
-        const f = await getFollowers(user);
-        setFollowers(f);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchFollowers();
-  }, []);
+  const { user, followers } = useFollowersScreen();
 
   if (!user) {
     Alert.alert("Error", "Cannot perform action since there is no user set");

@@ -1,27 +1,14 @@
-import { useEffect, useState } from "react";
 import { Alert, FlatList, Text, TextInput, View } from "react-native";
 import { CustomButton } from "../../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../../globalStyles";
-import { createNewFollow, getFollowing } from "../../../../utils/api";
-import { UserType } from "../../../../utils/types";
+import { createNewFollow } from "../../../../utils/api";
 import { UserCard } from "../../components/UserCard";
 import { useFollowingScreen } from "./useFollowingScreen";
 
 export const FollowingScreen = () => {
-  const { toFollowEmail, setToFollowEmail, user } = useFollowingScreen();
-  const [following, setFollowing] = useState<UserType[] | undefined>([]);
-  useEffect(() => {
-    const fetchFollowing = async () => {
-      try {
-        const f = await getFollowing(user);
-        setFollowing(f);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchFollowing();
-  }, []);
+  const { toFollowEmail, setToFollowEmail, following, user } =
+    useFollowingScreen();
 
   if (!user) {
     Alert.alert("Error", "Cannot perform action since there is no user set");
