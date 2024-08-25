@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuthStore } from "../../../utils/store";
+import { useAuthStore } from "../../../../utils/store";
 
 export const useFollowingScreen = () => {
   const [toFollowEmail, setToFollowEmail] = useState("");

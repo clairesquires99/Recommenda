@@ -10,6 +10,10 @@ export default function ProfileLayout() {
         name="following"
         options={{ title: "Following", headerShown: Platform.OS !== "web" }}
       />
+      <Stack.Screen
+        name="followers"
+        options={{ title: "Followers", headerShown: Platform.OS !== "web" }}
+      />
     </Stack>
   );
 }

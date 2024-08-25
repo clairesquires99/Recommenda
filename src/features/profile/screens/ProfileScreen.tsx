@@ -29,6 +29,10 @@ export const ProfileScreen = () => {
         title="Following"
         onPress={() => router.push("/(tabs)/profile/following")}
       />
+      <ArrowButton
+        title="Followers"
+        onPress={() => router.push("/(tabs)/profile/followers")}
+      />
       <CustomButton
         onPress={() => pressLogout(removeUser)}
         text={"Logout"}
