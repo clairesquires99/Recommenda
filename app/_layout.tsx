@@ -9,7 +9,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)/home",
+  initialRouteName: "(tabs)/home/",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -21,6 +21,7 @@ export default function RootLayout() {
   }, []);
 
   const setUser = useAuthStore((state) => state.setUser);
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
     (async () => {
@@ -33,10 +34,6 @@ export default function RootLayout() {
     })();
   }, []);
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
   return (
     <Stack
       screenOptions={{
