@@ -2,12 +2,11 @@ import { Alert, FlatList, Text, TextInput, View } from "react-native";
 import { CustomButton } from "../../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../../globalStyles";
-import { createNewFollow } from "../../../../utils/api";
 import { UserCard } from "../../components/UserCard";
 import { useFollowingScreen } from "./useFollowingScreen";
 
 export const FollowingScreen = () => {
-  const { toFollowEmail, setToFollowEmail, following, user } =
+  const { toFollowEmail, setToFollowEmail, following, user, handleNewFollow } =
     useFollowingScreen();
 
   if (!user) {
@@ -33,16 +32,7 @@ export const FollowingScreen = () => {
         placeholder="Email address"
         autoCapitalize="none"
       />
-      <CustomButton
-        onPress={() => {
-          createNewFollow({
-            user: user,
-            followingEmail: toFollowEmail,
-            setToFollowEmail: setToFollowEmail,
-          });
-        }}
-        text={"New follow"}
-      />
+      <CustomButton onPress={handleNewFollow} text={"New follow"} />
 
       <Text style={globalStyles.text_20}>Following</Text>
       {following?.length <= 0 && (

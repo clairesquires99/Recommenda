@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getFollowing } from "../../../../utils/api";
+import { useCallback, useEffect, useState } from "react";
+import { createNewFollow, getFollowing } from "../../../../utils/api";
 import { useAuthStore } from "../../../../utils/store";
 import { UserType } from "../../../../utils/types";
 
@@ -8,17 +8,30 @@ export const useFollowingScreen = () => {
   const [following, setFollowing] = useState<UserType[] | undefined>([]);
   const user = useAuthStore((state) => state.user);
 
-  useEffect(() => {
-    const fetchFollowing = async () => {
-      try {
-        const f = await getFollowing(user);
-        setFollowing(f);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchFollowing();
+  const fetchFollowing = useCallback(async () => {
+    try {
+      const f = await getFollowing(user);
+      setFollowing(f);
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
-  return { toFollowEmail, setToFollowEmail, following, user };
+  useEffect(() => {
+    fetchFollowing();
+  }, [fetchFollowing]);
+
+  const handleNewFollow = async () => {
+    if (!user) return;
+
+    await createNewFollow({
+      user: user,
+      followingEmail: toFollowEmail,
+      setToFollowEmail: setToFollowEmail,
+    });
+
+    fetchFollowing();
+  };
+
+  return { toFollowEmail, setToFollowEmail, following, user, handleNewFollow };
 };
