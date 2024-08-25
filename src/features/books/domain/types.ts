@@ -1,10 +1,10 @@
 export type Book = {
   id: string;
   volumeInfo: {
-    title: string;
-    authors: string[];
+    title: string | null;
+    authors: string[] | null;
     imageLinks: {
-      thumbnail: string;
-    };
-  };
+      thumbnail: string | null;
+    } | null;
+  } | null;
 };
