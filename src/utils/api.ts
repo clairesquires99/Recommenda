@@ -2,6 +2,8 @@ import { User } from "firebase/auth";
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   query,
   serverTimestamp,
@@ -22,6 +24,32 @@ export const addNewUser = async ({ name, email }: AddNewUserProps) => {
     email: email,
   });
   console.log("New user added to DB");
+};
+
+export const removeUserFromFirestore = async (user: User) => {
+  // This function doesn't work and looks like a mess. Start here
+  // There should be an easier way to just search and find a
+  //    document in a firestore???
+  try {
+    const q = query(
+      collection(FIRESTORE_DB, "users"),
+      where("email", "==", user.email)
+    );
+    const qSnapshot = await getDocs(q);
+    if (qSnapshot.empty) {
+      console.log("Error: There is no user with the following email address");
+      return;
+    }
+    const userId = qSnapshot.docs[0];
+    console.log({ user: qSnapshot.docs[0] });
+    // I think we need the document id here
+    const userDocRef = doc(FIRESTORE_DB, "users", "userId");
+    console.log(userDocRef);
+    await deleteDoc(userDocRef);
+    console.log("User removed from DB");
+  } catch (error) {
+    console.log("Error removing user from Firestore: ", error);
+  }
 };
 
 interface createNewFollowProps {
