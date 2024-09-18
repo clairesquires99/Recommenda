@@ -6,14 +6,11 @@ import { ArrowButton } from "../../../components/ArrowButton";
 import { CustomButton } from "../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../globalStyles";
-import { useAuthStore } from "../../../utils/store";
-import { pressLogout } from "../../auth/domain/utils";
 import { useProfileScreen } from "./useProfileScreen";
 
 export const ProfileScreen = () => {
-  const removeUser = useAuthStore((state) => state.removeUser);
-  const { user } = useProfileScreen();
   const router = useRouter();
+  const { user, handleLogout, handleDeleteAccount } = useProfileScreen();
 
   if (!user) {
     alert("No user set");
@@ -34,11 +31,24 @@ export const ProfileScreen = () => {
         onPress={() => router.push("/(tabs)/profile/followers")}
       />
       <CustomButton
-        onPress={() => pressLogout(removeUser)}
+        onPress={handleLogout}
         text={"Logout"}
         Icon={() => (
           <MaterialIcons
             name="logout"
+            size={24}
+            color="black"
+            style={globalStyles.customButtonText}
+          />
+        )}
+      />
+      <CustomButton
+        onPress={handleDeleteAccount}
+        text={"Delete Account"}
+        style={{ backgroundColor: "red" }}
+        Icon={() => (
+          <MaterialIcons
+            name="delete-forever"
             size={24}
             color="black"
             style={globalStyles.customButtonText}
