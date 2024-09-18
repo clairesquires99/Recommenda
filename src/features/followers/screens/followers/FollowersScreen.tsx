@@ -1,4 +1,5 @@
-import { Alert, FlatList, Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../../globalStyles";
 import { UserCard } from "../../components/UserCard";
@@ -8,12 +9,20 @@ export const FollowersScreen = () => {
   const { user, followers } = useFollowersScreen();
 
   if (!user) {
-    Alert.alert("Error", "Cannot perform action since there is no user set");
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: "Cannot perform action since there is no user set",
+    });
     return;
   }
 
   if (!followers) {
-    Alert.alert("Error", "Something has gone wrong, followers is undefined");
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: "Something has gone wrong, followers is undefined",
+    });
     return;
   }
 

@@ -22,7 +22,7 @@ export const useLoginScreen = () => {
       setUser(user);
       router.push("/home/");
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

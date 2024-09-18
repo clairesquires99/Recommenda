@@ -19,7 +19,7 @@ export const useAuth = () => {
       await signOut(FIREBASE_AUTH);
       router.push("/login");
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

@@ -1,4 +1,5 @@
-import { Alert, FlatList, Text, TextInput, View } from "react-native";
+import { FlatList, Text, TextInput, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { CustomButton } from "../../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../../globalStyles";
@@ -10,12 +11,20 @@ export const FollowingScreen = () => {
     useFollowingScreen();
 
   if (!user) {
-    Alert.alert("Error", "Cannot perform action since there is no user set");
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: "Cannot perform action since there is no user set",
+    });
     return;
   }
 
   if (!following) {
-    Alert.alert("Error", "Something has gone wrong, following is undefined");
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: "Something has gone wrong: following is undefined",
+    });
     return;
   }
 
