@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
+import Toast from "react-native-toast-message";
 import { FIREBASE_AUTH } from "../../../../firebaseConfig";
 import { addNewUser } from "../../../utils/api";
 import { useAuthStore } from "../../../utils/store";
@@ -17,7 +18,11 @@ export const useRegisterScreen = () => {
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      alert("Your passwords do not match. Please try again.");
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Your passwords do not match. Please try again.",
+      });
       return;
     }
     try {
@@ -35,7 +40,7 @@ export const useRegisterScreen = () => {
       setUser(user);
       router.push("/");
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

@@ -13,7 +13,6 @@ export const ProfileScreen = () => {
   const { user, handleLogout, handleDeleteAccount } = useProfileScreen();
 
   if (!user) {
-    alert("No user set");
     return;
   }
 

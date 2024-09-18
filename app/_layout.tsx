@@ -1,5 +1,7 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import Toast from "react-native-toast-message";
+import { toastConfig } from "../src/components/toastConfig";
 import { getAsyncUser, useAuthStore } from "../src/utils/store";
 
 export {
@@ -35,11 +37,14 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: { backgroundColor: "white" },
-      }}
-    />
+    <>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: "white" },
+        }}
+      />
+      <Toast config={toastConfig} position={"bottom"} />
+    </>
   );
 }

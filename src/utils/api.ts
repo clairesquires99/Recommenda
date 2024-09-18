@@ -10,7 +10,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { Alert } from "react-native";
+import Toast from "react-native-toast-message";
 import { FIRESTORE_DB } from "../../firebaseConfig";
 import { MediaItemType, RecommendedItemType, UserType } from "./types";
 
@@ -108,9 +108,12 @@ export const createNewFollow = async ({
   const lowercaseFollowingEmail = followingEmail.toLowerCase();
   let followingName: string = "";
   if (lowercaseFollowingEmail === user.email) {
-    alert(
-      "You cannot follow yourself. Enter a different user's email address to follow."
-    );
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2:
+        "You cannot follow yourself. Enter a different user's email address to follow.",
+    });
     return;
   }
   try {
@@ -120,12 +123,19 @@ export const createNewFollow = async ({
     );
     const qSnapshot = await getDocs(q);
     if (qSnapshot.empty) {
-      alert(
-        `There is no user with the following email address: ${lowercaseFollowingEmail}`
-      );
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: `There is no user with the following email address: ${lowercaseFollowingEmail}`,
+      });
       return;
     }
     followingName = qSnapshot.docs[0].data().name;
+    Toast.show({
+      type: "success",
+      text1: "New follow!",
+      text2: `You're now following ${lowercaseFollowingEmail}`,
+    });
   } catch (error) {
     console.log(error);
     return;
@@ -139,7 +149,11 @@ export const createNewFollow = async ({
     );
     const qSnapshot = await getDocs(q);
     if (!qSnapshot.empty) {
-      alert(`You are already following ${lowercaseFollowingEmail}`);
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: `You are already following ${lowercaseFollowingEmail}`,
+      });
       return;
     }
   } catch (error) {
@@ -160,8 +174,6 @@ export const createNewFollow = async ({
   }
 
   setToFollowEmail("");
-  Alert.alert("Success!", `You are now following ${lowercaseFollowingEmail}`);
-  console.log(user.email, "is now following", lowercaseFollowingEmail);
 };
 
 export const getFollowing = async (user: User | null) => {
@@ -244,10 +256,11 @@ export const pushRecommendation = async ({
   });
 
   if (duplicateRecommendations.length > 0)
-    alert(
-      `You have already recommended this item to the people below. We won't recommend it again. \n${duplicateRecommendations}`
-    );
-  console.log("New recommendation added to DB");
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: `You have already recommended this item to the people below. We won't recommend it again. \n${duplicateRecommendations}`,
+    });
 };
 
 interface FindDuplicateRecommendationsProps {

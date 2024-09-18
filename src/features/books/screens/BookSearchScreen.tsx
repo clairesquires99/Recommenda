@@ -1,5 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { FlatList, StyleSheet, TextInput, View } from "react-native";
+import LottieView from "lottie-react-native";
+import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { LoadingIndicator } from "../../../components/LoadingIndicator";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
@@ -33,7 +34,7 @@ export const BookSearchScreen = () => {
       <View style={styles.inputSearchContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Enter book title or author..."
+          placeholder="Search"
           value={query}
           onChangeText={setQuery}
           placeholderTextColor="#aaa"
@@ -43,7 +44,20 @@ export const BookSearchScreen = () => {
           <FontAwesome name="search" style={{ fontSize: 20 }} />
         </TouchableOpacity>
       </View>
+      {!books.length && !isLoading && (
+        <View style={styles.emptySearchContainer}>
+          <LottieView
+            source={require("./../../../assets/animations/book-search.json")}
+            autoPlay
+            loop
+          />
+          <Text style={styles.emptySearchText}>
+            Start by searching for a book!
+          </Text>
+        </View>
+      )}
       {isLoading && <LoadingIndicator />}
+      {!isLoading && !books && query && <Text>No results found.</Text>}
       <FlatList
         data={books}
         keyExtractor={(item) => item.id}
@@ -66,6 +80,7 @@ const styles = StyleSheet.create({
     borderColor: "#D3D3D3",
     marginTop: 10,
     width: "100%",
+    marginBottom: 20,
   },
   input: {
     paddingVertical: 10,
@@ -77,5 +92,13 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     padding: 15,
+  },
+  emptySearchContainer: {
+    width: 400,
+    alignContent: "center",
+  },
+  emptySearchText: {
+    textAlign: "center",
+    margin: -150,
   },
 });
