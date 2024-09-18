@@ -1,7 +1,11 @@
 import { useRouter } from "expo-router";
 import { deleteUser, signOut } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
-import { removeUserFromFirestore } from "../../utils/api";
+import {
+  removeUserFollowRelationships,
+  removeUserFromUsersTable,
+  updateRecommendationsForDeletedUser,
+} from "../../utils/api";
 import { clearAsync, useAuthStore } from "../../utils/store";
 
 export const useAuth = () => {
@@ -21,29 +25,26 @@ export const useAuth = () => {
 
   const deleteAccount = async () => {
     const user = FIREBASE_AUTH.currentUser;
-    if (!user) {
-      console.log("Delete account failed: No user found");
+    if (!user || !user.email) {
+      console.log("Delete account failed: No user or email address found");
       return;
     }
 
     removeUser();
     clearAsync();
 
-    // Step 1: delete their follows
+    await removeUserFollowRelationships(user.email);
 
-    // Step 2: delete their recommendations
+    await updateRecommendationsForDeletedUser(user.email);
 
-    // Step 3: delete their firestore user
-    removeUserFromFirestore(user);
+    await removeUserFromUsersTable(user.email);
 
-    // Step 4: delete their fireauth user
     try {
       await deleteUser(user);
     } catch (error) {
       console.log(error);
     }
 
-    // Step 5: Redirect
     router.push("/login");
   };
 

@@ -3,10 +3,11 @@ import {
   addDoc,
   collection,
   deleteDoc,
-  doc,
   getDocs,
+  or,
   query,
   serverTimestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { Alert } from "react-native";
@@ -26,29 +27,70 @@ export const addNewUser = async ({ name, email }: AddNewUserProps) => {
   console.log("New user added to DB");
 };
 
-export const removeUserFromFirestore = async (user: User) => {
-  // This function doesn't work and looks like a mess. Start here
-  // There should be an easier way to just search and find a
-  //    document in a firestore???
+export const updateRecommendationsForDeletedUser = async (email: string) => {
+  try {
+    const q = query(
+      collection(FIRESTORE_DB, "recommendations"),
+      or(
+        where("recommendedByUser", "==", email),
+        where("recommendedToUser", "==", email)
+      )
+    );
+    const qSnapshot = await getDocs(q);
+    qSnapshot.forEach(async (doc) => {
+      const data = doc.data();
+      const updatedData = {
+        ...data,
+        recommendedByUser:
+          data.recommendedByUser === email
+            ? "deletedUser"
+            : data.recommendedByUser,
+        recommendedToUser:
+          data.recommendedToUser === email
+            ? "deletedUser"
+            : data.recommendedToUser,
+      };
+      await updateDoc(doc.ref, updatedData);
+    });
+    console.log("Recommendations updated for deleted user");
+  } catch (error) {
+    console.log("Error updating recommendations for deleted user: ", error);
+  }
+};
+
+export const removeUserFromUsersTable = async (email: string) => {
   try {
     const q = query(
       collection(FIRESTORE_DB, "users"),
-      where("email", "==", user.email)
+      where("email", "==", email)
     );
     const qSnapshot = await getDocs(q);
     if (qSnapshot.empty) {
-      console.log("Error: There is no user with the following email address");
+      console.log("Error: No user found with the provided email address");
       return;
     }
-    const userId = qSnapshot.docs[0];
-    console.log({ user: qSnapshot.docs[0] });
-    // I think we need the document id here
-    const userDocRef = doc(FIRESTORE_DB, "users", "userId");
-    console.log(userDocRef);
+    const userDocRef = qSnapshot.docs[0].ref;
     await deleteDoc(userDocRef);
-    console.log("User removed from DB");
+    console.log("User deleted from DB");
   } catch (error) {
-    console.log("Error removing user from Firestore: ", error);
+    console.log("Error deleting user from Firestore: ", error);
+  }
+};
+
+export const removeUserFollowRelationships = async (email: string) => {
+  try {
+    const q = query(
+      collection(FIRESTORE_DB, "follows"),
+      or(where("userEmail", "==", email), where("followingEmail", "==", email))
+    );
+    const qSnapshot = await getDocs(q);
+    qSnapshot.forEach(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+
+    console.log("User's follow records deleted from DB");
+  } catch (error) {
+    console.log("Error deleting follow records from Firestore: ", error);
   }
 };
 
