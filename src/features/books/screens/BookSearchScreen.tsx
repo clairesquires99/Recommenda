@@ -44,7 +44,7 @@ export const BookSearchScreen = () => {
           <FontAwesome name="search" style={{ fontSize: 20 }} />
         </TouchableOpacity>
       </View>
-      {!books && !query && (
+      {!books.length && !isLoading && (
         <View style={styles.emptySearchContainer}>
           <LottieView
             source={require("./../../../assets/animations/book-search.json")}
