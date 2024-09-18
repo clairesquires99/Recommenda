@@ -29,7 +29,7 @@ export const toastConfig = {
 const styles = StyleSheet.create({
   container: {
     width: "95%",
-    padding: 20,
+    padding: 10,
     height: "auto",
   },
   success: {
