@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Toast from "react-native-toast-message";
 import { pushRecommendation } from "../../../utils/api";
 import { useAuthStore } from "../../../utils/store";
 import { UserType } from "../../../utils/types";
@@ -54,6 +55,11 @@ export const useBookRecommendationModal = () => {
     });
 
     onClose();
+    Toast.show({
+      type: "success",
+      text1: "Recommendation sent!",
+      text2: `You recommended '${book.volumeInfo?.title}' to ${selectedFollowers}`,
+    });
   };
 
   return {

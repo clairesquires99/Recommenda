@@ -65,7 +65,7 @@ export const BookRecommendationModal = ({
     >
       <View style={styles.modalBackground}>
         <View style={styles.modalContainer}>
-          <View style={styles.modalHeadingConatiner}>
+          <View style={styles.modalHeadingContainer}>
             <Text style={[globalStyles.text_20, styles.modalTitle]}>
               Recommend a book to anyone who follows you
             </Text>
@@ -126,6 +126,6 @@ const styles = StyleSheet.create({
     maxWidth: 500,
     maxHeight: "95%",
   },
-  modalHeadingConatiner: { flexDirection: "row", marginBottom: 10 },
+  modalHeadingContainer: { flexDirection: "row", marginBottom: 10 },
   modalTitle: { flexGrow: 1, paddingRight: 10 },
 });
