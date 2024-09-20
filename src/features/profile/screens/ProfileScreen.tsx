@@ -23,11 +23,11 @@ export const ProfileScreen = () => {
       <Text style={globalStyles.text_md}>{user.email}</Text>
       <ArrowButton
         title="Following"
-        onPress={() => router.push("/(tabs)/profile/following")}
+        onPress={() => router.push("/profile/following")}
       />
       <ArrowButton
         title="Followers"
-        onPress={() => router.push("/(tabs)/profile/followers")}
+        onPress={() => router.push("/profile/followers")}
       />
       <View
         style={{

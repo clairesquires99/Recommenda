@@ -1,4 +1,4 @@
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Platform, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../../globalStyles";
@@ -19,7 +19,9 @@ export const FollowersScreen = () => {
 
   return (
     <ScreenStyleWrapper>
-      <Text style={globalStyles.text_20}>Followers</Text>
+      {Platform.OS === "web" && (
+        <Text style={globalStyles.text_20}>Followers</Text>
+      )}
       {followers && followers?.length <= 0 && (
         <Text>
           You don't have any followers yet. Tell your friends to follow you

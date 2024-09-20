@@ -13,7 +13,7 @@ export const Tabs = () => {
   return (
     <ExpoTabs>
       <ExpoTabs.Screen
-        name="home"
+        name="index"
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
@@ -27,6 +27,10 @@ export const Tabs = () => {
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
           headerShown: false,
         }}
+      />
+      <ExpoTabs.Screen
+        name="recommendations"
+        options={{ href: null, headerShown: false }}
       />
     </ExpoTabs>
   );

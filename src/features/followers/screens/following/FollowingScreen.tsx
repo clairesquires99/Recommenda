@@ -1,6 +1,13 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Toast from "react-native-toast-message";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../../globalStyles";
@@ -47,9 +54,13 @@ export const FollowingScreen = () => {
         handleNewFollow={handleNewFollow}
       />
       <View style={styles.headingContainer}>
-        <Text style={[globalStyles.text_20, styles.headingText]}>
-          Following
-        </Text>
+        <View style={styles.headingText}>
+          {Platform.OS === "web" && (
+            <Text style={[globalStyles.text_20, { textAlign: "center" }]}>
+              Following
+            </Text>
+          )}
+        </View>
         <Pressable onPress={toggleModal} style={{ width: 30 }}>
           <Ionicons name="person-add" size={30} color="#007AFF" />
         </Pressable>
@@ -78,5 +89,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 10,
   },
-  headingText: { marginRight: -30, width: "100%", textAlign: "center" },
+  headingText: { marginRight: -30, width: "100%" },
 });
