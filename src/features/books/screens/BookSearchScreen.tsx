@@ -1,7 +1,12 @@
 import { FontAwesome } from "@expo/vector-icons";
-import LottieView from "lottie-react-native";
-import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { LoadingIndicator } from "../../../components/LoadingIndicator";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../globalStyles";
@@ -22,6 +27,8 @@ export const BookSearchScreen = () => {
     closeModal,
     openModal,
   } = useBookSearchScreen();
+
+  console.log("books", !books.length && !isLoading);
 
   return (
     <ScreenStyleWrapper>
@@ -45,16 +52,7 @@ export const BookSearchScreen = () => {
         </TouchableOpacity>
       </View>
       {!books.length && !isLoading && (
-        <View style={styles.emptySearchContainer}>
-          <LottieView
-            source={require("./../../../assets/animations/book-search.json")}
-            autoPlay
-            loop
-          />
-          <Text style={styles.emptySearchText}>
-            Start by searching for a book!
-          </Text>
-        </View>
+        <Text>Get recommending by searching for your favourite books!</Text>
       )}
       {isLoading && <LoadingIndicator />}
       {!isLoading && !books && query && <Text>No results found.</Text>}

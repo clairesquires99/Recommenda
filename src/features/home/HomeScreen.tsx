@@ -27,31 +27,32 @@ export const HomeScreen = () => {
         />
       )}
       <Text>Hello, {user?.email}</Text>
-      <Text style={globalStyles.text_20}>See you reccomendations</Text>
+
+      <Text style={globalStyles.text_20}>See your recommendations</Text>
       <CustomButton
-        onPress={() => router.push("/(tabs)/home/recommendationsToMe")}
-        text={"Recomended to me"}
+        onPress={() => router.push("/recommendations/recommendationsToMe")}
+        text={"Recommended to me"}
         Icon={() => (
           <Octicons style={globalStyles.customButtonText} name="person" />
         )}
       />
       <CustomButton
-        onPress={() => router.push("/(tabs)/home/recommendationsByMe")}
-        text={"Recomended by me"}
+        onPress={() => router.push("/recommendations/recommendationsByMe")}
+        text={"Recommended by me"}
         Icon={() => (
           <Octicons style={globalStyles.customButtonText} name="people" />
         )}
       />
       <Text style={globalStyles.text_20}>Make some recommendations</Text>
       <CustomButton
-        onPress={() => router.push("/(tabs)/home/bookSearch")}
+        onPress={() => router.push("/recommendations/bookSearch")}
         text={"Books"}
         Icon={() => (
           <FontAwesome style={globalStyles.customButtonText} name="book" />
         )}
       />
       <CustomButton
-        onPress={() => router.push("#")}
+        onPress={() => null}
         text={"Film"}
         Icon={() => (
           <FontAwesome6 name="film" style={globalStyles.customButtonText} />
@@ -59,7 +60,7 @@ export const HomeScreen = () => {
         disabled={true}
       />
       <CustomButton
-        onPress={() => router.push("#")}
+        onPress={() => null}
         text={"Music"}
         Icon={() => (
           <Feather name="music" style={globalStyles.customButtonText} />

@@ -12,8 +12,8 @@ export default function NotFoundScreen() {
         <SafeAreaView style={globalStyles.container}>
           <View style={globalStyles.container}>
             <Text style={globalStyles.title}>This screen doesn't exist.</Text>
-            <Link href="/home" style={globalStyles.link}>
-              <Text style={globalStyles.linkText}>Go to home screen!</Text>
+            <Link href="/" style={globalStyles.link}>
+              <Text style={globalStyles.linkText}>Go back home!</Text>
             </Link>
           </View>
         </SafeAreaView>

@@ -18,7 +18,9 @@ export const RecommendationsByMeScreen = () => {
         <FlatList
           data={recommendations}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <RecommendedItem item={item} />}
+          renderItem={({ item }) => (
+            <RecommendedItem item={item} displayedOnPage="recommended by" />
+          )}
           style={[globalStyles.cardContainer]}
           showsVerticalScrollIndicator={false}
         />

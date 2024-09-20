@@ -1,4 +1,4 @@
-import { router, usePathname } from "expo-router";
+import { Href, router, usePathname } from "expo-router";
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -6,7 +6,7 @@ const BRAND_BLUE = "#007AFF";
 const HOVER_BRAND_BLUE = "rgba(0, 122, 255, 0.5)";
 
 type NavLinkProps = {
-  href: string;
+  href: Href<string>;
   children: React.ReactNode;
 };
 
@@ -15,7 +15,7 @@ export const LeftSidePanel = () => {
 
   const NavLink = ({ href, children }: NavLinkProps) => {
     const [hover, setHover] = useState(false);
-    const isActive = currentPath.startsWith(href);
+    const isActive = currentPath.startsWith(href as string);
     return (
       <Pressable
         style={[
@@ -41,7 +41,7 @@ export const LeftSidePanel = () => {
 
   return (
     <View style={styles.container}>
-      <NavLink href="/home">Home</NavLink>
+      <NavLink href="/">Home</NavLink>
       <NavLink href="/profile">Profile</NavLink>
     </View>
   );
