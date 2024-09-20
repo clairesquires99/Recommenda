@@ -131,11 +131,6 @@ export const createNewFollow = async ({
       return;
     }
     followingName = qSnapshot.docs[0].data().name;
-    Toast.show({
-      type: "success",
-      text1: "New follow!",
-      text2: `You're now following ${lowercaseFollowingEmail}`,
-    });
   } catch (error) {
     console.log(error);
     return;

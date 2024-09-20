@@ -1,14 +1,23 @@
-import { FlatList, Text, TextInput, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import React from "react";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
-import { CustomButton } from "../../../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
 import { globalStyles } from "../../../../globalStyles";
 import { UserCard } from "../../components/UserCard";
+import { FollowingModal } from "./NewFollow/FollowingModal";
 import { useFollowingScreen } from "./useFollowingScreen";
 
 export const FollowingScreen = () => {
-  const { toFollowEmail, setToFollowEmail, following, user, handleNewFollow } =
-    useFollowingScreen();
+  const {
+    toFollowEmail,
+    setToFollowEmail,
+    following,
+    user,
+    handleNewFollow,
+    isModalVisible,
+    toggleModal,
+  } = useFollowingScreen();
 
   if (!user) {
     Toast.show({
@@ -30,20 +39,22 @@ export const FollowingScreen = () => {
 
   return (
     <ScreenStyleWrapper>
-      {/* This should probably be moved to a popup / modal */}
-      <Text style={globalStyles.text_md}>
-        To follow someone new, enter their email below, then press "New Follow".
-      </Text>
-      <TextInput
-        value={toFollowEmail}
-        onChangeText={(text) => setToFollowEmail(text)}
-        style={globalStyles.authInput}
-        placeholder="Email address"
-        autoCapitalize="none"
+      <FollowingModal
+        isVisible={isModalVisible}
+        onClose={toggleModal}
+        toFollowEmail={toFollowEmail}
+        setToFollowEmail={setToFollowEmail}
+        handleNewFollow={handleNewFollow}
       />
-      <CustomButton onPress={handleNewFollow} text={"New follow"} />
-
-      <Text style={globalStyles.text_20}>Following</Text>
+      <View style={styles.headingContainer}>
+        <Text style={[globalStyles.text_20, styles.headingText]}>
+          Following
+        </Text>
+        <Pressable onPress={toggleModal} style={{ width: 30 }}>
+          <Ionicons name="person-add" size={30} color="#007AFF" />
+        </Pressable>
+      </View>
+      <Text>These are the people that can recommend items to you.</Text>
       {following?.length <= 0 && (
         <Text>
           You haven't followed anyone yet! Click 'New Follow' to get started.
@@ -59,3 +70,13 @@ export const FollowingScreen = () => {
     </ScreenStyleWrapper>
   );
 };
+
+const styles = StyleSheet.create({
+  headingContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  headingText: { marginRight: -30, width: "100%", textAlign: "center" },
+});
