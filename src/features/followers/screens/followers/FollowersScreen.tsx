@@ -17,19 +17,10 @@ export const FollowersScreen = () => {
     return;
   }
 
-  if (!followers) {
-    Toast.show({
-      type: "error",
-      text1: "Error",
-      text2: "Something has gone wrong, followers is undefined",
-    });
-    return;
-  }
-
   return (
     <ScreenStyleWrapper>
       <Text style={globalStyles.text_20}>Followers</Text>
-      {followers?.length <= 0 && (
+      {followers && followers?.length <= 0 && (
         <Text>
           You don't have any followers yet. Tell your friends to follow you
           using your email address: {user?.email}

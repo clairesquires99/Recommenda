@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import Toast from "react-native-toast-message";
 import { FIREBASE_AUTH } from "../../../../firebaseConfig";
 import { setAsyncUser, useAuthStore } from "../../../utils/store";
 
@@ -22,7 +23,12 @@ export const useLoginScreen = () => {
       setUser(user);
       router.push("/home/");
     } catch (error) {
-      console.log(error);
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: (error as Error).message,
+      });
+      console.log("Error signing in: ", error);
     }
   };
 
