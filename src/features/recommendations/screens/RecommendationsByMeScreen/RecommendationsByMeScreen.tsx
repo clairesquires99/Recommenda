@@ -10,11 +10,12 @@ export const RecommendationsByMeScreen = () => {
 
   return (
     <ScreenStyleWrapper>
-      {isLoading && <LoadingIndicator />}
       {Platform.OS === "web" && (
         <Text style={globalStyles.title}>Recommended by me</Text>
       )}
-      {!isLoading && recommendations && recommendations?.length > 0 ? (
+      {isLoading ? (
+        <LoadingIndicator />
+      ) : recommendations && recommendations?.length > 0 ? (
         <FlatList
           data={recommendations}
           keyExtractor={(item) => item.id}
