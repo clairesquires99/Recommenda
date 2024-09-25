@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export const globalStyles = StyleSheet.create({
   rootLayout: {
     backgroundColor: "white",
+    flex: 1,
   },
   container: {
     flex: 1,
@@ -12,7 +13,6 @@ export const globalStyles = StyleSheet.create({
     maxWidth: 650,
     width: "100%",
     marginHorizontal: "auto",
-    paddingTop: 10,
   },
   title: {
     fontSize: 30,
