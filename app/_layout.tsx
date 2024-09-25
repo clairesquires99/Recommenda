@@ -1,5 +1,7 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "../src/components/toastConfig";
 import { getAsyncUser, useAuthStore } from "../src/utils/store";
@@ -26,14 +28,16 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: "white" },
-        }}
-      />
-      <Toast config={toastConfig} position={"bottom"} />
-    </>
+    <GestureHandlerRootView>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: "white" },
+          }}
+        />
+        <Toast config={toastConfig} position={"bottom"} />
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
