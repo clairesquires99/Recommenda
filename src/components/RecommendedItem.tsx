@@ -19,7 +19,7 @@ export const RecommendedItem = ({
         <Text>
           {displayedOnPage === "recommended to"
             ? "Recommended to you by "
-            : "You recommended this to  "}
+            : "You recommended this to "}
           {item.recommenders.join(", ")}
         </Text>
       </View>
