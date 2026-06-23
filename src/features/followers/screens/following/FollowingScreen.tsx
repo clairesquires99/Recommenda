@@ -2,7 +2,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
 import {
   FlatList,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -54,13 +53,7 @@ export const FollowingScreen = () => {
         handleNewFollow={handleNewFollow}
       />
       <View style={styles.headingContainer}>
-        <View style={styles.headingText}>
-          {Platform.OS === "web" && (
-            <Text style={[globalStyles.text_20, { textAlign: "center" }]}>
-              Following
-            </Text>
-          )}
-        </View>
+        <View style={styles.headingText} />
         <Pressable onPress={toggleModal} style={{ width: 30 }}>
           <Ionicons name="person-add" size={30} color="#007AFF" />
         </Pressable>

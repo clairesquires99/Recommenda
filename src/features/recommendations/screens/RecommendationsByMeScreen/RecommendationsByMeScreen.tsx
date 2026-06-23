@@ -1,4 +1,4 @@
-import { FlatList, Platform, Text } from "react-native";
+import { FlatList, Text } from "react-native";
 import { LoadingIndicator } from "../../../../components/LoadingIndicator";
 import { RecommendedItem } from "../../../../components/RecommendedItem";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
@@ -10,9 +10,6 @@ export const RecommendationsByMeScreen = () => {
 
   return (
     <ScreenStyleWrapper>
-      {Platform.OS === "web" && (
-        <Text style={globalStyles.title}>Recommended by me</Text>
-      )}
       {isLoading ? (
         <LoadingIndicator />
       ) : recommendations && recommendations?.length > 0 ? (
