@@ -1,0 +1,24 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Status colors" subtitle="Muted, warm-harmonised success / warning / danger" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css"><style>
+  body{margin:0;padding:20px;background:var(--color-bg);font-family:var(--font-sans)}
+  .row{display:flex;gap:12px}
+  .grp{flex:1;display:flex;flex-direction:column;gap:6px}
+  .sw{border-radius:var(--radius-md);height:60px;border:1px solid var(--color-border-soft);display:flex;align-items:flex-end;padding:9px;color:#fff;font-size:12px;font-weight:700}
+  .soft{height:30px;border-radius:var(--radius-sm);border:1px solid var(--color-border-soft);display:flex;align-items:center;padding:0 9px;font-size:10px;font-weight:600}
+  .hex{font-size:10px;opacity:.85;margin-left:auto;font-variant-numeric:tabular-nums}
+</style></head><body>
+<div class="row">
+ <div class="grp">
+   <div class="sw" style="background:var(--success)">Success<span class="hex">#1F7A4D</span></div>
+   <div class="soft" style="background:var(--success-soft);color:var(--success)">success-soft</div>
+ </div>
+ <div class="grp">
+   <div class="sw" style="background:var(--warning)">Warning<span class="hex">#B5761B</span></div>
+   <div class="soft" style="background:var(--warning-soft);color:var(--warning)">warning-soft</div>
+ </div>
+ <div class="grp">
+   <div class="sw" style="background:var(--danger)">Danger<span class="hex">#B23A2E</span></div>
+   <div class="soft" style="background:var(--danger-soft);color:var(--danger)">danger-soft</div>
+ </div>
+</div>
+</body></html>

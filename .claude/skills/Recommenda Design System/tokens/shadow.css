@@ -1,0 +1,20 @@
+/* ============================================================
+   ELEVATION — Recommenda
+   The brand is FLAT: structure comes from ink borders, not shadows.
+   Shadows are reserved for floating product imagery and overlays,
+   and stay soft + warm (never hard grey drop-shadows).
+   ============================================================ */
+:root {
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(27, 26, 31, 0.06);
+  --shadow-sm: 0 2px 8px rgba(27, 26, 31, 0.07);
+  --shadow-md: 0 8px 24px rgba(27, 26, 31, 0.10);
+  --shadow-lg: 0 16px 40px rgba(27, 26, 31, 0.14);
+  --shadow-photo: 0 24px 40px -12px rgba(27, 26, 31, 0.30); /* floating product image */
+  --shadow-sheet: 0 -8px 32px rgba(27, 26, 31, 0.12);       /* bottom sheet lift */
+
+  /* Border widths — the brand's primary structural device */
+  --border-hair: 1px;
+  --border-line: 1.5px;
+  --border-bold: 2px;
+}

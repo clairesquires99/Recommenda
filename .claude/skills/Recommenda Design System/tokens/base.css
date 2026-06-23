@@ -1,0 +1,39 @@
+/* ============================================================
+   BASE — Recommenda
+   Light element defaults so paper, ink and type are right
+   everywhere the system is consumed. Intentionally minimal.
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--ink-700);
+  font-weight: var(--fw-extra);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; }
+
+a { color: var(--color-accent); text-decoration: none; }
+
+::selection { background: var(--blue-700); color: var(--cream-100); }
+
+:focus-visible {
+  outline: var(--border-bold) solid var(--color-focus);
+  outline-offset: 2px;
+}
