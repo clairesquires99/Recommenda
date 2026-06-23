@@ -1,6 +1,6 @@
 import { Entypo } from "@expo/vector-icons";
 import React from "react";
-import { Modal, Text, TouchableOpacity, View } from "react-native";
+import { KeyboardAvoidingView, Modal, Platform, Text, TouchableOpacity, View } from "react-native";
 import { NewFollowContent } from "./NewFollowContent";
 
 interface FollowingModalProps {
@@ -25,7 +25,10 @@ export const FollowingModal = ({
     onRequestClose={onClose}
   >
     {/* Overlay */}
-    <View className="flex-1 justify-end bg-ink/40">
+    <KeyboardAvoidingView
+      className="flex-1 justify-end bg-ink/40"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       {/* Sheet — AddRec.jsx bottom sheet: cream-50 bg, 2px border-soft at top, ds-sheet radius */}
       <View className="bg-paper rounded-t-[32px] border-t-2 border-x-2 border-ink/10 px-5 pt-6 pb-10 max-w-[650px] w-full mx-auto">
         {/* Header */}
@@ -46,6 +49,6 @@ export const FollowingModal = ({
           handleNewFollow={handleNewFollow}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   </Modal>
 );

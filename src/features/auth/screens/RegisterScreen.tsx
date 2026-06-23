@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { Text, TextInput, View } from "react-native";
+import { KeyboardAvoidingView, Platform, Text, TextInput, View } from "react-native";
 import { CustomButton } from "../../../components/CustomButton";
 import { useRegisterScreen } from "./useRegisterScreen";
 
@@ -15,7 +15,10 @@ export const RegisterScreen = () => {
   } = useRegisterScreen();
 
   return (
-    <View className="flex-1 bg-brand px-7 pt-16 pb-11 justify-end">
+    <KeyboardAvoidingView
+      className="flex-1 bg-brand px-7 pt-16 pb-11 justify-end"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       {/* Wordmark */}
       <View>
         <Text className="font-display text-ds-h1 font-black text-paper mt-6 mb-6 tracking-ds-display leading-tight">
@@ -61,6 +64,6 @@ export const RegisterScreen = () => {
           </Link>
         </Text>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
