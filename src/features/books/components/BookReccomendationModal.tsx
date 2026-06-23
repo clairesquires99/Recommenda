@@ -1,17 +1,9 @@
 import { Entypo, Feather } from "@expo/vector-icons";
 import React, { useEffect } from "react";
-import {
-  FlatList,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox/build/dist/BouncyCheckbox";
 import { CustomButton } from "../../../components/CustomButton";
 import { Warning } from "../../../components/Warning";
-import { globalStyles } from "../../../globalStyles";
 import { UserType } from "../../../utils/types";
 import { UserCard } from "../../followers/components/UserCard";
 import { Book } from "../domain/types";
@@ -46,7 +38,7 @@ export const BookRecommendationModal = ({
   }, [isVisible]);
 
   const ListItem = (follower: UserType) => (
-    <View style={{ flexDirection: "row" }}>
+    <View className="flex-row">
       <BouncyCheckbox
         fillColor="#007AFF"
         onPress={() => toggleSelection(follower.email)}
@@ -63,10 +55,10 @@ export const BookRecommendationModal = ({
       visible={isVisible}
       onRequestClose={onClose}
     >
-      <View style={styles.modalBackground}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalHeadingContainer}>
-            <Text style={[globalStyles.text_20, styles.modalTitle]}>
+      <View className="flex-1 justify-center items-center bg-black/50">
+        <View className="bg-white rounded-[10px] p-[20px] max-w-[500px] max-h-[95%]">
+          <View className="flex-row mb-[10px]">
+            <Text className="text-[20px] mb-[5px] grow pr-[10px]">
               Recommend a book to anyone who follows you
             </Text>
             <TouchableOpacity onPress={onClose}>
@@ -76,13 +68,13 @@ export const BookRecommendationModal = ({
           {error && <Warning text={error} />}
           {followers && followers.length > 0 ? (
             <>
-              <View style={{ flexDirection: "row" }}>
+              <View className="flex-row">
                 <BouncyCheckbox
                   fillColor="#007AFF"
                   onPress={() => toggleAll(followers)}
                   isChecked={selectedFollowers.length === followers.length}
                 />
-                <Text style={globalStyles.text_md}>
+                <Text className="text-base mb-[5px]">
                   Recommend to all followers
                 </Text>
               </View>
@@ -94,14 +86,13 @@ export const BookRecommendationModal = ({
               <CustomButton
                 text="Send Recommendations"
                 Icon={() => (
-                  <Feather name="send" style={globalStyles.customButtonText} />
+                  <Feather name="send" size={20} color="white" className="text-white text-[20px] px-[5px] my-auto" />
                 )}
-                style={{ marginHorizontal: "auto", marginTop: 10 }}
+                className="mx-auto mt-[10px]"
                 onPress={() => handlePushRecommendation(book, onClose)}
               />
             </>
           ) : (
-            // TODO: Add CTA here
             <Warning
               text={`It seems you don\'t have any followers to recommend this book to yet. Get your friends to follow you using your email address.`}
             />
@@ -111,21 +102,3 @@ export const BookRecommendationModal = ({
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  modalBackground: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContainer: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    maxWidth: 500,
-    maxHeight: "95%",
-  },
-  modalHeadingContainer: { flexDirection: "row", marginBottom: 10 },
-  modalTitle: { flexGrow: 1, paddingRight: 10 },
-});

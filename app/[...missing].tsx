@@ -1,22 +1,18 @@
 import { Link, Stack } from "expo-router";
 import { Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenStyleWrapper } from "../src/components/ScreenStyleWrapper";
-import { globalStyles } from "../src/globalStyles";
 
 export default function NotFoundScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Oops!" }} />
       <ScreenStyleWrapper>
-        <SafeAreaView style={globalStyles.container}>
-          <View style={globalStyles.container}>
-            <Text style={globalStyles.title}>This screen doesn't exist.</Text>
-            <Link href="/" style={globalStyles.link}>
-              <Text style={globalStyles.linkText}>Go back home!</Text>
-            </Link>
-          </View>
-        </SafeAreaView>
+        <View className="flex-1 items-center justify-center">
+          <Text className="text-[30px] font-bold mb-[10px]">This screen doesn't exist.</Text>
+          <Link href="/" className="mt-[15px] py-[15px]">
+            <Text className="text-[#007AFF]">Go back home!</Text>
+          </Link>
+        </View>
       </ScreenStyleWrapper>
     </>
   );

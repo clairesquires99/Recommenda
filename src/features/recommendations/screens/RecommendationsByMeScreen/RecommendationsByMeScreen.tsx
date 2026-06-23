@@ -2,7 +2,6 @@ import { FlatList, Text } from "react-native";
 import { LoadingIndicator } from "../../../../components/LoadingIndicator";
 import { RecommendedItem } from "../../../../components/RecommendedItem";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
-import { globalStyles } from "../../../../globalStyles";
 import { useRecommendationsByMe } from "./useRecommendationsByMeScreen";
 
 export const RecommendationsByMeScreen = () => {
@@ -19,7 +18,7 @@ export const RecommendationsByMeScreen = () => {
           renderItem={({ item }) => (
             <RecommendedItem item={item} displayedOnPage="recommended by" />
           )}
-          style={[globalStyles.cardContainer]}
+          className="w-full"
           showsVerticalScrollIndicator={false}
         />
       ) : (

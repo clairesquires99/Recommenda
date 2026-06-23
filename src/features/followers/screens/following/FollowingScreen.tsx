@@ -1,15 +1,8 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
-import { globalStyles } from "../../../../globalStyles";
 import { UserCard } from "../../components/UserCard";
 import { FollowingModal } from "./NewFollow/FollowingModal";
 import { useFollowingScreen } from "./useFollowingScreen";
@@ -52,9 +45,9 @@ export const FollowingScreen = () => {
         setToFollowEmail={setToFollowEmail}
         handleNewFollow={handleNewFollow}
       />
-      <View style={styles.headingContainer}>
-        <View style={styles.headingText} />
-        <Pressable onPress={toggleModal} style={{ width: 30 }}>
+      <View className="w-full flex-row justify-center mb-[10px]">
+        <View className="w-full mr-[-30px]" />
+        <Pressable onPress={toggleModal} className="w-[30px]">
           <Ionicons name="person-add" size={30} color="#007AFF" />
         </Pressable>
       </View>
@@ -64,7 +57,7 @@ export const FollowingScreen = () => {
           You haven't followed anyone yet! Click 'New Follow' to get started.
         </Text>
       )}
-      <View style={globalStyles.cardContainer}>
+      <View className="flex-col w-full">
         <FlatList
           data={following}
           renderItem={({ item }) => <UserCard user={item} />}
@@ -74,13 +67,3 @@ export const FollowingScreen = () => {
     </ScreenStyleWrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  headingContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 10,
-  },
-  headingText: { marginRight: -30, width: "100%" },
-});

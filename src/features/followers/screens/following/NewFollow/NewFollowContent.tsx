@@ -1,6 +1,5 @@
 import { TextInput, View } from "react-native";
 import { CustomButton } from "../../../../../components/CustomButton";
-import { globalStyles } from "../../../../../globalStyles";
 
 interface NewFollowContentProps {
   toFollowEmail: string;
@@ -18,7 +17,7 @@ export const NewFollowContent = ({
       <TextInput
         value={toFollowEmail}
         onChangeText={(text) => setToFollowEmail(text)}
-        style={globalStyles.authInput}
+        className="py-[10px] px-3 m-[5px] text-base border border-gray-300 rounded-[10px] w-full"
         placeholder="Email address"
         autoCapitalize="none"
       />

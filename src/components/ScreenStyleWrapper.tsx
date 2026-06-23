@@ -1,19 +1,20 @@
 import React, { ReactNode } from "react";
-import { View, ViewStyle } from "react-native";
-import { globalStyles } from "../globalStyles";
+import { View } from "react-native";
 
 interface ScreenStyleWrapperProps {
   children: ReactNode;
-  style?: ViewStyle;
+  className?: string;
 }
 
 export const ScreenStyleWrapper: React.FC<ScreenStyleWrapperProps> = ({
   children,
-  style,
+  className,
 }) => {
   return (
-    <View style={globalStyles.rootLayout}>
-      <View style={[globalStyles.container, style]}>{children}</View>
+    <View className="flex-1 bg-white">
+      <View className={`flex-1 items-center bg-white px-[5px] max-w-[650px] w-full mx-auto${className ? ` ${className}` : ""}`}>
+        {children}
+      </View>
     </View>
   );
 };

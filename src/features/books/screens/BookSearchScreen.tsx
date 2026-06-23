@@ -1,15 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { LoadingIndicator } from "../../../components/LoadingIndicator";
 import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
-import { globalStyles } from "../../../globalStyles";
 import { BookCard } from "../components/BookCard";
 import { BookRecommendationModal } from "../components/BookReccomendationModal";
 import { useBookSearchScreen } from "./useBookSearchScreen";
@@ -28,8 +20,6 @@ export const BookSearchScreen = () => {
     openModal,
   } = useBookSearchScreen();
 
-  console.log("books", !books.length && !isLoading);
-
   return (
     <ScreenStyleWrapper>
       <BookRecommendationModal
@@ -38,17 +28,19 @@ export const BookSearchScreen = () => {
         followers={followers}
         book={selectedBook}
       />
-      <View style={styles.inputSearchContainer}>
+      <View className="flex-row items-center rounded-[10px] border border-gray-300 mt-[10px] w-full mb-[20px]">
         <TextInput
-          style={styles.input}
+          className="py-[10px] px-3 text-base grow"
           placeholder="Search"
           value={query}
           onChangeText={setQuery}
           placeholderTextColor="#aaa"
           onSubmitEditing={handleSearch}
+          // @ts-ignore
+          style={{ outlineStyle: "none" }}
         />
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-          <FontAwesome name="search" style={{ fontSize: 20 }} />
+        <TouchableOpacity className="p-[15px]" onPress={handleSearch}>
+          <FontAwesome name="search" size={20} />
         </TouchableOpacity>
       </View>
       {!books.length && !isLoading && (
@@ -62,41 +54,9 @@ export const BookSearchScreen = () => {
         renderItem={({ item }) => (
           <BookCard book={item} onRecommend={() => openModal(item)} />
         )}
-        style={globalStyles.cardContainer}
+        className="w-full"
         showsVerticalScrollIndicator={false}
       />
     </ScreenStyleWrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  inputSearchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#D3D3D3",
-    marginTop: 10,
-    width: "100%",
-    marginBottom: 20,
-  },
-  input: {
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    fontSize: 16,
-    flexGrow: 1,
-    // @ts-ignore
-    outlineStyle: "none",
-  },
-  searchButton: {
-    padding: 15,
-  },
-  emptySearchContainer: {
-    width: 400,
-    alignContent: "center",
-  },
-  emptySearchText: {
-    textAlign: "center",
-    margin: -150,
-  },
-});

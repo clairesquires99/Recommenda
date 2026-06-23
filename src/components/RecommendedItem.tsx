@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { GroupedRecommendedItemType } from "../utils/types";
 
 interface RecommendedItemProps {
@@ -11,11 +11,11 @@ export const RecommendedItem = ({
   displayedOnPage,
 }: RecommendedItemProps) => {
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: item.image }} style={styles.cardImage} />
-      <View style={styles.cardText}>
-        <Text style={styles.mediaTitle}>{item.title}</Text>
-        <Text style={styles.mediaAuthor}>By {item.author.join(", ")}</Text>
+    <View className="mt-[10px] p-[5px] flex-row">
+      <Image source={{ uri: item.image }} className="h-[120px] w-[90px] rounded-[10px]" />
+      <View className="ml-[10px] flex-1 gap-[5px]">
+        <Text className="text-[18px] font-bold">{item.title}</Text>
+        <Text className="text-base text-[#555]">By {item.author.join(", ")}</Text>
         <Text>
           {displayedOnPage === "recommended to"
             ? "Recommended to you by "
@@ -26,29 +26,3 @@ export const RecommendedItem = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    marginTop: 10,
-    padding: 5,
-    flexDirection: "row",
-  },
-  cardImage: {
-    height: 120,
-    width: 90,
-    borderRadius: 10,
-  },
-  cardText: {
-    marginLeft: 10,
-    flex: 1,
-    gap: 5,
-  },
-  mediaTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  mediaAuthor: {
-    fontSize: 16,
-    color: "#555",
-  },
-});

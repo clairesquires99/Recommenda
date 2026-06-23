@@ -1,6 +1,5 @@
 import { FontAwesome6 } from "@expo/vector-icons";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { globalStyles } from "../../../globalStyles";
+import { Image, Pressable, Text, View } from "react-native";
 import { Book } from "../domain/types";
 
 interface BookCardProps {
@@ -10,20 +9,20 @@ interface BookCardProps {
 
 export const BookCard = ({ book, onRecommend }: BookCardProps) => {
   return (
-    <Pressable style={styles.card} onPress={onRecommend}>
+    <Pressable className="mt-[10px] p-[5px] flex-row" onPress={onRecommend}>
       <Image
         source={{
           uri:
             book?.volumeInfo?.imageLinks?.thumbnail ??
             "https://jkfenner.com/wp-content/uploads/2019/11/default.jpg",
         }}
-        style={styles.cardImage}
+        className="h-[120px] w-[90px] rounded-[10px]"
       />
-      <View style={styles.cardText}>
-        <Text style={globalStyles.bookTitle}>
+      <View className="ml-[10px] flex-1">
+        <Text className="text-[18px] font-bold mb-[8px]">
           {book?.volumeInfo?.title ?? "No title found"}
         </Text>
-        <Text style={globalStyles.bookAuthor}>
+        <Text className="text-base text-[#555]">
           {book?.volumeInfo?.authors
             ? `By ${book?.volumeInfo?.authors}`
             : "No authors found"}
@@ -32,29 +31,10 @@ export const BookCard = ({ book, onRecommend }: BookCardProps) => {
       <View>
         <FontAwesome6
           name="wand-magic-sparkles"
-          style={[
-            globalStyles.customButtonText,
-            { padding: 0, color: "#007AFF" },
-          ]}
+          size={20}
+          color="#007AFF"
         />
       </View>
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    marginTop: 10,
-    padding: 5,
-    flexDirection: "row",
-  },
-  cardImage: {
-    height: 120,
-    width: 90,
-    borderRadius: 10,
-  },
-  cardText: {
-    marginLeft: 10,
-    flex: 1,
-  },
-});

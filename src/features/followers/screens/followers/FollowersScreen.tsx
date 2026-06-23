@@ -1,7 +1,6 @@
 import { FlatList, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
-import { globalStyles } from "../../../../globalStyles";
 import { UserCard } from "../../components/UserCard";
 import { useFollowersScreen } from "./useFollowersScreen";
 
@@ -25,7 +24,7 @@ export const FollowersScreen = () => {
           using your email address: {user?.email}
         </Text>
       )}
-      <View style={globalStyles.cardContainer}>
+      <View className="flex-col w-full">
         <FlatList
           data={followers}
           renderItem={({ item }) => <UserCard user={item} />}

@@ -1,9 +1,6 @@
 import { Href, router, usePathname } from "expo-router";
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-
-const BRAND_BLUE = "#007AFF";
-const HOVER_BRAND_BLUE = "rgba(0, 122, 255, 0.5)";
+import { Pressable, Text, View } from "react-native";
 
 type NavLinkProps = {
   href: Href<string>;
@@ -18,21 +15,12 @@ export const LeftSidePanel = () => {
     const isActive = currentPath.startsWith(href as string);
     return (
       <Pressable
-        style={[
-          styles.link,
-          isActive && styles.activeLink,
-          hover && !isActive && styles.hoverLink,
-        ]}
+        className={`py-3 px-4 mb-2 rounded-lg${isActive ? " bg-[#007AFF]" : hover ? " bg-[rgba(0,122,255,0.5)]" : ""}`}
         onPress={() => router.push(href)}
         onHoverIn={() => setHover(true)}
         onHoverOut={() => setHover(false)}
       >
-        <Text
-          style={[
-            styles.linkText,
-            (isActive || hover) && styles.activeLinkText,
-          ]}
-        >
+        <Text className={`text-[20px]${isActive || hover ? " text-white" : " text-[#333]"}`}>
           {children}
         </Text>
       </Pressable>
@@ -40,36 +28,9 @@ export const LeftSidePanel = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View className="w-full py-5 px-[10px]">
       <NavLink href="/">Home</NavLink>
       <NavLink href="/profile">Profile</NavLink>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-  },
-  link: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    marginBottom: 8,
-    borderRadius: 8,
-  },
-  linkText: {
-    fontSize: 20,
-    color: "#333",
-  },
-  activeLink: {
-    backgroundColor: BRAND_BLUE,
-  },
-  hoverLink: {
-    backgroundColor: HOVER_BRAND_BLUE,
-  },
-  activeLinkText: {
-    color: "white",
-  },
-});

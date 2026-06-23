@@ -1,7 +1,6 @@
 import { Entypo } from "@expo/vector-icons";
 import React from "react";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { globalStyles } from "../../../../../globalStyles";
+import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { NewFollowContent } from "./NewFollowContent";
 
 interface FollowingModalProps {
@@ -25,10 +24,10 @@ export const FollowingModal = ({
     visible={isVisible}
     onRequestClose={onClose}
   >
-    <View style={styles.modalBackground}>
-      <View style={styles.modalContainer}>
-        <View style={styles.modalHeadingContainer}>
-          <Text style={[globalStyles.text_20, styles.modalTitle]}>
+    <View className="flex-1 justify-center items-center bg-black/50">
+      <View className="bg-white rounded-[10px] p-[20px] max-w-[500px] max-h-[95%] min-w-[300px]">
+        <View className="flex-row mb-[10px]">
+          <Text className="text-[20px] mb-[5px] grow pr-[10px]">
             Follow Someone New
           </Text>
           <TouchableOpacity onPress={onClose}>
@@ -44,22 +43,3 @@ export const FollowingModal = ({
     </View>
   </Modal>
 );
-
-const styles = StyleSheet.create({
-  modalBackground: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContainer: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    maxWidth: 500,
-    maxHeight: "95%",
-    minWidth: 300,
-  },
-  modalHeadingContainer: { flexDirection: "row", marginBottom: 10 },
-  modalTitle: { flexGrow: 1, paddingRight: 10 },
-});
