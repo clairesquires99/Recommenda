@@ -1,16 +1,16 @@
 import { ErrorToast, SuccessToast } from "react-native-toast-message";
-
 import { ToastProps } from "react-native-toast-message";
 
-const containerStyle = { width: "95%" as const, padding: 10 };
-const text1Style = { fontSize: 16 };
-const text2Style = { fontSize: 14 };
+// Toast styles passed to third-party components — must remain plain objects (not className)
+const containerStyle = { width: "95%" as const, borderRadius: 12 };
+const text1Style = { fontFamily: "HankenGrotesk_700Bold", fontSize: 15, color: "#292A31" };
+const text2Style = { fontFamily: "HankenGrotesk_400Regular", fontSize: 13, color: "#6B675F" };
 
 export const toastConfig = {
   success: (props: ToastProps) => (
     <SuccessToast
       {...props}
-      style={[containerStyle, { borderLeftColor: "#38b45a", backgroundColor: "#eaf7ee" }]}
+      style={[containerStyle, { borderLeftColor: "#1F7A4D", backgroundColor: "#E2EFE7" }]}
       text1Style={text1Style}
       text1NumberOfLines={2}
       text2Style={text2Style}
@@ -20,7 +20,7 @@ export const toastConfig = {
   error: (props: ToastProps) => (
     <ErrorToast
       {...props}
-      style={[containerStyle, { borderLeftColor: "#eb4e2b", backgroundColor: "#fbedea" }]}
+      style={[containerStyle, { borderLeftColor: "#B23A2E", backgroundColor: "#F4E2DF" }]}
       text1Style={text1Style}
       text1NumberOfLines={2}
       text2Style={text2Style}

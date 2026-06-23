@@ -15,12 +15,22 @@ export const LeftSidePanel = () => {
     const isActive = currentPath.startsWith(href as string);
     return (
       <Pressable
-        className={`py-3 px-4 mb-2 rounded-lg${isActive ? " bg-[#007AFF]" : hover ? " bg-[rgba(0,122,255,0.5)]" : ""}`}
+        className={`py-3 px-4 mb-2 rounded-ds-pill${
+          isActive
+            ? " bg-brand"
+            : hover
+            ? " bg-brand-50"
+            : ""
+        }`}
         onPress={() => router.push(href)}
         onHoverIn={() => setHover(true)}
         onHoverOut={() => setHover(false)}
       >
-        <Text className={`text-[20px]${isActive || hover ? " text-white" : " text-[#333]"}`}>
+        <Text
+          className={`font-display text-ds-h4 font-extrabold tracking-ds-tight${
+            isActive ? " text-paper" : hover ? " text-brand" : " text-ink-700"
+          }`}
+        >
           {children}
         </Text>
       </Pressable>
@@ -28,7 +38,7 @@ export const LeftSidePanel = () => {
   };
 
   return (
-    <View className="w-full py-5 px-[10px]">
+    <View className="w-full py-5 px-3">
       <NavLink href="/">Home</NavLink>
       <NavLink href="/profile">Profile</NavLink>
     </View>

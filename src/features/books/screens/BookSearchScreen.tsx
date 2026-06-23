@@ -28,26 +28,50 @@ export const BookSearchScreen = () => {
         followers={followers}
         book={selectedBook}
       />
-      <View className="flex-row items-center rounded-[10px] border border-gray-300 mt-[10px] w-full mb-[20px]">
+
+      {/* Page heading */}
+      <View className="pt-6 pb-4">
+        <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase">
+          Books
+        </Text>
+        <Text className="font-display text-ds-h3 font-extrabold text-ink-700 tracking-ds-tight mt-1">
+          Find something{"\n"}to recommend
+        </Text>
+      </View>
+
+      {/* Search bar — Feed.jsx pill search */}
+      <View className="flex-row items-center bg-surface rounded-ds-pill border-2 border-ink/10 mb-5 min-h-[50px] px-4 gap-2">
+        <FontAwesome name="search" size={18} color="#928D83" />
         <TextInput
-          className="py-[10px] px-3 text-base grow"
-          placeholder="Search"
+          className="flex-1 text-base font-medium text-ink-800 py-3"
+          placeholder="Search books…"
           value={query}
           onChangeText={setQuery}
-          placeholderTextColor="#aaa"
+          placeholderTextColor="#928D83"
           onSubmitEditing={handleSearch}
-          // @ts-ignore
+          // @ts-ignore — web-only prop
           style={{ outlineStyle: "none" }}
         />
-        <TouchableOpacity className="p-[15px]" onPress={handleSearch}>
-          <FontAwesome name="search" size={20} />
-        </TouchableOpacity>
+        {query.length > 0 && (
+          <TouchableOpacity onPress={handleSearch} className="py-2 px-1">
+            <Text className="text-sm font-bold text-brand">Search</Text>
+          </TouchableOpacity>
+        )}
       </View>
+
+      {/* States */}
       {!books.length && !isLoading && (
-        <Text>Get recommending by searching for your favourite books!</Text>
+        <Text className="text-base text-ink-500 text-center mt-10 font-sans">
+          Search for a book to start recommending it to friends.
+        </Text>
       )}
       {isLoading && <LoadingIndicator />}
-      {!isLoading && !books && query && <Text>No results found.</Text>}
+      {!isLoading && !books && query ? (
+        <Text className="text-base text-ink-500 text-center mt-10">
+          No results found.
+        </Text>
+      ) : null}
+
       <FlatList
         data={books}
         keyExtractor={(item) => item.id}
@@ -56,6 +80,9 @@ export const BookSearchScreen = () => {
         )}
         className="w-full"
         showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={() => (
+          <View className="h-px bg-ink/10 mx-1" />
+        )}
       />
     </ScreenStyleWrapper>
   );

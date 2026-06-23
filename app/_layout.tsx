@@ -1,4 +1,17 @@
 import "../global.css";
+import {
+  HankenGrotesk_400Regular,
+  HankenGrotesk_500Medium,
+  HankenGrotesk_600SemiBold,
+  HankenGrotesk_700Bold,
+  HankenGrotesk_800ExtraBold,
+  HankenGrotesk_900Black,
+} from "@expo-google-fonts/hanken-grotesk";
+import {
+  ShantellSans_400Regular,
+  ShantellSans_600SemiBold,
+} from "@expo-google-fonts/shantell-sans";
+import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -10,12 +23,24 @@ import { getAsyncUser, useAuthStore } from "../src/utils/store";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  useEffect(() => {
-    SplashScreen.hideAsync();
-  }, []);
+  const [fontsLoaded] = useFonts({
+    HankenGrotesk_400Regular,
+    HankenGrotesk_500Medium,
+    HankenGrotesk_600SemiBold,
+    HankenGrotesk_700Bold,
+    HankenGrotesk_800ExtraBold,
+    HankenGrotesk_900Black,
+    ShantellSans_400Regular,
+    ShantellSans_600SemiBold,
+  });
 
   const setUser = useAuthStore((state) => state.setUser);
-  const user = useAuthStore((state) => state.user);
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
   useEffect(() => {
     (async () => {
@@ -28,13 +53,15 @@ export default function RootLayout() {
     })();
   }, []);
 
+  if (!fontsLoaded) return null;
+
   return (
     <GestureHandlerRootView>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView className="flex-1 bg-paper">
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: "white" },
+            contentStyle: { backgroundColor: "#F8F1E3" },
           }}
         />
         <Toast config={toastConfig} position={"bottom"} />

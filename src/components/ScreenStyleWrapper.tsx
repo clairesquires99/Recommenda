@@ -11,8 +11,10 @@ export const ScreenStyleWrapper: React.FC<ScreenStyleWrapperProps> = ({
   className,
 }) => {
   return (
-    <View className="flex-1 bg-white">
-      <View className={`flex-1 items-center bg-white px-[5px] max-w-[650px] w-full mx-auto${className ? ` ${className}` : ""}`}>
+    <View className="flex-1 bg-paper">
+      <View
+        className={`flex-1 bg-paper w-full max-w-[650px] mx-auto px-5${className ? ` ${className}` : ""}`}
+      >
         {children}
       </View>
     </View>

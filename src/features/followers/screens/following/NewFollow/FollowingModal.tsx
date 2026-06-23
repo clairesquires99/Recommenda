@@ -19,19 +19,25 @@ export const FollowingModal = ({
   onClose,
 }: FollowingModalProps) => (
   <Modal
-    animationType="fade"
+    animationType="slide"
     transparent={true}
     visible={isVisible}
     onRequestClose={onClose}
   >
-    <View className="flex-1 justify-center items-center bg-black/50">
-      <View className="bg-white rounded-[10px] p-[20px] max-w-[500px] max-h-[95%] min-w-[300px]">
-        <View className="flex-row mb-[10px]">
-          <Text className="text-[20px] mb-[5px] grow pr-[10px]">
-            Follow Someone New
+    {/* Overlay */}
+    <View className="flex-1 justify-end bg-ink/40">
+      {/* Sheet — AddRec.jsx bottom sheet: cream-50 bg, 2px border-soft at top, ds-sheet radius */}
+      <View className="bg-paper rounded-t-[32px] border-t-2 border-x-2 border-ink/10 px-5 pt-6 pb-10 max-w-[650px] w-full mx-auto">
+        {/* Header */}
+        <View className="flex-row items-center mb-6">
+          <Text className="font-display text-ds-h4 font-extrabold text-ink-700 tracking-ds-tight flex-1">
+            Follow someone new
           </Text>
-          <TouchableOpacity onPress={onClose}>
-            <Entypo name="cross" size={24} color="black" />
+          <TouchableOpacity
+            onPress={onClose}
+            className="w-[36px] h-[36px] rounded-ds-pill border-2 border-ink/16 items-center justify-center"
+          >
+            <Entypo name="cross" size={20} color="#292A31" />
           </TouchableOpacity>
         </View>
         <NewFollowContent

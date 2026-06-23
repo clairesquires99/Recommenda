@@ -7,10 +7,17 @@ export default function NotFoundScreen() {
     <>
       <Stack.Screen options={{ title: "Oops!" }} />
       <ScreenStyleWrapper>
-        <View className="flex-1 items-center justify-center">
-          <Text className="text-[30px] font-bold mb-[10px]">This screen doesn't exist.</Text>
-          <Link href="/" className="mt-[15px] py-[15px]">
-            <Text className="text-[#007AFF]">Go back home!</Text>
+        <View className="flex-1 items-center justify-center pb-16">
+          <Text className="font-display text-ds-h2 font-black text-ink-700 tracking-ds-display text-center">
+            Page not found
+          </Text>
+          <Text className="text-base text-ink-500 text-center mt-2 max-w-[260px]">
+            This screen doesn't exist.
+          </Text>
+          <Link href="/" className="mt-6">
+            <Text className="text-base font-bold text-brand">
+              ← Go back home
+            </Text>
           </Link>
         </View>
       </ScreenStyleWrapper>

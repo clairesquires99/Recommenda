@@ -6,11 +6,17 @@ interface ArrowButtonProps {
   onPress?: () => void;
 }
 
+// Extrapolated from LeftSidePanel navigation link pattern + Card bordered style
 export const ArrowButton: React.FC<ArrowButtonProps> = ({ title, onPress }) => {
   return (
-    <Pressable onPress={onPress} className="p-[10px] m-[10px] w-[90%] flex-row justify-between items-center">
-      <Text className="text-[20px] font-bold">{title}</Text>
-      <AntDesign name="right" size={24} color="black" />
+    <Pressable
+      onPress={onPress}
+      className="flex-row items-center justify-between w-full px-5 py-4 border-b border-ink/10 active:bg-brand-50"
+    >
+      <Text className="font-display text-ds-h4 font-extrabold text-ink-700 tracking-ds-tight">
+        {title}
+      </Text>
+      <AntDesign name="right" size={18} color="#292A31" />
     </Pressable>
   );
 };

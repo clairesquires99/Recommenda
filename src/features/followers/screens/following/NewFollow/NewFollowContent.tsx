@@ -13,15 +13,17 @@ export const NewFollowContent = ({
   handleNewFollow,
 }: NewFollowContentProps) => {
   return (
-    <View>
+    <View className="gap-3">
       <TextInput
         value={toFollowEmail}
         onChangeText={(text) => setToFollowEmail(text)}
-        className="py-[10px] px-3 m-[5px] text-base border border-gray-300 rounded-[10px] w-full"
-        placeholder="Email address"
+        className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
+        placeholder="Their email address"
+        placeholderTextColor="#928D83"
         autoCapitalize="none"
+        keyboardType="email-address"
       />
-      <CustomButton onPress={handleNewFollow} text={"Follow"} />
+      <CustomButton onPress={handleNewFollow} text="Follow" size="lg" />
     </View>
   );
 };

@@ -15,33 +15,53 @@ export const RegisterScreen = () => {
   } = useRegisterScreen();
 
   return (
-    <View className="flex-1 items-center bg-white px-[5px] max-w-[650px] w-full mx-auto justify-center">
-      <TextInput
-        value={firstName}
-        onChangeText={(text) => setFirstName(text)}
-        className="py-[10px] px-3 m-[5px] text-base border border-gray-300 rounded-[10px] w-full"
-        placeholder="First name"
-      />
-      <TextInput
-        value={lastName}
-        onChangeText={(text) => setLastName(text)}
-        className="py-[10px] px-3 m-[5px] text-base border border-gray-300 rounded-[10px] w-full"
-        placeholder="Second name"
-      />
-      <TextInput
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        className="py-[10px] px-3 m-[5px] text-base border border-gray-300 rounded-[10px] w-full"
-        placeholder="Email"
-        autoCapitalize="none"
-      />
-      <CustomButton onPress={handleRegister} text={"Register"} />
-      <Text className="text-base mb-[5px] m-[10px]">
-        Already registered?{" "}
-        <Link className="text-[#007AFF]" href="/login">
-          Login
-        </Link>
-      </Text>
+    <View className="flex-1 bg-brand px-7 pt-16 pb-9 justify-between">
+      {/* Wordmark */}
+      <View>
+        <Text className="font-display text-ds-eyebrow font-extrabold tracking-ds-wide text-brand-200 uppercase">
+          RECOMMENDA
+        </Text>
+        <Text className="font-display text-ds-h1 font-black text-paper mt-6 tracking-ds-display leading-tight">
+          Create your{"\n"}account.
+        </Text>
+        <Text className="font-hand text-xl text-paper/90 mt-3">
+          come for the rec, stay for the taste.
+        </Text>
+      </View>
+
+      {/* Form */}
+      <View className="gap-3">
+        <TextInput
+          value={firstName}
+          onChangeText={(text) => setFirstName(text)}
+          className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
+          placeholder="First name"
+          placeholderTextColor="#928D83"
+        />
+        <TextInput
+          value={lastName}
+          onChangeText={(text) => setLastName(text)}
+          className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
+          placeholder="Last name"
+          placeholderTextColor="#928D83"
+        />
+        <TextInput
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
+          placeholder="Email address"
+          placeholderTextColor="#928D83"
+          autoCapitalize="none"
+          keyboardType="email-address"
+        />
+        <CustomButton onPress={handleRegister} text="Get started" size="lg" />
+        <Text className="text-sm text-brand-200 text-center mt-1">
+          Already have an account?{" "}
+          <Link className="text-paper font-bold" href="/login">
+            Log in
+          </Link>
+        </Text>
+      </View>
     </View>
   );
 };
