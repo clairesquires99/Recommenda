@@ -6,9 +6,9 @@ import {
 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { ScrollView, Text, View } from "react-native";
-import { CustomButton } from "../../components/CustomButton";
-import { ScreenStyleWrapper } from "../../components/ScreenStyleWrapper";
-import { useHomeScreen } from "./useHomeScreen";
+import { CustomButton } from "src/components/CustomButton";
+import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
+import { useHomeScreen } from "src/features/home/useHomeScreen";
 
 export const HomeScreen = () => {
   const { user } = useHomeScreen();

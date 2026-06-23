@@ -1,6 +1,6 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Image, Pressable, Text, View } from "react-native";
-import { Book } from "../domain/types";
+import { Book } from "src/features/books/domain/types";
 
 interface BookCardProps {
   book: Book;

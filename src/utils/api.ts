@@ -1,6 +1,6 @@
 import Toast from "react-native-toast-message";
-import { supabase } from "../../supabaseConfig";
-import { MediaItemType, MediaType, RecommendedItemType, UserType } from "./types";
+import { supabase } from "supabaseConfig";
+import { MediaItemType, MediaType, RecommendedItemType, UserType } from "src/utils/types";
 
 // ── Auth ─────────────────────────────────────────────────────
 

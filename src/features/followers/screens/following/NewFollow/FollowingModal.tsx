@@ -1,7 +1,7 @@
 import { Entypo } from "@expo/vector-icons";
 import React from "react";
 import { KeyboardAvoidingView, Modal, Platform, Text, TouchableOpacity, View } from "react-native";
-import { NewFollowContent } from "./NewFollowContent";
+import { NewFollowContent } from "src/features/followers/screens/following/NewFollow/NewFollowContent";
 
 interface FollowingModalProps {
   toFollowEmail: string;

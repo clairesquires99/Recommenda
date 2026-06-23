@@ -2,10 +2,10 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
-import { ArrowButton } from "../../../components/ArrowButton";
-import { CustomButton } from "../../../components/CustomButton";
-import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
-import { useProfileScreen } from "./useProfileScreen";
+import { ArrowButton } from "src/components/ArrowButton";
+import { CustomButton } from "src/components/CustomButton";
+import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
+import { useProfileScreen } from "src/features/profile/screens/useProfileScreen";
 
 export const ProfileScreen = () => {
   const router = useRouter();

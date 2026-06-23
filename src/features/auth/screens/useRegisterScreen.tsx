@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import Toast from "react-native-toast-message";
-import { findOrCreateUser } from "../../../utils/api";
-import { setAsyncUser, useAuthStore } from "../../../utils/store";
+import { findOrCreateUser } from "src/utils/api";
+import { setAsyncUser, useAuthStore } from "src/utils/store";
 
 export const useRegisterScreen = () => {
   const [firstName, setFirstName] = useState("");

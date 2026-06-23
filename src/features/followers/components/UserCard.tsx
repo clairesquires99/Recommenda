@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { UserType } from "../../../utils/types";
+import { UserType } from "src/utils/types";
 
 interface UserCardProps {
   user: UserType;

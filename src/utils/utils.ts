@@ -1,10 +1,10 @@
-import { Book } from "../features/books/domain/types";
+import { Book } from "src/features/books/domain/types";
 import {
   GroupedRecommendedItemType,
   MediaItemType,
   MediaType,
   RecommendedItemType,
-} from "./types";
+} from "src/utils/types";
 
 export const parseBookToMediaItem = (book: Book) => {
   const mediaItem: MediaItemType = {

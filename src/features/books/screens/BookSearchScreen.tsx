@@ -1,10 +1,10 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { LoadingIndicator } from "../../../components/LoadingIndicator";
-import { ScreenStyleWrapper } from "../../../components/ScreenStyleWrapper";
-import { BookCard } from "../components/BookCard";
-import { BookRecommendationModal } from "../components/BookReccomendationModal";
-import { useBookSearchScreen } from "./useBookSearchScreen";
+import { LoadingIndicator } from "src/components/LoadingIndicator";
+import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
+import { BookCard } from "src/features/books/components/BookCard";
+import { BookRecommendationModal } from "src/features/books/components/BookReccomendationModal";
+import { useBookSearchScreen } from "src/features/books/screens/useBookSearchScreen";
 
 export const BookSearchScreen = () => {
   const {

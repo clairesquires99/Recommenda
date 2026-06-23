@@ -2,12 +2,12 @@ import { Entypo, Feather } from "@expo/vector-icons";
 import React, { useEffect } from "react";
 import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox/build/dist/BouncyCheckbox";
-import { CustomButton } from "../../../components/CustomButton";
-import { Warning } from "../../../components/Warning";
-import { UserType } from "../../../utils/types";
-import { UserCard } from "../../followers/components/UserCard";
-import { Book } from "../domain/types";
-import { useBookRecommendationModal } from "./useBookRecommendationModal";
+import { CustomButton } from "src/components/CustomButton";
+import { Warning } from "src/components/Warning";
+import { UserType } from "src/utils/types";
+import { UserCard } from "src/features/followers/components/UserCard";
+import { Book } from "src/features/books/domain/types";
+import { useBookRecommendationModal } from "src/features/books/components/useBookRecommendationModal";
 
 interface BookRecommendationModalProps {
   isVisible: boolean;

@@ -1,5 +1,5 @@
-import { useAuthStore } from "../../../utils/store";
-import { useAuth } from "../../auth/useAuth";
+import { useAuthStore } from "src/utils/store";
+import { useAuth } from "src/features/auth/useAuth";
 
 export const useProfileScreen = () => {
   const user = useAuthStore((state) => state.user);

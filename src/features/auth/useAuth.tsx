@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
-import { removeUserFromUsersTable } from "../../utils/api";
-import { clearAsync, useAuthStore } from "../../utils/store";
+import { removeUserFromUsersTable } from "src/utils/api";
+import { clearAsync, useAuthStore } from "src/utils/store";
 
 export const useAuth = () => {
   const router = useRouter();

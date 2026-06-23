@@ -1,5 +1,5 @@
 import { Image, Text, View } from "react-native";
-import { GroupedRecommendedItemType } from "../utils/types";
+import { GroupedRecommendedItemType } from "src/utils/types";
 
 interface RecommendedItemProps {
   displayedOnPage: "recommended to" | "recommended by";

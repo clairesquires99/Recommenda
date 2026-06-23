@@ -1,8 +1,8 @@
 import { FlatList, Text, View } from "react-native";
-import { LoadingIndicator } from "../../../../components/LoadingIndicator";
-import { RecommendedItem } from "../../../../components/RecommendedItem";
-import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
-import { useRecommendationsByMe } from "./useRecommendationsByMeScreen";
+import { LoadingIndicator } from "src/components/LoadingIndicator";
+import { RecommendedItem } from "src/components/RecommendedItem";
+import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
+import { useRecommendationsByMe } from "src/features/recommendations/screens/RecommendationsByMeScreen/useRecommendationsByMeScreen";
 
 export const RecommendationsByMeScreen = () => {
   const { isLoading, recommendations } = useRecommendationsByMe();

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
-import { createNewFollow, getFollowing } from "../../../../utils/api";
-import { useAuthStore } from "../../../../utils/store";
-import { UserType } from "../../../../utils/types";
+import { createNewFollow, getFollowing } from "src/utils/api";
+import { useAuthStore } from "src/utils/store";
+import { UserType } from "src/utils/types";
 
 export const useFollowingScreen = () => {
   const [toFollowEmail, setToFollowEmail] = useState("");

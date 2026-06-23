@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getRecommendationsToMe } from "../../../../utils/api";
-import { useAuthStore } from "../../../../utils/store";
-import { GroupedRecommendedItemType } from "../../../../utils/types";
-import { groupRecommendations } from "../../../../utils/utils";
+import { getRecommendationsToMe } from "src/utils/api";
+import { useAuthStore } from "src/utils/store";
+import { GroupedRecommendedItemType } from "src/utils/types";
+import { groupRecommendations } from "src/utils/utils";
 
 export const useRecommendationsToMeScreen = () => {
   const user = useAuthStore((state) => state.user);

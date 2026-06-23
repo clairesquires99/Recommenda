@@ -1,8 +1,8 @@
 import { KeyboardAvoidingView, Platform, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CoolCat from "../../../assets/images/cool-cat.svg";
-import { CustomButton } from "../../../components/CustomButton";
-import { useLoginScreen } from "./useLoginScreen";
+import CoolCat from "src/assets/images/cool-cat.svg";
+import { CustomButton } from "src/components/CustomButton";
+import { useLoginScreen } from "src/features/auth/screens/useLoginScreen";
 import { useRouter } from "expo-router";
 
 export const LoginScreen = () => {

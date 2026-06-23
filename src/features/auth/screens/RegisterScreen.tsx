@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import { KeyboardAvoidingView, Platform, Text, TextInput, View } from "react-native";
-import { CustomButton } from "../../../components/CustomButton";
-import { useRegisterScreen } from "./useRegisterScreen";
+import { CustomButton } from "src/components/CustomButton";
+import { useRegisterScreen } from "src/features/auth/screens/useRegisterScreen";
 
 export const RegisterScreen = () => {
   const {

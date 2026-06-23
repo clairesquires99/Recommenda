@@ -1,8 +1,8 @@
 import { FlatList, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
-import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
-import { UserCard } from "../../components/UserCard";
-import { useFollowersScreen } from "./useFollowersScreen";
+import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
+import { UserCard } from "src/features/followers/components/UserCard";
+import { useFollowersScreen } from "src/features/followers/screens/followers/useFollowersScreen";
 
 export const FollowersScreen = () => {
   const { user, followers } = useFollowersScreen();

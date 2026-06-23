@@ -2,10 +2,10 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
-import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
-import { UserCard } from "../../components/UserCard";
-import { FollowingModal } from "./NewFollow/FollowingModal";
-import { useFollowingScreen } from "./useFollowingScreen";
+import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
+import { UserCard } from "src/features/followers/components/UserCard";
+import { FollowingModal } from "src/features/followers/screens/following/NewFollow/FollowingModal";
+import { useFollowingScreen } from "src/features/followers/screens/following/useFollowingScreen";
 
 export const FollowingScreen = () => {
   const {

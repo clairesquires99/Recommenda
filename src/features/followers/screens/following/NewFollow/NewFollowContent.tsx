@@ -1,5 +1,5 @@
 import { TextInput, View } from "react-native";
-import { CustomButton } from "../../../../../components/CustomButton";
+import { CustomButton } from "src/components/CustomButton";
 
 interface NewFollowContentProps {
   toFollowEmail: string;
