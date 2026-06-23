@@ -31,25 +31,22 @@ export const useBookRecommendationModal = () => {
   ) => {
     if (!book) {
       console.log("Error: There is no book set to recommend.");
-      setError(
-        "Sorry, something went wrong. Please try that recommendation again."
-      );
+      setError("Sorry, something went wrong. Please try that recommendation again.");
       return;
-    } else if (!user?.email) {
+    } else if (!user?.id) {
       console.log("Error: no user");
       setError("You don't seem to be logged in. Please log in and try again.");
       return;
     } else if (selectedFollowers.length <= 0) {
       console.log("Error: No followers selected");
-      setError(
-        "Please select at least one follower to send this recommendation to."
-      );
+      setError("Please select at least one follower to send this recommendation to.");
       return;
     }
+
     const mediaItem = parseBookToMediaItem(book);
 
     await pushRecommendation({
-      userEmail: user?.email,
+      userId: user.id,
       sendToEmails: selectedFollowers,
       item: mediaItem,
     });

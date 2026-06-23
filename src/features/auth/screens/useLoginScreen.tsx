@@ -1,25 +1,27 @@
 import { useRouter } from "expo-router";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import Toast from "react-native-toast-message";
-import { FIREBASE_AUTH } from "../../../../firebaseConfig";
+import { findUserByEmail } from "../../../utils/api";
 import { setAsyncUser, useAuthStore } from "../../../utils/store";
 
 export const useLoginScreen = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
   const handleLogin = async () => {
     try {
-      const userCredentials = await signInWithEmailAndPassword(
-        FIREBASE_AUTH,
-        email,
-        password
-      );
-      const user = userCredentials.user;
-      setAsyncUser(user);
+      const lowercaseEmail = email.toLowerCase();
+      const user = await findUserByEmail(lowercaseEmail);
+      if (!user) {
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: `No account found for ${lowercaseEmail}. Please register first.`,
+        });
+        return;
+      }
+      await setAsyncUser(user);
       setUser(user);
       router.push("/");
     } catch (error) {
@@ -35,8 +37,6 @@ export const useLoginScreen = () => {
   return {
     email,
     setEmail,
-    password,
-    setPassword,
     handleLogin,
   };
 };

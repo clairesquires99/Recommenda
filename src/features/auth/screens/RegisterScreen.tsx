@@ -12,10 +12,6 @@ export const RegisterScreen = () => {
     setLastName,
     email,
     setEmail,
-    password,
-    setPassword,
-    confirmPassword,
-    setConfirmPassword,
     handleRegister,
   } = useRegisterScreen();
 
@@ -41,22 +37,6 @@ export const RegisterScreen = () => {
         style={globalStyles.authInput}
         placeholder="Email"
         autoCapitalize="none"
-      />
-      <TextInput
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        style={globalStyles.authInput}
-        placeholder="Password"
-        autoCapitalize="none"
-        secureTextEntry
-      />
-      <TextInput
-        value={confirmPassword}
-        onChangeText={(text) => setConfirmPassword(text)}
-        style={globalStyles.authInput}
-        placeholder="Confirm password"
-        autoCapitalize="none"
-        secureTextEntry
       />
       <CustomButton onPress={handleRegister} text={"Register"} />
       <Text style={[globalStyles.text_md, { margin: 10 }]}>

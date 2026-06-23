@@ -1,9 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { User } from "firebase/auth";
 import { create } from "zustand";
+import { UserType } from "./types";
+
 interface AuthStateType {
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: UserType | null;
+  setUser: (user: UserType | null) => void;
   removeUser: () => void;
 }
 
@@ -11,29 +12,32 @@ export const useAuthStore = create<AuthStateType>()((set) => ({
   user: null,
   setUser: (user) => {
     console.log("Setting user to", user?.email);
-    set((state) => ({ user: user }));
+    set(() => ({ user }));
   },
   removeUser: () => {
     console.log("Removing user");
-    set((state) => ({ user: null }));
+    set(() => ({ user: null }));
   },
 }));
 
-export const setAsyncUser = async (user: User | null) => {
+export const setAsyncUser = async (user: UserType | null) => {
   await AsyncStorage.setItem("user", JSON.stringify(user));
   console.log("Async user set to:", user?.email);
 };
 
-export const getAsyncUser = async () => {
+export const getAsyncUser = async (): Promise<UserType | null> => {
   const userJson = await AsyncStorage.getItem("user");
-  const user: User | null = userJson ? JSON.parse(userJson) : null;
-  console.log("Async fetching user:", user?.email);
-  return user;
+  if (!userJson) return null;
+  const user = JSON.parse(userJson);
+  // Require id — sessions persisted before the UUID migration are invalid
+  if (!user?.id) return null;
+  console.log("Async fetching user:", user.email);
+  return user as UserType;
 };
 
 export const clearAsync = async () => {
   try {
-    await AsyncStorage.clear();
+    await AsyncStorage.removeItem("user");
   } catch (error) {
     console.log(error);
   }
