@@ -15,7 +15,7 @@ export const RecommendedItem = ({
       <Image source={{ uri: item.image }} style={styles.cardImage} />
       <View style={styles.cardText}>
         <Text style={styles.mediaTitle}>{item.title}</Text>
-        <Text style={styles.mediaAuthor}>By {item.author}</Text>
+        <Text style={styles.mediaAuthor}>By {item.author.join(", ")}</Text>
         <Text>
           {displayedOnPage === "recommended to"
             ? "Recommended to you by "

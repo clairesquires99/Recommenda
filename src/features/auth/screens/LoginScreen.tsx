@@ -5,8 +5,7 @@ import { globalStyles } from "../../../globalStyles";
 import { useLoginScreen } from "./useLoginScreen";
 
 export const LoginScreen = () => {
-  const { email, setEmail, password, setPassword, handleLogin } =
-    useLoginScreen();
+  const { email, setEmail, handleLogin } = useLoginScreen();
   return (
     <View
       style={{ ...globalStyles.container, flex: 1, justifyContent: "center" }}
@@ -17,14 +16,6 @@ export const LoginScreen = () => {
         style={globalStyles.authInput}
         placeholder="Email"
         autoCapitalize="none"
-      />
-      <TextInput
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        style={globalStyles.authInput}
-        placeholder="Password"
-        autoCapitalize="none"
-        secureTextEntry
       />
       <CustomButton onPress={handleLogin} text={"Login"} />
       <Text style={[globalStyles.text_md, { margin: 10 }]}>

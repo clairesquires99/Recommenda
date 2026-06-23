@@ -1,101 +1,61 @@
-import { User } from "firebase/auth";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  getDocs,
-  or,
-  query,
-  serverTimestamp,
-  updateDoc,
-  where,
-} from "firebase/firestore";
 import Toast from "react-native-toast-message";
-import { FIRESTORE_DB } from "../../firebaseConfig";
-import { MediaItemType, RecommendedItemType, UserType } from "./types";
+import { supabase } from "../../supabaseConfig";
+import { MediaItemType, MediaType, RecommendedItemType, UserType } from "./types";
 
-interface AddNewUserProps {
+// ── Auth ─────────────────────────────────────────────────────
+
+export const findUserByEmail = async (
+  email: string
+): Promise<UserType | null> => {
+  const { data } = await supabase
+    .from("users")
+    .select("id, name, email")
+    .eq("email", email)
+    .maybeSingle();
+  if (!data) return null;
+  return { id: data.id, name: data.name, email: data.email };
+};
+
+export const findOrCreateUser = async ({
+  name,
+  email,
+}: {
   name: string;
   email: string;
-}
+}): Promise<UserType> => {
+  const existing = await findUserByEmail(email);
+  if (existing) return existing;
 
-export const addNewUser = async ({ name, email }: AddNewUserProps) => {
-  const doc = await addDoc(collection(FIRESTORE_DB, "users"), {
-    name: name,
-    email: email,
-  });
-  console.log("New user added to DB");
-};
+  const { data, error } = await supabase
+    .from("users")
+    .insert({ name, email })
+    .select("id, name, email")
+    .single();
 
-export const updateRecommendationsForDeletedUser = async (email: string) => {
-  try {
-    const q = query(
-      collection(FIRESTORE_DB, "recommendations"),
-      or(
-        where("recommendedByUser", "==", email),
-        where("recommendedToUser", "==", email)
-      )
-    );
-    const qSnapshot = await getDocs(q);
-    qSnapshot.forEach(async (doc) => {
-      const data = doc.data();
-      const updatedData = {
-        ...data,
-        recommendedByUser:
-          data.recommendedByUser === email
-            ? "deletedUser"
-            : data.recommendedByUser,
-        recommendedToUser:
-          data.recommendedToUser === email
-            ? "deletedUser"
-            : data.recommendedToUser,
-      };
-      await updateDoc(doc.ref, updatedData);
-    });
-    console.log("Recommendations updated for deleted user");
-  } catch (error) {
-    console.log("Error updating recommendations for deleted user: ", error);
+  if (error || !data) {
+    console.log("Failed to create user:", JSON.stringify(error, null, 2));
+    throw new Error(`Failed to create user: ${error?.message} (code: ${error?.code})`);
   }
+  return { id: data.id, name: data.name, email: data.email };
 };
+
+// ── Account deletion ─────────────────────────────────────────
+// on delete cascade removes follows; on delete set null nullifies recommendation FKs
 
 export const removeUserFromUsersTable = async (email: string) => {
   try {
-    const q = query(
-      collection(FIRESTORE_DB, "users"),
-      where("email", "==", email)
-    );
-    const qSnapshot = await getDocs(q);
-    if (qSnapshot.empty) {
-      console.log("Error: No user found with the provided email address");
-      return;
-    }
-    const userDocRef = qSnapshot.docs[0].ref;
-    await deleteDoc(userDocRef);
+    const { error } = await supabase.from("users").delete().eq("email", email);
+    if (error) throw error;
     console.log("User deleted from DB");
   } catch (error) {
-    console.log("Error deleting user from Firestore: ", error);
+    console.log("Error deleting user from DB:", error);
   }
 };
 
-export const removeUserFollowRelationships = async (email: string) => {
-  try {
-    const q = query(
-      collection(FIRESTORE_DB, "follows"),
-      or(where("userEmail", "==", email), where("followingEmail", "==", email))
-    );
-    const qSnapshot = await getDocs(q);
-    qSnapshot.forEach(async (doc) => {
-      await deleteDoc(doc.ref);
-    });
+// ── Follows ───────────────────────────────────────────────────
 
-    console.log("User's follow records deleted from DB");
-  } catch (error) {
-    console.log("Error deleting follow records from Firestore: ", error);
-  }
-};
-
-interface createNewFollowProps {
-  user: User;
+interface CreateNewFollowProps {
+  user: UserType;
   followingEmail: string;
   setToFollowEmail: (text: string) => void;
 }
@@ -104,245 +64,211 @@ export const createNewFollow = async ({
   user,
   followingEmail,
   setToFollowEmail,
-}: createNewFollowProps) => {
+}: CreateNewFollowProps) => {
   const lowercaseFollowingEmail = followingEmail.toLowerCase();
-  let followingName: string = "";
   if (lowercaseFollowingEmail === user.email) {
     Toast.show({
       type: "error",
       text1: "Error",
-      text2:
-        "You cannot follow yourself. Enter a different user's email address to follow.",
+      text2: "You cannot follow yourself. Enter a different user's email address to follow.",
     });
     return;
   }
-  try {
-    const q = query(
-      collection(FIRESTORE_DB, "users"),
-      where("email", "==", lowercaseFollowingEmail)
-    );
-    const qSnapshot = await getDocs(q);
-    if (qSnapshot.empty) {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: `There is no user with the following email address: ${lowercaseFollowingEmail}`,
-      });
-      return;
-    }
-    followingName = qSnapshot.docs[0].data().name;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
 
-  try {
-    const q = query(
-      collection(FIRESTORE_DB, "follows"),
-      where("userEmail", "==", user.email),
-      where("followingEmail", "==", lowercaseFollowingEmail)
-    );
-    const qSnapshot = await getDocs(q);
-    if (!qSnapshot.empty) {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: `You are already following ${lowercaseFollowingEmail}`,
-      });
-      return;
-    }
-  } catch (error) {
-    console.log(error);
-    return;
-  }
+  const { data: followingUser, error: lookupError } = await supabase
+    .from("users")
+    .select("id, name, email")
+    .eq("email", lowercaseFollowingEmail)
+    .maybeSingle();
 
-  try {
-    const doc = await addDoc(collection(FIRESTORE_DB, "follows"), {
-      userEmail: user.email,
-      userName: user.displayName,
-      followingEmail: lowercaseFollowingEmail,
-      followingName: followingName,
+  if (lookupError || !followingUser) {
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: `There is no user with the email address: ${lowercaseFollowingEmail}`,
     });
-  } catch (error) {
-    console.log(error);
+    return;
+  }
+
+  const { data: existing } = await supabase
+    .from("follows")
+    .select("id")
+    .eq("follower_id", user.id)
+    .eq("following_id", followingUser.id)
+    .maybeSingle();
+
+  if (existing) {
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: `You are already following ${lowercaseFollowingEmail}`,
+    });
+    return;
+  }
+
+  const { error } = await supabase.from("follows").insert({
+    follower_id: user.id,
+    following_id: followingUser.id,
+  });
+
+  if (error) {
+    console.log("Error creating follow:", error);
     return;
   }
 
   setToFollowEmail("");
 };
 
-export const getFollowing = async (user: User | null) => {
+export const getFollowing = async (
+  user: UserType | null
+): Promise<UserType[] | undefined> => {
   if (!user) {
     console.log("No user set");
     return;
   }
-  const q = query(
-    collection(FIRESTORE_DB, "follows"),
-    where("userEmail", "==", user.email)
-  );
-  const qSnapshot = await getDocs(q);
-  let followingList: UserType[] = [];
-  if (qSnapshot.empty) {
-    return followingList;
-  }
-  qSnapshot.forEach((doc) => {
-    const data = doc.data();
-    const following: UserType = {
-      name: data.followingName,
-      email: data.followingEmail,
-    };
-    followingList.push(following);
-  });
-  return followingList;
+  const { data } = await supabase
+    .from("follows")
+    .select("following:following_id(id, name, email)")
+    .eq("follower_id", user.id);
+  if (!data || data.length === 0) return [];
+  return data.map((row) => row.following as UserType);
 };
 
-export const getFollowers = async (user: User | null) => {
+export const getFollowers = async (
+  user: UserType | null
+): Promise<UserType[] | undefined> => {
   if (!user) {
     console.log("No user set");
     return;
   }
-  const q = query(
-    collection(FIRESTORE_DB, "follows"),
-    where("followingEmail", "==", user.email)
-  );
-  const qSnapshot = await getDocs(q);
-  let followersList: UserType[] = [];
-  if (qSnapshot.empty) {
-    return followersList;
-  }
-  qSnapshot.forEach((doc) => {
-    const data = doc.data();
-    const followers: UserType = {
-      name: data.userName,
-      email: data.userEmail,
-    };
-    followersList.push(followers);
-  });
-  return followersList;
+  const { data } = await supabase
+    .from("follows")
+    .select("follower:follower_id(id, name, email)")
+    .eq("following_id", user.id);
+  if (!data || data.length === 0) return [];
+  return data.map((row) => row.follower as UserType);
 };
+
+// ── Recommendations ───────────────────────────────────────────
 
 interface PushRecommendationProps {
-  userEmail: string;
+  userId: string;
   sendToEmails: string[];
   item: MediaItemType;
 }
 
 export const pushRecommendation = async ({
-  userEmail,
+  userId,
   sendToEmails,
   item,
 }: PushRecommendationProps) => {
-  if (!userEmail) return;
-  const duplicateRecommendations = await findDuplicateRecommendations({
-    userEmail,
-    sendToEmails,
+  if (!userId || sendToEmails.length === 0) return;
+
+  const { data: recipients } = await supabase
+    .from("users")
+    .select("id, email")
+    .in("email", sendToEmails);
+
+  if (!recipients || recipients.length === 0) return;
+
+  const duplicateEmails = await findDuplicateRecommendations({
+    fromUserId: userId,
+    recipients,
     item,
   });
-  const newSendToEmails = sendToEmails.filter(
-    (email) => !duplicateRecommendations.includes(email)
-  );
-  newSendToEmails.map(async (sendToEmail) => {
-    await addDoc(collection(FIRESTORE_DB, "recommendations"), {
-      item,
-      recommendedByUser: userEmail,
-      recommendedToUser: sendToEmail,
-      dateCreated: serverTimestamp(),
-    });
-  });
 
-  if (duplicateRecommendations.length > 0)
+  const newRecipients = recipients.filter((r) => !duplicateEmails.includes(r.email));
+
+  await Promise.all(
+    newRecipients.map((recipient) =>
+      supabase.from("recommendations").insert({
+        from_user_id: userId,
+        to_user_id: recipient.id,
+        media_type: String(item.type),
+        title: item.title,
+        creator: item.author?.join(", ") ?? "",
+        external_id: item.id,
+      })
+    )
+  );
+
+  if (duplicateEmails.length > 0)
     Toast.show({
       type: "error",
-      text1: "Error",
-      text2: `You have already recommended this item to the people below. We won't recommend it again. \n${duplicateRecommendations}`,
+      text1: "Already recommended",
+      text2: `You've already recommended this to: ${duplicateEmails.join(", ")}`,
     });
 };
 
 interface FindDuplicateRecommendationsProps {
-  userEmail: string;
-  sendToEmails: string[];
+  fromUserId: string;
+  recipients: { id: string; email: string }[];
   item: MediaItemType;
 }
 
 const findDuplicateRecommendations = async ({
-  userEmail,
-  sendToEmails,
+  fromUserId,
+  recipients,
   item,
-}: FindDuplicateRecommendationsProps) => {
-  let duplicateRecommendations: string[] = [];
-  for (const sendToEmail of sendToEmails) {
+}: FindDuplicateRecommendationsProps): Promise<string[]> => {
+  const duplicates: string[] = [];
+  for (const recipient of recipients) {
     try {
-      const q = query(
-        collection(FIRESTORE_DB, "recommendations"),
-        where("recommendedByUser", "==", userEmail),
-        where("recommendedToUser", "==", sendToEmail),
-        where("item.id", "==", item.id)
-      );
-      const qSnapshot = await getDocs(q);
-      if (!qSnapshot.empty) {
-        duplicateRecommendations.push(sendToEmail);
-      }
+      const { data } = await supabase
+        .from("recommendations")
+        .select("id")
+        .eq("from_user_id", fromUserId)
+        .eq("to_user_id", recipient.id)
+        .eq("external_id", item.id)
+        .maybeSingle();
+      if (data) duplicates.push(recipient.email);
     } catch (error) {
-      console.error(`Error for ${sendToEmail}:`, error);
+      console.error(`Error checking duplicate for ${recipient.email}:`, error);
     }
   }
-  return duplicateRecommendations;
+  return duplicates;
 };
 
-export const getRecommendationsToMe = async (user: User | null) => {
+export const getRecommendationsToMe = async (
+  user: UserType | null
+): Promise<RecommendedItemType[] | undefined> => {
   if (!user) {
     console.log("No user set");
     return;
   }
-  const q = query(
-    collection(FIRESTORE_DB, "recommendations"),
-    where("recommendedToUser", "==", user.email)
-  );
-  const qSnapshot = await getDocs(q);
-  if (qSnapshot.empty) {
-    return [];
-  }
-  let recommendations: RecommendedItemType[] = [];
-  qSnapshot.forEach((doc) => {
-    const data = doc.data();
-    const recommendedItem: RecommendedItemType = {
-      id: data.item.id,
-      image: data.item.image,
-      title: data.item.title,
-      type: data.item.type,
-      author: data.item.author,
-      recommender: data.recommendedByUser,
-    };
-    recommendations.push(recommendedItem);
-  });
-  return recommendations;
+  const { data } = await supabase
+    .from("recommendations")
+    .select("*, from_user:from_user_id(id, name, email)")
+    .eq("to_user_id", user.id);
+  if (!data || data.length === 0) return [];
+  return data.map((row) => ({
+    id: row.external_id,
+    type: Number(row.media_type) as MediaType,
+    image: "",
+    title: row.title,
+    author: row.creator ? row.creator.split(", ") : [],
+    recommender: (row.from_user as UserType | null)?.name ?? "Deleted user",
+  }));
 };
 
-export const getRecommendationsByMe = async (user: User | null) => {
+export const getRecommendationsByMe = async (
+  user: UserType | null
+): Promise<RecommendedItemType[] | undefined> => {
   if (!user) {
     console.log("No user set");
     return;
   }
-  const q = query(
-    collection(FIRESTORE_DB, "recommendations"),
-    where("recommendedByUser", "==", user.email)
-  );
-  const qSnapshot = await getDocs(q);
-  if (qSnapshot.empty) {
-    return [];
-  }
-  let recommendations: RecommendedItemType[] = [];
-  qSnapshot.forEach((doc) => {
-    const data = doc.data();
-    const recommendedItem: RecommendedItemType = {
-      id: data.item.id,
-      image: data.item.image,
-      title: data.item.title,
-      type: data.item.type,
-      author: data.item.author,
-      recommender: data.recommendedToUser,
-    };
-    recommendations.push(recommendedItem);
-  });
-  return recommendations;
+  const { data } = await supabase
+    .from("recommendations")
+    .select("*, to_user:to_user_id(id, name, email)")
+    .eq("from_user_id", user.id);
+  if (!data || data.length === 0) return [];
+  return data.map((row) => ({
+    id: row.external_id,
+    type: Number(row.media_type) as MediaType,
+    image: "",
+    title: row.title,
+    author: row.creator ? row.creator.split(", ") : [],
+    recommender: (row.to_user as UserType | null)?.name ?? "Deleted user",
+  }));
 };
