@@ -1,22 +1,21 @@
-import { Link } from "expo-router";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, View, useWindowDimensions } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CoolCat from "../../../assets/images/cool-cat.svg";
 import { CustomButton } from "../../../components/CustomButton";
 import { useLoginScreen } from "./useLoginScreen";
+import { useRouter } from "expo-router";
 
 export const LoginScreen = () => {
   const { email, setEmail, handleLogin } = useLoginScreen();
+  const { height } = useWindowDimensions();
+  const router = useRouter();
   return (
-    <View className="flex-1 bg-brand px-7 pt-16 pb-9 justify-between">
-      {/* Wordmark */}
-      <View>
-        <Text className="font-display text-ds-eyebrow font-extrabold tracking-ds-wide text-brand-200 uppercase">
+    <SafeAreaView className="flex-1 bg-brand px-7 pt-8 pb-9 justify-end gap-8">
+      {/* Graphic and title  */}
+      <View className="items-center justify-center pb-4">
+        <CoolCat height={height * 0.4} width={height * 0.4} />
+        <Text className="font-brush text-ds-app-name text-paper">
           RECOMMENDA
-        </Text>
-        <Text className="font-display text-ds-h1 font-black text-paper mt-6 tracking-ds-display leading-tight">
-          Welcome{"\n"}back.
-        </Text>
-        <Text className="font-hand text-xl text-paper/90 mt-3">
-          come for the rec, stay for the taste.
         </Text>
       </View>
 
@@ -31,14 +30,23 @@ export const LoginScreen = () => {
           autoCapitalize="none"
           keyboardType="email-address"
         />
-        <CustomButton onPress={handleLogin} text="Log in" size="lg" />
-        <Text className="text-sm text-brand-200 text-center mt-1">
-          No account?{" "}
-          <Link className="text-paper font-bold" href="/register">
-            Get started
-          </Link>
-        </Text>
+        <View className="flex-row gap-3">
+          <CustomButton
+            onPress={() => router.push("/(auth)/register")}
+            text="Sign up"
+            variant="secondary-inverse"
+            size="lg"
+            className="flex-1"
+          />
+          <CustomButton
+            onPress={handleLogin}
+            text="Log in"
+            variant="primary-inverse"
+            size="lg"
+            className="flex-1"
+          />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

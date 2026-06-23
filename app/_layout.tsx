@@ -11,11 +11,11 @@ import {
   ShantellSans_400Regular,
   ShantellSans_600SemiBold,
 } from "@expo-google-fonts/shantell-sans";
+import { CaveatBrush_400Regular } from "@expo-google-fonts/caveat-brush";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "../src/components/toastConfig";
 import { getAsyncUser, useAuthStore } from "../src/utils/store";
@@ -32,6 +32,7 @@ export default function RootLayout() {
     HankenGrotesk_900Black,
     ShantellSans_400Regular,
     ShantellSans_600SemiBold,
+    CaveatBrush_400Regular,
   });
 
   const setUser = useAuthStore((state) => state.setUser);
@@ -56,16 +57,14 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <GestureHandlerRootView>
-      <SafeAreaView className="flex-1 bg-paper">
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: "#F8F1E3" },
-          }}
-        />
-        <Toast config={toastConfig} position={"bottom"} />
-      </SafeAreaView>
+    <GestureHandlerRootView className="flex-1 bg-paper">
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: "#F8F1E3" },
+        }}
+      />
+      <Toast config={toastConfig} position={"bottom"} />
     </GestureHandlerRootView>
   );
 }
