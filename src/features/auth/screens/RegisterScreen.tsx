@@ -15,17 +15,11 @@ export const RegisterScreen = () => {
   } = useRegisterScreen();
 
   return (
-    <View className="flex-1 bg-brand px-7 pt-16 pb-9 justify-between">
+    <View className="flex-1 bg-brand px-7 pt-16 pb-11 justify-end">
       {/* Wordmark */}
       <View>
-        <Text className="font-display text-ds-eyebrow font-extrabold tracking-ds-wide text-brand-200 uppercase">
-          RECOMMENDA
-        </Text>
-        <Text className="font-display text-ds-h1 font-black text-paper mt-6 tracking-ds-display leading-tight">
-          Create your{"\n"}account.
-        </Text>
-        <Text className="font-hand text-xl text-paper/90 mt-3">
-          come for the rec, stay for the taste.
+        <Text className="font-display text-ds-h1 font-black text-paper mt-6 mb-6 tracking-ds-display leading-tight">
+          Create your account.
         </Text>
       </View>
 
@@ -54,7 +48,12 @@ export const RegisterScreen = () => {
           autoCapitalize="none"
           keyboardType="email-address"
         />
-        <CustomButton onPress={handleRegister} text="Get started" size="lg" />
+        <CustomButton
+          onPress={handleRegister}
+          text="Get started"
+          variant="secondary-inverse"
+          size="lg"
+        />
         <Text className="text-sm text-brand-200 text-center mt-1">
           Already have an account?{" "}
           <Link className="text-paper font-bold" href="/login">
