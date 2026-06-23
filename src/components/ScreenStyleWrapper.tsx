@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface ScreenStyleWrapperProps {
   children: ReactNode;
@@ -11,12 +12,12 @@ export const ScreenStyleWrapper: React.FC<ScreenStyleWrapperProps> = ({
   className,
 }) => {
   return (
-    <View className="flex-1 bg-paper">
+    <SafeAreaView className="flex-1 bg-paper">
       <View
         className={`flex-1 bg-paper w-full max-w-[650px] mx-auto px-5${className ? ` ${className}` : ""}`}
       >
         {children}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

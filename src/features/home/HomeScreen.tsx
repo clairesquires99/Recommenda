@@ -5,7 +5,7 @@ import {
   Octicons,
 } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { Image, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { CustomButton } from "../../components/CustomButton";
 import { ScreenStyleWrapper } from "../../components/ScreenStyleWrapper";
 import { useHomeScreen } from "./useHomeScreen";
@@ -15,22 +15,13 @@ export const HomeScreen = () => {
   return (
     <ScreenStyleWrapper>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Header */}
-        <View className="pt-6 pb-4">
-          <Image
-            source={require("../../assets/images/logo.png")}
-            className="w-full h-[44px]"
-            resizeMode="contain"
-          />
-        </View>
-
         {/* Greeting */}
-        <View className="mb-6">
+        <View className="mt-4 mb-6">
           <Text className="font-sans text-ds-eyebrow font-semibold tracking-ds-wide text-ink-500 uppercase">
-            {user?.email}
+            Hello, {user?.email}
           </Text>
           <Text className="font-display text-ds-h2 font-extrabold text-ink-700 tracking-ds-tight mt-1">
-            What do you{"\n"}want to share?
+            What do you want to share?
           </Text>
         </View>
 
@@ -41,14 +32,24 @@ export const HomeScreen = () => {
           </Text>
           <View className="gap-3">
             <CustomButton
-              onPress={() => router.push("/recommendations/recommendationsToMe")}
+              onPress={() =>
+                router.push("/recommendations/recommendationsToMe")
+              }
               text="Recommended to me"
-              trailingIcon={<Octicons name="person" size={18} color="#F8F1E3" />}
+              trailingIcon={
+                <Octicons name="person" size={18} color="#F8F1E3" />
+              }
+              size="lg"
             />
             <CustomButton
-              onPress={() => router.push("/recommendations/recommendationsByMe")}
+              onPress={() =>
+                router.push("/recommendations/recommendationsByMe")
+              }
               text="Recommended by me"
-              trailingIcon={<Octicons name="people" size={18} color="#F8F1E3" />}
+              trailingIcon={
+                <Octicons name="people" size={18} color="#F8F1E3" />
+              }
+              size="lg"
             />
           </View>
         </View>
@@ -62,18 +63,25 @@ export const HomeScreen = () => {
             <CustomButton
               onPress={() => router.push("/recommendations/bookSearch")}
               text="Books"
-              trailingIcon={<FontAwesome name="book" size={18} color="#F8F1E3" />}
+              trailingIcon={
+                <FontAwesome name="book" size={18} color="#F8F1E3" />
+              }
+              size="lg"
             />
             <CustomButton
               onPress={() => null}
               text="Film"
-              trailingIcon={<FontAwesome6 name="film" size={18} color="#F8F1E3" />}
+              trailingIcon={
+                <FontAwesome6 name="film" size={18} color="#F8F1E3" />
+              }
+              size="lg"
               disabled
             />
             <CustomButton
               onPress={() => null}
               text="Music"
               trailingIcon={<Feather name="music" size={18} color="#F8F1E3" />}
+              size="lg"
               disabled
             />
           </View>
