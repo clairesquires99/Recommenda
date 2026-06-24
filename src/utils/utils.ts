@@ -10,9 +10,9 @@ export const parseBookToMediaItem = (book: Book) => {
   const mediaItem: MediaItemType = {
     id: book.id,
     type: MediaType.Book,
-    title: book.volumeInfo.title,
-    image: book.volumeInfo.imageLinks.thumbnail,
-    author: book.volumeInfo.authors,
+    title: book.volumeInfo?.title ?? "",
+    image: book.volumeInfo?.imageLinks?.thumbnail ?? "",
+    author: book.volumeInfo?.authors ?? [],
   };
   return mediaItem;
 };

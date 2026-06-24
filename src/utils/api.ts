@@ -188,6 +188,7 @@ export const pushRecommendation = async ({
         title: item.title,
         creator: item.author?.join(", ") ?? "",
         external_id: item.id,
+        image_uri: item.image ?? "",
       })
     )
   );
@@ -244,7 +245,7 @@ export const getRecommendationsToMe = async (
   return data.map((row) => ({
     id: row.external_id,
     type: Number(row.media_type) as MediaType,
-    image: "",
+    image: row.image_uri ?? "",
     title: row.title,
     author: row.creator ? row.creator.split(", ") : [],
     recommender: (row.from_user as UserType | null)?.name ?? "Deleted user",
@@ -266,7 +267,7 @@ export const getRecommendationsByMe = async (
   return data.map((row) => ({
     id: row.external_id,
     type: Number(row.media_type) as MediaType,
-    image: "",
+    image: row.image_uri ?? "",
     title: row.title,
     author: row.creator ? row.creator.split(", ") : [],
     recommender: (row.to_user as UserType | null)?.name ?? "Deleted user",
