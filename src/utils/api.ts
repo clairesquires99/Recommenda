@@ -64,15 +64,11 @@ export const createNewFollow = async ({
   user,
   followingEmail,
   setToFollowEmail,
-}: CreateNewFollowProps) => {
+}: CreateNewFollowProps): Promise<{ success: boolean; error?: string }> => {
   const lowercaseFollowingEmail = followingEmail.toLowerCase();
+
   if (lowercaseFollowingEmail === user.email) {
-    Toast.show({
-      type: "error",
-      text1: "Error",
-      text2: "You cannot follow yourself. Enter a different user's email address to follow.",
-    });
-    return;
+    return { success: false, error: "You can't follow yourself." };
   }
 
   const { data: followingUser, error: lookupError } = await supabase
@@ -82,12 +78,7 @@ export const createNewFollow = async ({
     .maybeSingle();
 
   if (lookupError || !followingUser) {
-    Toast.show({
-      type: "error",
-      text1: "Error",
-      text2: `There is no user with the email address: ${lowercaseFollowingEmail}`,
-    });
-    return;
+    return { success: false, error: `No user found with that email address.` };
   }
 
   const { data: existing } = await supabase
@@ -98,12 +89,7 @@ export const createNewFollow = async ({
     .maybeSingle();
 
   if (existing) {
-    Toast.show({
-      type: "error",
-      text1: "Error",
-      text2: `You are already following ${lowercaseFollowingEmail}`,
-    });
-    return;
+    return { success: false, error: `You're already following ${lowercaseFollowingEmail}.` };
   }
 
   const { error } = await supabase.from("follows").insert({
@@ -113,10 +99,11 @@ export const createNewFollow = async ({
 
   if (error) {
     console.log("Error creating follow:", error);
-    return;
+    return { success: false, error: "Something went wrong. Please try again." };
   }
 
   setToFollowEmail("");
+  return { success: true };
 };
 
 export const getFollowing = async (

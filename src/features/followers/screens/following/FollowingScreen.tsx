@@ -16,15 +16,24 @@ export const FollowingScreen = () => {
     handleNewFollow,
     isModalVisible,
     toggleModal,
+    followError,
   } = useFollowingScreen();
 
   if (!user) {
-    Toast.show({ type: "error", text1: "Error", text2: "Cannot perform action since there is no user set" });
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: "Cannot perform action since there is no user set",
+    });
     return null;
   }
 
   if (!following) {
-    Toast.show({ type: "error", text1: "Error", text2: "Something has gone wrong: following is undefined" });
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: "Something has gone wrong: following is undefined",
+    });
     return null;
   }
 
@@ -36,10 +45,11 @@ export const FollowingScreen = () => {
         toFollowEmail={toFollowEmail}
         setToFollowEmail={setToFollowEmail}
         handleNewFollow={handleNewFollow}
+        errorMessage={followError}
       />
 
       {/* Page heading + add button */}
-      <View className="pt-6 pb-4 flex-row items-end justify-between">
+      <View className="pb-4 flex-row items-end justify-between">
         <View>
           <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase">
             Your network

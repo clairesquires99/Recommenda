@@ -19,7 +19,7 @@ export const FollowersScreen = () => {
   return (
     <ScreenStyleWrapper>
       {/* Page heading */}
-      <View className="pt-6 pb-4">
+      <View className="pb-4">
         <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase">
           Your network
         </Text>

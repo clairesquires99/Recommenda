@@ -9,6 +9,7 @@ interface FollowingModalProps {
   handleNewFollow: () => void;
   isVisible: boolean;
   onClose: () => void;
+  errorMessage?: string;
 }
 
 export const FollowingModal = ({
@@ -17,6 +18,7 @@ export const FollowingModal = ({
   handleNewFollow,
   isVisible,
   onClose,
+  errorMessage,
 }: FollowingModalProps) => (
   <Modal
     animationType="slide"
@@ -47,6 +49,7 @@ export const FollowingModal = ({
           toFollowEmail={toFollowEmail}
           setToFollowEmail={setToFollowEmail}
           handleNewFollow={handleNewFollow}
+          errorMessage={errorMessage}
         />
       </View>
     </KeyboardAvoidingView>

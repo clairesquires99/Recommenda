@@ -8,17 +8,13 @@ export default function ProfileLayout() {
       <Stack.Screen
         name="following"
         options={{
-          title: "Following",
-          headerShown: true,
-          headerBackTitleVisible: false,
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="followers"
         options={{
-          title: "Followers",
-          headerShown: true,
-          headerBackTitleVisible: false,
+          headerShown: false,
         }}
       />
     </Stack>

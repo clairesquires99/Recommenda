@@ -1,16 +1,18 @@
-import { TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import { CustomButton } from "src/components/CustomButton";
 
 interface NewFollowContentProps {
   toFollowEmail: string;
   setToFollowEmail: (text: string) => void;
   handleNewFollow: () => void;
+  errorMessage?: string;
 }
 
 export const NewFollowContent = ({
   toFollowEmail,
   setToFollowEmail,
   handleNewFollow,
+  errorMessage,
 }: NewFollowContentProps) => {
   return (
     <View className="gap-3">
@@ -24,6 +26,9 @@ export const NewFollowContent = ({
         keyboardType="email-address"
         style={{ lineHeight: undefined }}
       />
+      {errorMessage && (
+        <Text className="text-sm font-medium text-red-600 px-1">{errorMessage}</Text>
+      )}
       <CustomButton onPress={handleNewFollow} text="Follow" size="lg" />
     </View>
   );
