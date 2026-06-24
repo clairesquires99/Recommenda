@@ -7,7 +7,7 @@
   --radius-sm: 12px;
   --radius-md: 16px;
   --radius-lg: 24px;
-  --radius-card: 28px;     /* category / list cards */
+  --radius-card: 16px;     /* category / list cards */
   --radius-sheet: 32px;    /* bottom sheets, large surfaces */
   --radius-pill: 999px;    /* buttons, chips, qty steppers */
 }

@@ -1,4 +1,4 @@
-import "../global.css";
+import { CaveatBrush_400Regular } from "@expo-google-fonts/caveat-brush";
 import {
   HankenGrotesk_400Regular,
   HankenGrotesk_500Medium,
@@ -11,12 +11,12 @@ import {
   ShantellSans_400Regular,
   ShantellSans_600SemiBold,
 } from "@expo-google-fonts/shantell-sans";
-import { CaveatBrush_400Regular } from "@expo-google-fonts/caveat-brush";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
+import "../global.css";
 import { toastConfig } from "../src/components/toastConfig";
 import { getAsyncUser, useAuthStore } from "../src/utils/store";
 

@@ -14,7 +14,7 @@ export const BookCard = ({ book, onRecommend }: BookCardProps) => {
       onPress={onRecommend}
     >
       {/* Cover — MediaCard.jsx: rounded-ds-md, soft border */}
-      <View className="w-[72px] h-[96px] rounded-ds-md overflow-hidden border-[1.5px] border-ink/16 bg-brand-100 flex-none">
+      <View className="w-[72px] h-[96px] rounded-ds-sm overflow-hidden bg-brand-100 flex-none">
         <Image
           source={{
             uri:

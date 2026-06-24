@@ -12,9 +12,9 @@ export const RecommendedItem = ({
 }: RecommendedItemProps) => {
   return (
     // MediaCard.jsx pattern: cream-50 surface, 2px soft border, card radius, 14px padding
-    <View className="flex-row gap-4 bg-surface border-2 border-ink/16 rounded-ds-card p-[14px]">
+    <View className="flex-row gap-4 bg-surface border border-ink-500 rounded-ds-card p-[8px]">
       {/* Cover */}
-      <View className="w-[72px] h-[96px] rounded-ds-md overflow-hidden border-[1.5px] border-ink/16 bg-brand-100 flex-none">
+      <View className="w-[72px] h-[96px] rounded-ds-sm overflow-hidden bg-brand-100 flex-none">
         <Image
           source={{ uri: item.image }}
           className="w-full h-full"
@@ -40,7 +40,10 @@ export const RecommendedItem = ({
               {item.recommenders[0]?.charAt(0)?.toUpperCase() ?? "?"}
             </Text>
           </View>
-          <Text className="text-xs text-ink-500 font-medium flex-1" numberOfLines={1}>
+          <Text
+            className="text-xs text-ink-500 font-medium flex-1"
+            numberOfLines={1}
+          >
             {displayedOnPage === "recommended to"
               ? `Rec'd by ${item.recommenders.join(", ")}`
               : `You recommended to ${item.recommenders.join(", ")}`}

@@ -21,7 +21,7 @@ export const HomeScreen = () => {
             Hello, {user?.email}
           </Text>
           <Text className="font-display text-ds-h2 font-extrabold text-ink-700 tracking-ds-tight mt-1">
-            What do you want to share?
+            What do you{"\n"}want to share?
           </Text>
         </View>
 

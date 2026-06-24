@@ -7,28 +7,19 @@ export default function HomeLayout() {
       <Stack.Screen
         name="bookSearch"
         options={{
-          title: "Recommend Books",
-          headerShown: true,
-          headerBackVisible: false,
-          headerBackTitleVisible: false,
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="recommendationsByMe"
         options={{
-          title: "Recommended by Me",
-          headerShown: true,
-          headerBackTitleVisible: false,
-          headerBackVisible: false,
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="recommendationsToMe"
         options={{
-          title: "Recommended to Me",
-          headerShown: true,
-          headerBackVisible: false,
-          headerBackTitleVisible: false,
+          headerShown: false,
         }}
       />
     </Stack>

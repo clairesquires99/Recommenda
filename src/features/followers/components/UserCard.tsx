@@ -8,7 +8,7 @@ interface UserCardProps {
 // Card.jsx "bordered" variant: cream-50 surface, 2px border-soft, ds-card radius
 export const UserCard: React.FC<UserCardProps> = ({ user }) => {
   return (
-    <View className="bg-surface border-2 border-ink/16 rounded-ds-card p-4 flex-row items-center gap-4">
+    <View className="bg-surface border border-ink-500 rounded-ds-card p-[8px] flex-row items-center gap-4">
       {/* Avatar — initials circle */}
       <View className="w-[44px] h-[44px] rounded-ds-pill bg-brand items-center justify-center flex-none">
         <Text className="text-paper font-display font-extrabold text-base">

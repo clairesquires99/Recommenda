@@ -139,7 +139,7 @@ module.exports = {
         "ds-sm": "12px",
         "ds-md": "16px",
         "ds-lg": "24px",
-        "ds-card": "28px",
+        "ds-card": "16px",
         "ds-sheet": "32px",
         "ds-pill": "999px",
       },

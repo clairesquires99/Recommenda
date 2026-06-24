@@ -10,9 +10,9 @@ export const RecommendationsToMeScreen = () => {
   return (
     <ScreenStyleWrapper>
       {/* Page heading */}
-      <View className="pt-6 pb-4">
+      <View className="pb-4">
         <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase">
-          Recommendations
+          Recommendations to me
         </Text>
         <Text className="font-display text-ds-h3 font-extrabold text-ink-700 tracking-ds-tight mt-1">
           What your{"\n"}friends love
