@@ -1,10 +1,13 @@
-import { FlatList, Text, View } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { FlatList, Pressable, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
 import { UserCard } from "src/features/followers/components/UserCard";
 import { useFollowersScreen } from "src/features/followers/screens/followers/useFollowersScreen";
 
 export const FollowersScreen = () => {
+  const router = useRouter();
   const { user, followers } = useFollowersScreen();
 
   if (!user) {
@@ -18,15 +21,28 @@ export const FollowersScreen = () => {
 
   return (
     <ScreenStyleWrapper>
-      {/* Page heading */}
-      <View className="pb-4">
+      {/* Back button */}
+      <Pressable
+        onPress={() => router.back()}
+        className="flex-row items-center self-start mt-[-20px]"
+        hitSlop={8}
+      >
+        <AntDesign name="left" size={18} color="#292A31" />
         <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase">
-          Your network
+          Back
         </Text>
+      </Pressable>
+
+      {/* Page heading */}
+      <View className="pb-4 mt-6">
         <Text className="font-display text-ds-h3 font-extrabold text-ink-700 tracking-ds-tight mt-1">
           Followers
         </Text>
       </View>
+
+      <Text className="text-sm text-ink-500 mb-4">
+        These are the people that you can share recommendations with.
+      </Text>
 
       {followers && followers.length <= 0 ? (
         <View className="flex-1 items-center justify-center pb-16">

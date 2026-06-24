@@ -23,7 +23,7 @@ export const useLoginScreen = () => {
       }
       await setAsyncUser(user);
       setUser(user);
-      router.push("/");
+      router.replace("/");
     } catch (error) {
       Toast.show({
         type: "error",

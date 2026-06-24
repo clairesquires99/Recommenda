@@ -10,7 +10,7 @@ export const useAuth = () => {
   const logoutUser = async () => {
     removeUser();
     await clearAsync();
-    router.push("/login");
+    router.replace("/login");
   };
 
   const deleteAccount = async () => {
@@ -22,7 +22,7 @@ export const useAuth = () => {
     await clearAsync();
     // Deleting the user row cascades to follows and nullifies recommendation FKs
     await removeUserFromUsersTable(user.email);
-    router.push("/login");
+    router.replace("/login");
   };
 
   return { logoutUser, deleteAccount };

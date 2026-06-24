@@ -30,28 +30,14 @@ export const HomeScreen = () => {
           <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase mb-3">
             Your recommendations
           </Text>
-          <View className="gap-3">
-            <CustomButton
-              onPress={() =>
-                router.push("/recommendations/recommendationsToMe")
-              }
-              text="Recommended to me"
-              trailingIcon={
-                <Octicons name="person" size={18} color="#F8F1E3" />
-              }
-              size="lg"
-            />
-            <CustomButton
-              onPress={() =>
-                router.push("/recommendations/recommendationsByMe")
-              }
-              text="Recommended by me"
-              trailingIcon={
-                <Octicons name="people" size={18} color="#F8F1E3" />
-              }
-              size="lg"
-            />
-          </View>
+          <CustomButton
+            onPress={() => router.push("/recommendations")}
+            text="My recommendations"
+            trailingIcon={
+              <Octicons name="person" size={18} color="#F8F1E3" />
+            }
+            size="lg"
+          />
         </View>
 
         {/* Section: Make recs */}

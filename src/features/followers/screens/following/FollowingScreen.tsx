@@ -1,4 +1,6 @@
+import { AntDesign } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -8,6 +10,7 @@ import { FollowingModal } from "src/features/followers/screens/following/NewFoll
 import { useFollowingScreen } from "src/features/followers/screens/following/useFollowingScreen";
 
 export const FollowingScreen = () => {
+  const router = useRouter();
   const {
     toFollowEmail,
     setToFollowEmail,
@@ -48,12 +51,21 @@ export const FollowingScreen = () => {
         errorMessage={followError}
       />
 
+      {/* Back button */}
+      <Pressable
+        onPress={() => router.back()}
+        className="flex-row items-center self-start mt-[-20px]"
+        hitSlop={8}
+      >
+        <AntDesign name="left" size={18} color="#292A31" />
+        <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase">
+          Back
+        </Text>
+      </Pressable>
+
       {/* Page heading + add button */}
-      <View className="pb-4 flex-row items-end justify-between">
+      <View className="pb-4 mt-3 flex-row items-end justify-between">
         <View>
-          <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase">
-            Your network
-          </Text>
           <Text className="font-display text-ds-h3 font-extrabold text-ink-700 tracking-ds-tight mt-1">
             Following
           </Text>
