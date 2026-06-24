@@ -14,7 +14,7 @@ export const ScreenStyleWrapper: React.FC<ScreenStyleWrapperProps> = ({
   return (
     <SafeAreaView className="flex-1 bg-paper">
       <View
-        className={`flex-1 bg-paper w-full max-w-[650px] mx-auto px-5${className ? ` ${className}` : ""}`}
+        className={`flex-1 pt-6 bg-paper w-full max-w-[650px] mx-auto px-5${className ? ` ${className}` : ""}`}
       >
         {children}
       </View>

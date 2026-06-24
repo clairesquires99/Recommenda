@@ -16,7 +16,7 @@ export const HomeScreen = () => {
     <ScreenStyleWrapper>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Greeting */}
-        <View className="mt-4 mb-6">
+        <View className="mb-6">
           <Text className="font-sans text-ds-eyebrow font-semibold tracking-ds-wide text-ink-500 uppercase">
             Hello, {user?.email}
           </Text>
