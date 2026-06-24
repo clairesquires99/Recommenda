@@ -33,6 +33,7 @@ export const LoginScreen = () => {
             placeholderTextColor="#928D83"
             autoCapitalize="none"
             keyboardType="email-address"
+            style={{ lineHeight: undefined }}
           />
           <View className="flex-row gap-3">
             <CustomButton

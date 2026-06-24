@@ -22,6 +22,7 @@ export const NewFollowContent = ({
         placeholderTextColor="#928D83"
         autoCapitalize="none"
         keyboardType="email-address"
+        style={{ lineHeight: undefined }}
       />
       <CustomButton onPress={handleNewFollow} text="Follow" size="lg" />
     </View>

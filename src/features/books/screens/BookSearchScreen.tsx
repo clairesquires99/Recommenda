@@ -49,8 +49,7 @@ export const BookSearchScreen = () => {
           onChangeText={setQuery}
           placeholderTextColor="#928D83"
           onSubmitEditing={handleSearch}
-          // @ts-ignore — web-only prop
-          style={{ outlineStyle: "none" }}
+          style={{ lineHeight: undefined }}
         />
         {query.length > 0 && (
           <TouchableOpacity onPress={handleSearch} className="py-2 px-1">

@@ -34,6 +34,7 @@ export const RegisterScreen = () => {
           className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
           placeholder="First name"
           placeholderTextColor="#928D83"
+          style={{ lineHeight: undefined }}
         />
         <TextInput
           value={lastName}
@@ -41,6 +42,7 @@ export const RegisterScreen = () => {
           className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
           placeholder="Last name"
           placeholderTextColor="#928D83"
+          style={{ lineHeight: undefined }}
         />
         <TextInput
           value={email}
@@ -50,6 +52,7 @@ export const RegisterScreen = () => {
           placeholderTextColor="#928D83"
           autoCapitalize="none"
           keyboardType="email-address"
+          style={{ lineHeight: undefined }}
         />
         <CustomButton
           onPress={handleRegister}
