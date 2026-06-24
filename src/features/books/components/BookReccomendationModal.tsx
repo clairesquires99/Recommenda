@@ -4,10 +4,10 @@ import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox/build/dist/BouncyCheckbox";
 import { CustomButton } from "src/components/CustomButton";
 import { Warning } from "src/components/Warning";
-import { UserType } from "src/utils/types";
-import { UserCard } from "src/features/followers/components/UserCard";
-import { Book } from "src/features/books/domain/types";
 import { useBookRecommendationModal } from "src/features/books/components/useBookRecommendationModal";
+import { Book } from "src/features/books/domain/types";
+import { UserCard } from "src/features/followers/components/UserCard";
+import { UserType } from "src/utils/types";
 
 interface BookRecommendationModalProps {
   isVisible: boolean;
@@ -36,13 +36,14 @@ export const BookRecommendationModal = ({
   }, [isVisible]);
 
   const ListItem = (follower: UserType) => (
-    <View className="flex-row items-center gap-3 py-2">
+    <View className="flex-row items-center gap-3 py-2 w-full">
       <BouncyCheckbox
         fillColor="#002A8B"
         onPress={() => toggleSelection(follower.email)}
         isChecked={selectedFollowers.includes(follower.email)}
+        style={{ width: 28, flexShrink: 0 }}
       />
-      <View className="flex-1">
+      <View className="flex-1 min-w-0">
         <UserCard user={follower} />
       </View>
     </View>
@@ -58,7 +59,7 @@ export const BookRecommendationModal = ({
       {/* Overlay */}
       <View className="flex-1 justify-end bg-ink/40">
         {/* Sheet — AddRec.jsx pattern */}
-        <View className="bg-paper rounded-t-[32px] border-t-2 border-x-2 border-ink/10 max-h-[90%] max-w-[650px] w-full mx-auto">
+        <View className="bg-paper rounded-t-[32px] border-t-2 border-x-2 border-ink/10 max-h-[90%] max-w-[650px] w-full mx-auto flex-1">
           {/* Header */}
           <View className="flex-row items-center px-5 pt-6 pb-4 border-b border-ink/10">
             <Text className="font-display text-ds-h4 font-extrabold text-ink-700 tracking-ds-tight flex-1 pr-4">
@@ -78,13 +79,17 @@ export const BookRecommendationModal = ({
             {followers && followers.length > 0 ? (
               <>
                 {/* Select all row */}
-                <View className="flex-row items-center gap-3 mb-2">
+                <View className="flex-row items-center gap-3 mb-2 w-full">
                   <BouncyCheckbox
                     fillColor="#002A8B"
                     onPress={() => toggleAll(followers)}
                     isChecked={selectedFollowers.length === followers.length}
+                    style={{ width: 28, flexShrink: 0 }}
                   />
-                  <Text className="text-base font-semibold text-ink-700">
+                  <Text
+                    className="text-base font-semibold text-ink-700 flex-1"
+                    numberOfLines={1}
+                  >
                     Recommend to all followers
                   </Text>
                 </View>
@@ -96,9 +101,7 @@ export const BookRecommendationModal = ({
                 />
               </>
             ) : (
-              <Warning
-                text="It seems you don't have any followers to recommend this book to yet. Get your friends to follow you using your email address."
-              />
+              <Warning text="It seems you don't have any followers to recommend this book to yet. Get your friends to follow you using your email address." />
             )}
           </View>
 

@@ -1,5 +1,12 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Keyboard,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { LoadingIndicator } from "src/components/LoadingIndicator";
 import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
 import { BookCard } from "src/features/books/components/BookCard";
@@ -30,7 +37,7 @@ export const BookSearchScreen = () => {
       />
 
       {/* Page heading */}
-      <View className="pt-6 pb-4">
+      <View className="pb-4">
         <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase">
           Books
         </Text>
@@ -40,7 +47,7 @@ export const BookSearchScreen = () => {
       </View>
 
       {/* Search bar — Feed.jsx pill search */}
-      <View className="flex-row items-center bg-surface rounded-ds-pill border-2 border-ink/10 mb-5 min-h-[50px] px-4 gap-2">
+      <View className="flex-row items-center bg-surface rounded-ds-pill border-2 border-ink/10 mb-6 min-h-[50px] px-4 gap-2">
         <FontAwesome name="search" size={18} color="#928D83" />
         <TextInput
           className="flex-1 text-base font-medium text-ink-800 py-3"
@@ -48,11 +55,11 @@ export const BookSearchScreen = () => {
           value={query}
           onChangeText={setQuery}
           placeholderTextColor="#928D83"
-          onSubmitEditing={handleSearch}
+          onSubmitEditing={() => { Keyboard.dismiss(); handleSearch(); }}
           style={{ lineHeight: undefined }}
         />
         {query.length > 0 && (
-          <TouchableOpacity onPress={handleSearch} className="py-2 px-1">
+          <TouchableOpacity onPress={() => { Keyboard.dismiss(); handleSearch(); }} className="py-2 px-1">
             <Text className="text-sm font-bold text-brand">Search</Text>
           </TouchableOpacity>
         )}
@@ -60,13 +67,13 @@ export const BookSearchScreen = () => {
 
       {/* States */}
       {!books.length && !isLoading && (
-        <Text className="text-base text-ink-500 text-center mt-10 font-sans">
+        <Text className="text-base text-ink-500 text-center font-sans">
           Search for a book to start recommending it to friends.
         </Text>
       )}
       {isLoading && <LoadingIndicator />}
       {!isLoading && !books && query ? (
-        <Text className="text-base text-ink-500 text-center mt-10">
+        <Text className="text-base text-ink-500 text-center">
           No results found.
         </Text>
       ) : null}
@@ -79,9 +86,7 @@ export const BookSearchScreen = () => {
         )}
         className="w-full"
         showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => (
-          <View className="h-px bg-ink/10 mx-1" />
-        )}
+        ItemSeparatorComponent={() => <View className="h-px bg-ink/10 mx-1" />}
       />
     </ScreenStyleWrapper>
   );
