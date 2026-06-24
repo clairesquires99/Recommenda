@@ -18,7 +18,7 @@ export const HomeScreen = () => {
         {/* Greeting */}
         <View className="mb-6">
           <Text className="font-sans text-ds-eyebrow font-semibold tracking-ds-wide text-ink-500 uppercase">
-            Hello, {user?.email}
+            Hello, {user?.name}
           </Text>
           <Text className="font-display text-ds-h2 font-extrabold text-ink-700 tracking-ds-tight mt-1">
             What do you{"\n"}want to share?
@@ -33,9 +33,7 @@ export const HomeScreen = () => {
           <CustomButton
             onPress={() => router.push("/recommendations")}
             text="My recommendations"
-            trailingIcon={
-              <Octicons name="person" size={18} color="#F8F1E3" />
-            }
+            trailingIcon={<Octicons name="person" size={18} color="#F8F1E3" />}
             size="lg"
           />
         </View>
