@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
-import { UserType } from "./types";
+import { UserType } from "src/utils/types";
 
 interface AuthStateType {
   user: UserType | null;

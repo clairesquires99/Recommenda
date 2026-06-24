@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
-import { removeUserFromUsersTable } from "../../utils/api";
-import { clearAsync, useAuthStore } from "../../utils/store";
+import { removeUserFromUsersTable } from "src/utils/api";
+import { clearAsync, useAuthStore } from "src/utils/store";
 
 export const useAuth = () => {
   const router = useRouter();
@@ -10,7 +10,7 @@ export const useAuth = () => {
   const logoutUser = async () => {
     removeUser();
     await clearAsync();
-    router.push("/login");
+    router.replace("/login");
   };
 
   const deleteAccount = async () => {
@@ -22,7 +22,7 @@ export const useAuth = () => {
     await clearAsync();
     // Deleting the user row cascades to follows and nullifies recommendation FKs
     await removeUserFromUsersTable(user.email);
-    router.push("/login");
+    router.replace("/login");
   };
 
   return { logoutUser, deleteAccount };

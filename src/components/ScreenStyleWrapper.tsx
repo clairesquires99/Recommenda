@@ -1,19 +1,23 @@
 import React, { ReactNode } from "react";
-import { View, ViewStyle } from "react-native";
-import { globalStyles } from "../globalStyles";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface ScreenStyleWrapperProps {
   children: ReactNode;
-  style?: ViewStyle;
+  className?: string;
 }
 
 export const ScreenStyleWrapper: React.FC<ScreenStyleWrapperProps> = ({
   children,
-  style,
+  className,
 }) => {
   return (
-    <View style={globalStyles.rootLayout}>
-      <View style={[globalStyles.container, style]}>{children}</View>
-    </View>
+    <SafeAreaView className="flex-1 bg-paper">
+      <View
+        className={`flex-1 pt-6 bg-paper w-full max-w-[650px] mx-auto px-5${className ? ` ${className}` : ""}`}
+      >
+        {children}
+      </View>
+    </SafeAreaView>
   );
 };

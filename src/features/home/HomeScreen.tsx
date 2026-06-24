@@ -5,68 +5,72 @@ import {
   Octicons,
 } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { Image, Platform, Text } from "react-native";
-import { CustomButton } from "../../components/CustomButton";
-import { ScreenStyleWrapper } from "../../components/ScreenStyleWrapper";
-import { globalStyles } from "../../globalStyles";
-import { useHomeScreen } from "./useHomeScreen";
+import { ScrollView, Text, View } from "react-native";
+import { CustomButton } from "src/components/CustomButton";
+import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
+import { useHomeScreen } from "src/features/home/useHomeScreen";
 
 export const HomeScreen = () => {
   const { user } = useHomeScreen();
   return (
     <ScreenStyleWrapper>
-      {Platform.OS !== "web" && (
-        <Image
-          source={require("../../assets/images/logo.png")}
-          style={{
-            minWidth: 250,
-            width: "100%",
-            height: 50,
-          }}
-          resizeMode="contain"
-        />
-      )}
-      <Text>Hello, {user?.email}</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Greeting */}
+        <View className="mb-6">
+          <Text className="font-sans text-ds-eyebrow font-semibold tracking-ds-wide text-ink-500 uppercase">
+            Hello, {user?.name}
+          </Text>
+          <Text className="font-display text-ds-h2 font-extrabold text-ink-700 tracking-ds-tight mt-1">
+            What do you{"\n"}want to share?
+          </Text>
+        </View>
 
-      <Text style={globalStyles.text_20}>See your recommendations</Text>
-      <CustomButton
-        onPress={() => router.push("/recommendations/recommendationsToMe")}
-        text={"Recommended to me"}
-        Icon={() => (
-          <Octicons style={globalStyles.customButtonText} name="person" />
-        )}
-      />
-      <CustomButton
-        onPress={() => router.push("/recommendations/recommendationsByMe")}
-        text={"Recommended by me"}
-        Icon={() => (
-          <Octicons style={globalStyles.customButtonText} name="people" />
-        )}
-      />
-      <Text style={globalStyles.text_20}>Make some recommendations</Text>
-      <CustomButton
-        onPress={() => router.push("/recommendations/bookSearch")}
-        text={"Books"}
-        Icon={() => (
-          <FontAwesome style={globalStyles.customButtonText} name="book" />
-        )}
-      />
-      <CustomButton
-        onPress={() => null}
-        text={"Film"}
-        Icon={() => (
-          <FontAwesome6 name="film" style={globalStyles.customButtonText} />
-        )}
-        disabled={true}
-      />
-      <CustomButton
-        onPress={() => null}
-        text={"Music"}
-        Icon={() => (
-          <Feather name="music" style={globalStyles.customButtonText} />
-        )}
-        disabled={true}
-      />
+        {/* Section: See recs */}
+        <View className="mb-2">
+          <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase mb-3">
+            Your recommendations
+          </Text>
+          <CustomButton
+            onPress={() => router.push("/recommendations")}
+            text="My recommendations"
+            trailingIcon={<Octicons name="person" size={18} color="#F8F1E3" />}
+            size="lg"
+          />
+        </View>
+
+        {/* Section: Make recs */}
+        <View className="mt-6 mb-8">
+          <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase mb-3">
+            Make a recommendation
+          </Text>
+          <View className="gap-3">
+            <CustomButton
+              onPress={() => router.push("/recommendations/bookSearch")}
+              text="Books"
+              trailingIcon={
+                <FontAwesome name="book" size={18} color="#F8F1E3" />
+              }
+              size="lg"
+            />
+            <CustomButton
+              onPress={() => null}
+              text="Film"
+              trailingIcon={
+                <FontAwesome6 name="film" size={18} color="#F8F1E3" />
+              }
+              size="lg"
+              disabled
+            />
+            <CustomButton
+              onPress={() => null}
+              text="Music"
+              trailingIcon={<Feather name="music" size={18} color="#F8F1E3" />}
+              size="lg"
+              disabled
+            />
+          </View>
+        </View>
+      </ScrollView>
     </ScreenStyleWrapper>
   );
 };

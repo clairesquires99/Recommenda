@@ -1,28 +1,35 @@
-import { TextInput, View } from "react-native";
-import { CustomButton } from "../../../../../components/CustomButton";
-import { globalStyles } from "../../../../../globalStyles";
+import { Text, TextInput, View } from "react-native";
+import { CustomButton } from "src/components/CustomButton";
 
 interface NewFollowContentProps {
   toFollowEmail: string;
   setToFollowEmail: (text: string) => void;
   handleNewFollow: () => void;
+  errorMessage?: string;
 }
 
 export const NewFollowContent = ({
   toFollowEmail,
   setToFollowEmail,
   handleNewFollow,
+  errorMessage,
 }: NewFollowContentProps) => {
   return (
-    <View>
+    <View className="gap-3">
       <TextInput
         value={toFollowEmail}
         onChangeText={(text) => setToFollowEmail(text)}
-        style={globalStyles.authInput}
-        placeholder="Email address"
+        className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
+        placeholder="Their email address"
+        placeholderTextColor="#928D83"
         autoCapitalize="none"
+        keyboardType="email-address"
+        style={{ lineHeight: undefined }}
       />
-      <CustomButton onPress={handleNewFollow} text={"Follow"} />
+      {errorMessage && (
+        <Text className="text-sm font-medium text-red-600 px-1">{errorMessage}</Text>
+      )}
+      <CustomButton onPress={handleNewFollow} text="Follow" size="lg" />
     </View>
   );
 };

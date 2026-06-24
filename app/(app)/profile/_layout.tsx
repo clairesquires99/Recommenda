@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 import React from "react";
-import { Platform } from "react-native";
 
 export default function ProfileLayout() {
   return (
@@ -9,17 +8,13 @@ export default function ProfileLayout() {
       <Stack.Screen
         name="following"
         options={{
-          title: "Following",
-          headerShown: Platform.OS !== "web",
-          headerBackTitleVisible: false,
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="followers"
         options={{
-          title: "Followers",
-          headerShown: Platform.OS !== "web",
-          headerBackTitleVisible: false,
+          headerShown: false,
         }}
       />
     </Stack>

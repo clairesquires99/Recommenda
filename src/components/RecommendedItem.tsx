@@ -1,5 +1,5 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import { GroupedRecommendedItemType } from "../utils/types";
+import { Image, Text, View } from "react-native";
+import { GroupedRecommendedItemType } from "src/utils/types";
 
 interface RecommendedItemProps {
   displayedOnPage: "recommended to" | "recommended by";
@@ -11,44 +11,45 @@ export const RecommendedItem = ({
   displayedOnPage,
 }: RecommendedItemProps) => {
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: item.image }} style={styles.cardImage} />
-      <View style={styles.cardText}>
-        <Text style={styles.mediaTitle}>{item.title}</Text>
-        <Text style={styles.mediaAuthor}>By {item.author.join(", ")}</Text>
-        <Text>
-          {displayedOnPage === "recommended to"
-            ? "Recommended to you by "
-            : "You recommended this to "}
-          {item.recommenders.join(", ")}
+    // MediaCard.jsx pattern: cream-50 surface, 2px soft border, card radius, 14px padding
+    <View className="flex-row gap-4 bg-surface border border-ink-500 rounded-ds-card p-[8px]">
+      {/* Cover */}
+      <View className="w-[72px] h-[96px] rounded-ds-sm overflow-hidden bg-brand-100 flex-none">
+        <Image
+          source={{ uri: item.image }}
+          className="w-full h-full"
+          resizeMode="cover"
+        />
+      </View>
+
+      {/* Info */}
+      <View className="flex-1 gap-[6px]">
+        <Text
+          className="font-display text-ds-body-lg font-extrabold text-ink-700 tracking-ds-tight leading-tight"
+          numberOfLines={2}
+        >
+          {item.title}
         </Text>
+        <Text className="text-sm font-medium text-ink-500" numberOfLines={1}>
+          By {item.author.join(", ")}
+        </Text>
+        {/* Recommender — MediaCard.jsx "Recommended by" row */}
+        <View className="flex-row items-center gap-2 mt-auto pt-1">
+          <View className="w-[22px] h-[22px] rounded-ds-pill bg-brand items-center justify-center">
+            <Text className="text-paper text-[10px] font-bold">
+              {item.recommenders[0]?.charAt(0)?.toUpperCase() ?? "?"}
+            </Text>
+          </View>
+          <Text
+            className="text-xs text-ink-500 font-medium flex-1"
+            numberOfLines={1}
+          >
+            {displayedOnPage === "recommended to"
+              ? `Rec'd by ${item.recommenders.join(", ")}`
+              : `You recommended to ${item.recommenders.join(", ")}`}
+          </Text>
+        </View>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    marginTop: 10,
-    padding: 5,
-    flexDirection: "row",
-  },
-  cardImage: {
-    height: 120,
-    width: 90,
-    borderRadius: 10,
-  },
-  cardText: {
-    marginLeft: 10,
-    flex: 1,
-    gap: 5,
-  },
-  mediaTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  mediaAuthor: {
-    fontSize: 16,
-    color: "#555",
-  },
-});

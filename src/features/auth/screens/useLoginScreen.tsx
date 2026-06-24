@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import Toast from "react-native-toast-message";
-import { findUserByEmail } from "../../../utils/api";
-import { setAsyncUser, useAuthStore } from "../../../utils/store";
+import { findUserByEmail } from "src/utils/api";
+import { setAsyncUser, useAuthStore } from "src/utils/store";
 
 export const useLoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ export const useLoginScreen = () => {
       }
       await setAsyncUser(user);
       setUser(user);
-      router.push("/");
+      router.replace("/");
     } catch (error) {
       Toast.show({
         type: "error",

@@ -1,49 +1,30 @@
-import { StyleSheet } from "react-native";
 import { ErrorToast, SuccessToast } from "react-native-toast-message";
-
 import { ToastProps } from "react-native-toast-message";
+
+// Toast styles passed to third-party components — must remain plain objects (not className)
+const containerStyle = { width: "95%" as const, borderRadius: 12 };
+const text1Style = { fontFamily: "HankenGrotesk_700Bold", fontSize: 15, color: "#292A31" };
+const text2Style = { fontFamily: "HankenGrotesk_400Regular", fontSize: 13, color: "#6B675F" };
 
 export const toastConfig = {
   success: (props: ToastProps) => (
     <SuccessToast
       {...props}
-      style={[styles.container, styles.success]}
-      text1Style={styles.text1Style}
+      style={[containerStyle, { borderLeftColor: "#1F7A4D", backgroundColor: "#E2EFE7" }]}
+      text1Style={text1Style}
       text1NumberOfLines={2}
-      text2Style={styles.text2Style}
+      text2Style={text2Style}
       text2NumberOfLines={2}
     />
   ),
   error: (props: ToastProps) => (
     <ErrorToast
       {...props}
-      style={[styles.container, styles.error]}
-      text1Style={styles.text1Style}
+      style={[containerStyle, { borderLeftColor: "#B23A2E", backgroundColor: "#F4E2DF" }]}
+      text1Style={text1Style}
       text1NumberOfLines={2}
-      text2Style={styles.text2Style}
+      text2Style={text2Style}
       text2NumberOfLines={2}
     />
   ),
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: "95%",
-    padding: 10,
-    height: "auto",
-  },
-  success: {
-    borderLeftColor: "#38b45a",
-    backgroundColor: "#eaf7ee",
-  },
-  info: {
-    borderLeftColor: "#0367d9",
-    backgroundColor: "#e5effa",
-  },
-  error: {
-    borderLeftColor: "#eb4e2b",
-    backgroundColor: "#fbedea",
-  },
-  text1Style: { fontSize: 16 },
-  text2Style: { fontSize: 14 },
-});

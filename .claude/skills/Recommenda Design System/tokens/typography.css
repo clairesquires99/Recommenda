@@ -1,0 +1,41 @@
+/* ============================================================
+   TYPOGRAPHY — Recommenda
+   Display + body: Hanken Grotesk (heavy weights for display).
+   Hand accent: Shantell Sans (taglines, stickers, captions).
+   ============================================================ */
+:root {
+  --font-display: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --font-sans:    'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --font-hand:    'Shantell Sans', 'Bradley Hand', 'Comic Sans MS', cursive;
+
+  /* Weights */
+  --fw-regular: 400;  /* @kind other */
+  --fw-medium: 500;   /* @kind other */
+  --fw-semibold: 600; /* @kind other */
+  --fw-bold: 700;     /* @kind other */
+  --fw-extra: 800;    /* @kind other */
+  --fw-black: 900;    /* @kind other */
+
+  /* Type scale (px) */
+  --text-display: clamp(44px, 9vw, 76px);  /* hero wordmark / splash */
+  --text-h1: 40px;
+  --text-h2: 30px;
+  --text-h3: 24px;
+  --text-h4: 20px;
+  --text-body-lg: 18px;
+  --text-body: 16px;
+  --text-sm: 14px;
+  --text-xs: 12px;
+
+  /* Line height */
+  --leading-tight: 1.02;
+  --leading-snug: 1.18;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* Tracking */
+  --tracking-display: -0.03em;
+  --tracking-tight: -0.015em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;   /* eyebrows / badge text */
+}

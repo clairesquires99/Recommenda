@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
-import { createNewFollow, getFollowing } from "../../../../utils/api";
-import { useAuthStore } from "../../../../utils/store";
-import { UserType } from "../../../../utils/types";
+import { createNewFollow, getFollowing } from "src/utils/api";
+import { useAuthStore } from "src/utils/store";
+import { UserType } from "src/utils/types";
 
 export const useFollowingScreen = () => {
   const [toFollowEmail, setToFollowEmail] = useState("");
   const [following, setFollowing] = useState<UserType[] | undefined>([]);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [followError, setFollowError] = useState<string | undefined>();
 
   const user = useAuthStore((state) => state.user);
 
@@ -27,11 +28,16 @@ export const useFollowingScreen = () => {
   const handleNewFollow = async () => {
     if (!user) return;
 
-    await createNewFollow({
+    const { success, error } = await createNewFollow({
       user: user,
       followingEmail: toFollowEmail,
       setToFollowEmail: setToFollowEmail,
     });
+
+    if (!success) {
+      setFollowError(error);
+      return;
+    }
 
     toggleModal();
     fetchFollowing();
@@ -42,7 +48,10 @@ export const useFollowingScreen = () => {
     });
   };
 
-  const toggleModal = () => setModalVisible(!isModalVisible);
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+    setFollowError(undefined);
+  };
 
   return {
     toFollowEmail,
@@ -52,5 +61,6 @@ export const useFollowingScreen = () => {
     handleNewFollow,
     isModalVisible,
     toggleModal,
+    followError,
   };
 };

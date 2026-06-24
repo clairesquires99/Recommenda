@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getFollowers } from "../../../../utils/api";
-import { useAuthStore } from "../../../../utils/store";
-import { UserType } from "../../../../utils/types";
+import { getFollowers } from "src/utils/api";
+import { useAuthStore } from "src/utils/store";
+import { UserType } from "src/utils/types";
 
 export const useFollowersScreen = () => {
   const user = useAuthStore((state) => state.user);

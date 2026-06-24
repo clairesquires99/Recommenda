@@ -1,21 +1,16 @@
+import { AntDesign } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
 import React from "react";
-import {
-  FlatList,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
-import { ScreenStyleWrapper } from "../../../../components/ScreenStyleWrapper";
-import { globalStyles } from "../../../../globalStyles";
-import { UserCard } from "../../components/UserCard";
-import { FollowingModal } from "./NewFollow/FollowingModal";
-import { useFollowingScreen } from "./useFollowingScreen";
+import { ScreenStyleWrapper } from "src/components/ScreenStyleWrapper";
+import { UserCard } from "src/features/followers/components/UserCard";
+import { FollowingModal } from "src/features/followers/screens/following/NewFollow/FollowingModal";
+import { useFollowingScreen } from "src/features/followers/screens/following/useFollowingScreen";
 
 export const FollowingScreen = () => {
+  const router = useRouter();
   const {
     toFollowEmail,
     setToFollowEmail,
@@ -24,6 +19,7 @@ export const FollowingScreen = () => {
     handleNewFollow,
     isModalVisible,
     toggleModal,
+    followError,
   } = useFollowingScreen();
 
   if (!user) {
@@ -32,7 +28,7 @@ export const FollowingScreen = () => {
       text1: "Error",
       text2: "Cannot perform action since there is no user set",
     });
-    return;
+    return null;
   }
 
   if (!following) {
@@ -41,7 +37,7 @@ export const FollowingScreen = () => {
       text1: "Error",
       text2: "Something has gone wrong: following is undefined",
     });
-    return;
+    return null;
   }
 
   return (
@@ -52,42 +48,61 @@ export const FollowingScreen = () => {
         toFollowEmail={toFollowEmail}
         setToFollowEmail={setToFollowEmail}
         handleNewFollow={handleNewFollow}
+        errorMessage={followError}
       />
-      <View style={styles.headingContainer}>
-        <View style={styles.headingText}>
-          {Platform.OS === "web" && (
-            <Text style={[globalStyles.text_20, { textAlign: "center" }]}>
-              Following
-            </Text>
-          )}
+
+      {/* Back button */}
+      <Pressable
+        onPress={() => router.back()}
+        className="flex-row items-center self-start mt-[-20px]"
+        hitSlop={8}
+      >
+        <AntDesign name="left" size={18} color="#292A31" />
+        <Text className="font-sans text-ds-eyebrow font-extrabold tracking-ds-wide text-ink-500 uppercase">
+          Back
+        </Text>
+      </Pressable>
+
+      {/* Page heading + add button */}
+      <View className="pb-4 mt-3 flex-row items-end justify-between">
+        <View>
+          <Text className="font-display text-ds-h3 font-extrabold text-ink-700 tracking-ds-tight mt-1">
+            Following
+          </Text>
         </View>
-        <Pressable onPress={toggleModal} style={{ width: 30 }}>
-          <Ionicons name="person-add" size={30} color="#007AFF" />
+        {/* Add follow — icon button: pill outline, brand blue */}
+        <Pressable
+          onPress={toggleModal}
+          className="w-[44px] h-[44px] rounded-ds-pill border-2 border-brand items-center justify-center bg-surface"
+        >
+          <Ionicons name="person-add" size={20} color="#002A8B" />
         </Pressable>
       </View>
-      <Text>These are the people that can recommend items to you.</Text>
-      {following?.length <= 0 && (
-        <Text>
-          You haven't followed anyone yet! Click 'New Follow' to get started.
-        </Text>
-      )}
-      <View style={globalStyles.cardContainer}>
+
+      <Text className="text-sm text-ink-500 mb-4">
+        These are the people that can recommend items to you.
+      </Text>
+
+      {following.length <= 0 ? (
+        <View className="flex-1 items-center justify-center pb-16">
+          <Text className="font-display text-ds-h4 font-extrabold text-ink-700 tracking-ds-tight text-center">
+            Not following anyone
+          </Text>
+          <Text className="text-base text-ink-500 text-center mt-2 max-w-[260px]">
+            Tap the + button above to follow a friend and receive their recs.
+          </Text>
+        </View>
+      ) : (
         <FlatList
           data={following}
           renderItem={({ item }) => <UserCard user={item} />}
           keyExtractor={(item) => item.email}
+          className="w-full"
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={() => <View className="h-3" />}
+          contentContainerClassName="pb-8"
         />
-      </View>
+      )}
     </ScreenStyleWrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  headingContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 10,
-  },
-  headingText: { marginRight: -30, width: "100%" },
-});

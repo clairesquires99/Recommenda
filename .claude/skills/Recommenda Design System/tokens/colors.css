@@ -1,0 +1,67 @@
+/* ============================================================
+   COLORS — Recommenda
+   Deep royal blue on warm cream paper, near-black warm ink.
+   Sampled from the brand reference. Flat / border-led, not glossy.
+   ============================================================ */
+:root {
+  /* --- Brand blue (royal / ink blue) --- */
+  --blue-900: #001A5C;
+  --blue-800: #001F66;
+  --blue-700: #002A8B;   /* PRIMARY brand blue */
+  --blue-600: #173BA0;
+  --blue-500: #2E50C0;
+  --blue-200: #B9C4EA;
+  --blue-100: #DDE3F5;
+  --blue-50:  #EEF1FB;
+
+  /* --- Cream / paper --- */
+  --cream-50:  #FCF8F0;
+  --cream-100: #F8F1E3;  /* PAGE background */
+  --cream-200: #F1E8D6;
+  --cream-300: #E8DDC7;
+
+  /* --- Warm ink + neutrals --- */
+  --ink-900: #1B1A1F;    /* line art, deepest text */
+  --ink-800: #232026;
+  --ink-700: #292A31;    /* headings */
+  --ink-500: #6B675F;    /* secondary text */
+  --ink-400: #928D83;    /* muted text */
+  --ink-300: #B6B0A4;    /* taupe / placeholder */
+  --taupe-200: #D7D0C2;  /* disabled fills */
+  --white: #FFFFFF;
+
+  /* --- Status (harmonised to the warm palette) --- */
+  --success: #1F7A4D;
+  --success-soft: #E2EFE7;
+  --warning: #B5761B;
+  --warning-soft: #F5ECDB;
+  --danger:  #B23A2E;
+  --danger-soft: #F4E2DF;
+
+  /* ============================================================
+     SEMANTIC ALIASES — use these in components
+     ============================================================ */
+  --color-bg: var(--cream-100);
+  --color-surface: var(--cream-50);        /* cards sit a touch lighter than paper */
+  --color-surface-raised: var(--white);
+  --color-surface-muted: var(--cream-200);
+  --color-surface-inverse: var(--blue-700);
+
+  --color-ink: var(--ink-900);
+  --color-text: var(--ink-800);
+  --color-text-secondary: var(--ink-500);
+  --color-text-muted: var(--ink-400);
+  --color-text-on-accent: var(--cream-100);
+  --color-text-on-inverse: var(--cream-100);
+
+  --color-accent: var(--blue-700);
+  --color-accent-hover: var(--blue-800);
+  --color-accent-active: var(--blue-900);
+  --color-accent-soft: var(--blue-50);
+  --color-on-accent: var(--cream-100);
+
+  --color-border: var(--ink-900);          /* strong hand-line borders */
+  --color-border-soft: rgba(27, 26, 31, 0.16);
+  --color-divider: rgba(27, 26, 31, 0.10);
+  --color-focus: var(--blue-500);
+}

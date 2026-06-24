@@ -1,0 +1,88 @@
+<!-- @dsCard group="Brand" viewport="700x200" name="Logo lockup" subtitle="Cool-cat mark + Recommenda wordmark, on paper and on blue" -->
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap">
+<style>
+  body{margin:0;padding:0;background:var(--color-bg);font-family:var(--font-sans);display:flex;height:100%}
+  .pane{flex:1;display:flex;align-items:center;gap:16px;padding:0 28px}
+  .pane.blue{background:var(--blue-700)}
+  .mark{width:64px;height:64px;flex:none}
+  .wm{font-family:var(--wm-font, 'Caveat Brush', cursive);font-weight:var(--wm-weight, 400);font-size:38px;letter-spacing:var(--wm-ls, 0.01em);text-transform:uppercase;line-height:1}
+  .ink{color:var(--ink-700)}.cream{color:var(--cream-100)}
+
+  /* ── Tweaks panel (hidden until host enables Tweaks) ── */
+  #tw{position:fixed;right:16px;bottom:16px;width:236px;background:var(--cream-50);
+      border:2px solid var(--ink-900);border-radius:16px;padding:13px 14px;z-index:60;
+      font-family:var(--font-sans);box-shadow:var(--shadow-md);display:none}
+  #tw.on{display:block}
+  .tw-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .tw-ti{font-weight:800;font-size:14px;color:var(--ink-700);letter-spacing:-0.01em}
+  .tw-x{border:none;background:none;cursor:pointer;color:var(--ink-400);font-size:18px;line-height:1;padding:2px}
+  .tw-lb{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-400);margin-bottom:7px}
+  .tw-seg{display:flex;flex-direction:column;gap:6px}
+  .tw-seg button{display:block;width:100%;text-align:left;padding:8px 11px;border-radius:999px;cursor:pointer;
+      border:2px solid var(--color-border-soft);background:transparent;color:var(--ink-700);font-size:13px;font-weight:700}
+  .tw-seg button.sel{background:var(--color-accent);border-color:var(--color-accent);color:var(--cream-100)}
+</style></head><body>
+  <div class="pane"><img class="mark" src="../assets/logo/recommenda-mark.svg"><span class="wm ink">Recommenda</span></div>
+  <div class="pane blue"><img class="mark" src="../assets/logo/recommenda-mark-inverse.svg"><span class="wm cream">Recommenda</span></div>
+
+  <div id="tw" aria-label="Tweaks">
+    <div class="tw-hd"><span class="tw-ti">Tweaks</span><button class="tw-x" id="tw-close" aria-label="Close">×</button></div>
+    <div class="tw-lb">Wordmark font</div>
+    <div class="tw-seg">
+      <button data-font="brush">Caveat Brush</button>
+      <button data-font="display">Display · Hanken</button>
+      <button data-font="hand">Marker · Shantell</button>
+    </div>
+  </div>
+
+<script>
+(function(){
+  var DEFAULTS = /*EDITMODE-BEGIN*/{"wordmarkFont":"brush"}/*EDITMODE-END*/;
+  var FONTS = {
+    brush:   { family:"'Caveat Brush', cursive",  weight:400, ls:"0.01em"  },
+    display: { family:"var(--font-display)",       weight:900, ls:"-0.035em" },
+    hand:    { family:"var(--font-hand)",          weight:700, ls:"-0.01em"  }
+  };
+  var KEY = 'reco-brandlogo-tweaks';
+  var panel = document.getElementById('tw');
+  var values = Object.assign({}, DEFAULTS);
+  try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) values = Object.assign(values, s); } catch(e){}
+
+  function apply(){
+    var f = FONTS[values.wordmarkFont] || FONTS.brush;
+    var r = document.documentElement.style;
+    r.setProperty('--wm-font', f.family);
+    r.setProperty('--wm-weight', f.weight);
+    r.setProperty('--wm-ls', f.ls);
+    var btns = panel.querySelectorAll('[data-font]');
+    for (var i=0;i<btns.length;i++) btns[i].classList.toggle('sel', btns[i].getAttribute('data-font')===values.wordmarkFont);
+  }
+  function setTweak(key, val){
+    values[key] = val;
+    var edits = {}; edits[key] = val;
+    try { localStorage.setItem(KEY, JSON.stringify(values)); } catch(e){}
+    window.parent.postMessage({ type:'__edit_mode_set_keys', edits: edits }, '*');
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+    apply();
+  }
+
+  var btns = panel.querySelectorAll('[data-font]');
+  for (var i=0;i<btns.length;i++) (function(b){ b.addEventListener('click', function(){ setTweak('wordmarkFont', b.getAttribute('data-font')); }); })(btns[i]);
+  document.getElementById('tw-close').addEventListener('click', function(){
+    panel.classList.remove('on');
+    window.parent.postMessage({ type:'__edit_mode_dismissed' }, '*');
+  });
+
+  window.addEventListener('message', function(e){
+    var t = e && e.data && e.data.type;
+    if (t === '__activate_edit_mode') panel.classList.add('on');
+    else if (t === '__deactivate_edit_mode') panel.classList.remove('on');
+  });
+  window.parent.postMessage({ type:'__edit_mode_available' }, '*');
+
+  apply();
+})();
+</script>
+</body></html>

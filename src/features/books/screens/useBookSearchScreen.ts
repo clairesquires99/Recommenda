@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { GOOGLE_BOOKS_API_KEY } from "../../../../env";
-import { getFollowers } from "../../../utils/api";
-import { useAuthStore } from "../../../utils/store";
-import { UserType } from "../../../utils/types";
-import { Book } from "../domain/types";
+import { GOOGLE_BOOKS_API_KEY } from "env";
+import { getFollowers } from "src/utils/api";
+import { useAuthStore } from "src/utils/store";
+import { UserType } from "src/utils/types";
+import { Book } from "src/features/books/domain/types";
 
 export const useBookSearchScreen = () => {
   const [query, setQuery] = useState<string>("");

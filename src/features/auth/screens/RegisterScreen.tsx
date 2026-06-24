@@ -1,8 +1,7 @@
 import { Link } from "expo-router";
-import { Text, TextInput, View } from "react-native";
-import { CustomButton } from "../../../components/CustomButton";
-import { globalStyles } from "../../../globalStyles";
-import { useRegisterScreen } from "./useRegisterScreen";
+import { KeyboardAvoidingView, Platform, Text, TextInput, View } from "react-native";
+import { CustomButton } from "src/components/CustomButton";
+import { useRegisterScreen } from "src/features/auth/screens/useRegisterScreen";
 
 export const RegisterScreen = () => {
   const {
@@ -16,35 +15,58 @@ export const RegisterScreen = () => {
   } = useRegisterScreen();
 
   return (
-    <View
-      style={{ ...globalStyles.container, flex: 1, justifyContent: "center" }}
+    <KeyboardAvoidingView
+      className="flex-1 bg-brand px-7 pt-16 pb-11 justify-end"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <TextInput
-        value={firstName}
-        onChangeText={(text) => setFirstName(text)}
-        style={globalStyles.authInput}
-        placeholder="First name"
-      />
-      <TextInput
-        value={lastName}
-        onChangeText={(text) => setLastName(text)}
-        style={globalStyles.authInput}
-        placeholder="Second name"
-      />
-      <TextInput
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        style={globalStyles.authInput}
-        placeholder="Email"
-        autoCapitalize="none"
-      />
-      <CustomButton onPress={handleRegister} text={"Register"} />
-      <Text style={[globalStyles.text_md, { margin: 10 }]}>
-        Already registered?{" "}
-        <Link style={globalStyles.linkText} href="/login">
-          Login
-        </Link>
-      </Text>
-    </View>
+      {/* Wordmark */}
+      <View>
+        <Text className="font-display text-ds-h1 font-black text-paper mt-6 mb-6 tracking-ds-display leading-tight">
+          Create your account.
+        </Text>
+      </View>
+
+      {/* Form */}
+      <View className="gap-3">
+        <TextInput
+          value={firstName}
+          onChangeText={(text) => setFirstName(text)}
+          className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
+          placeholder="First name"
+          placeholderTextColor="#928D83"
+          style={{ lineHeight: undefined }}
+        />
+        <TextInput
+          value={lastName}
+          onChangeText={(text) => setLastName(text)}
+          className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
+          placeholder="Last name"
+          placeholderTextColor="#928D83"
+          style={{ lineHeight: undefined }}
+        />
+        <TextInput
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          className="bg-surface rounded-ds-pill px-5 min-h-[50px] text-base font-medium text-ink-800 border-2 border-ink/10"
+          placeholder="Email address"
+          placeholderTextColor="#928D83"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          style={{ lineHeight: undefined }}
+        />
+        <CustomButton
+          onPress={handleRegister}
+          text="Get started"
+          variant="secondary-inverse"
+          size="lg"
+        />
+        <Text className="text-sm text-brand-200 text-center mt-1">
+          Already have an account?{" "}
+          <Link className="text-paper font-bold" href="/login">
+            Log in
+          </Link>
+        </Text>
+      </View>
+    </KeyboardAvoidingView>
   );
 };

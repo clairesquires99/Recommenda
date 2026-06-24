@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Toast from "react-native-toast-message";
-import { pushRecommendation } from "../../../utils/api";
-import { useAuthStore } from "../../../utils/store";
-import { UserType } from "../../../utils/types";
-import { parseBookToMediaItem } from "../../../utils/utils";
-import { Book } from "../domain/types";
+import { pushRecommendation } from "src/utils/api";
+import { useAuthStore } from "src/utils/store";
+import { UserType } from "src/utils/types";
+import { parseBookToMediaItem } from "src/utils/utils";
+import { Book } from "src/features/books/domain/types";
 
 export const useBookRecommendationModal = () => {
   const [error, setError] = useState<string>();

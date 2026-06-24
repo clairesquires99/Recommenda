@@ -1,0 +1,6 @@
+/* Webfonts — loaded from Google Fonts CDN.
+   SUBSTITUTION FLAG: the reference uses an unknown heavy grotesque + a marker hand.
+   'Hanken Grotesk' is the closest clean grotesque match (display via weight 800/900);
+   'Shantell Sans' is the closest playful marker match for handwritten accents.
+   Swap these @import/@font-face for self-hosted files if the real fonts are provided. */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,400..700&family=Shantell+Sans:ital,wght@0,300..800;1,400..600&display=swap');
